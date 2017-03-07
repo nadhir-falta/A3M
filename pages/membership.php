@@ -280,6 +280,7 @@ $(document).ready(function() {
 <div class="wrapper row3">
   <main class="hoc container clear"> 
     <form role="form" action="../php/postMember.php" method="POST" id="payment-form">
+    
     <?php 
     require '../lib/Stripe.php';
 
