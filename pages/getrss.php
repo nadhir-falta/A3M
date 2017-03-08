@@ -3,11 +3,7 @@
 $q=$_GET["q"];
 
 //find out which feed was selected
-if($q=="Google") {
-  $xml=("http://en.aps.dz/algeria?format=feed");
-} elseif($q=="NBC") {
-  $xml=("http://rss.msnbc.msn.com/id/3032091/device/rss/rss.xml");
-}
+$xml=$q;
 
 $xmlDoc = new DOMDocument();
 $xmlDoc->load($xml);
@@ -18,14 +14,14 @@ $channel_title = $channel->getElementsByTagName('title')
 ->item(0)->childNodes->item(0)->nodeValue;
 $channel_link = $channel->getElementsByTagName('link')
 ->item(0)->childNodes->item(0)->nodeValue;
-$channel_desc = $channel->getElementsByTagName('description')
-->item(0)->childNodes->item(0)->nodeValue;
+// $channel_desc = $channel->getElementsByTagName('description')
+// ->item(0)->childNodes->item(0)->nodeValue;
 
-//output elements from "<channel>"
-echo("<div class='newFeedContainer'><p><a href='" . $channel_link
-  . "'>" . $channel_title . "</a>");
-echo("<br>");
-echo($channel_desc . "</p></div>");
+// output elements from "<channel>"
+echo("<div class='newsFeedContainer'><p><a href='" . $channel_link
+  . "'>" . $channel_title . "</a></div>");
+// echo("<br>");
+// echo($channel_desc . "</p></div>");
 
 //get and output "<item>" elements
 $x=$xmlDoc->getElementsByTagName('item');
@@ -34,11 +30,26 @@ for ($i=0; $i<=2; $i++) {
   ->item(0)->childNodes->item(0)->nodeValue;
   $item_link=$x->item($i)->getElementsByTagName('link')
   ->item(0)->childNodes->item(0)->nodeValue;
+  $imgs=$x->item($i)->getElementsByTagName('description')
+  ->item(0)->childNodes->item(0)->nodeValue;
+  preg_match('/(<img[^>]+>)/i', $imgs, $img);
+
   $item_desc=$x->item($i)->getElementsByTagName('description')
   ->item(0)->childNodes->item(0)->nodeValue;
-  echo ("<p><a href='" . $item_link
-  . "'>" . $item_title . "</a>");
-  echo ("<br>");
-  echo ($item_desc . "</p>");
+  // echo ("<p><a href='" . $item_link
+  // . "'>" . $item_title . "</a>");
+  // echo ("<br>");
+  // echo ($item_desc . "</p>");
+
+echo '<div class="img-figure" style="height: 77px"></div>'
+.'<div class="title">'
+.'<h1>'.$item_title .'</h1>'
+.'</div>'
+.'<div class="description">'
+.$item_desc
+.'</div>'
+.'<p class="more">'
+.'  <a href="'. $item_link .'">read more</a><i class="fa fa-angle-right" aria-hidden="true"></i>'
+.'</p>';
 }
 ?>

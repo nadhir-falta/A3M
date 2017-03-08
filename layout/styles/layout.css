@@ -41,12 +41,12 @@ File: Layout CSS
 
 /* Content Area
 --------------------------------------------------------------------------------------------------------------- */
-.container{padding:80px 0;}
+.container{padding:25px 0;}
 
 /* Content */
 .container .content{}
 
-.sectiontitle{display:block; max-width:60%; margin:0 auto 80px; text-align:center;}
+.sectiontitle{display:block; max-width:60%; margin:0 auto 45px; text-align:center;}
 .sectiontitle *{margin:0;}
 
 .services{text-align:center;}
@@ -482,4 +482,11 @@ table a, #comments a{background-color:inherit;}
 
 .footerbg {
 	background-color: rgba(0,0,0,.60) !important;
+}
+
+.newsFeedContainer {
+	background-color: #e5ecf9;
+    text-align: center;
+    height: 40px;
+    padding-top: 5px;
 }
