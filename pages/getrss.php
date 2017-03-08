@@ -3,7 +3,27 @@
 $q=$_GET["q"];
 
 //find out which feed was selected
-$xml=$q;
+if($q=="algeria") {
+  $xml=("http://en.aps.dz/algeria?format=feed");
+} elseif($q=="aljazeera") {
+  $xml=("http://www.aljazeera.com/xml/rss/all.xml");
+} elseif($q=="sports") {
+  $xml=("http://en.aps.dz/sports?format=feed");
+} elseif($q=="economy") {
+  $xml=("http://en.aps.dz/economy?format=feed");
+} elseif($q=="nytimes") {
+  $xml=("http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml");
+} elseif($q=="world") {
+  $xml=("http://en.aps.dz/world?format=feed");
+} elseif($q=="health") {
+  $xml=("http://en.aps.dz/health-science-tech?format=feed");
+} elseif($q=="cnn") {
+  $xml=("http://rss.cnn.com/rss/cnn_topstories.rss");
+} elseif($q=="culture") {
+  $xml=("http://en.aps.dz/culture?format=feed");
+} elseif($q=="elwatan") {
+  $xml=("http://www.elwatan.com/sports/rss.xml");
+}
 
 $xmlDoc = new DOMDocument();
 $xmlDoc->load($xml);

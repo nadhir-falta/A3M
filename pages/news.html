@@ -92,6 +92,8 @@
 
 .news .description  {
   opacity: 1;
+  max-height: 190px;
+  overflow: hidden;
 }
 
 .more {
@@ -101,7 +103,8 @@
 .more a {
     position: relative;
     font-size: 13px;
-    margin-top: 30px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     display: block;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -170,7 +173,7 @@
             <li><a href="survey.html">SURVEY</a></li>
             <li><a class="drop" href="#">FORMS</a>
               <ul>
-                <li><a href="membership.html">MEMBERSHIP</a></li>
+                <li><a href="membership.php">MEMBERSHIP</a></li>
                 <li><a href="bylaws.html">BYLAWS</a></li>
               </ul>
             </li>
@@ -232,17 +235,18 @@
       
       (function() {
          // your page initialization code here
-         // the DOM will be available here
-          showRSS('http://en.aps.dz/algeria?format=feed', 'rssOutput');
-          showRSS('http://www.aljazeera.com/xml/rss/all.xml','rssOutput2');
-          showRSS('http://en.aps.dz/sports?format=feed','rssOutput3');
-          showRSS('http://en.aps.dz/economy?format=feed','rssOutput4');
-          showRSS('http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml','rssOutput5');
-          showRSS('http://en.aps.dz/world?format=feed','rssOutput6');
-          showRSS('http://en.aps.dz/health-science-tech?format=feed','rssOutput7');
-          showRSS('http://rss.cnn.com/rss/cnn_topstories.rss','rssOutput8');
-          showRSS('http://en.aps.dz/culture?format=feed','rssOutput9');
-          showRSS('http://www.elwatan.com/sports/rss.xml','rssOutput10');
+         // the DOM will be available her
+
+          showRSS('algeria', 'rssOutput');
+          showRSS('aljazeera','rssOutput2');
+          showRSS('sports','rssOutput3');
+          showRSS('economy','rssOutput4');
+          showRSS('nytimes','rssOutput5');
+          showRSS('world','rssOutput6');
+          showRSS('health','rssOutput7');
+          showRSS('cnn','rssOutput8');
+          showRSS('culture','rssOutput9');
+          showRSS('elwatan','rssOutput10');
       })();
     </script>
     <br>
@@ -253,7 +257,7 @@
           </div>
           <div class="col-sm-4">
               <div class="news" id="rssOutput2"></div>
-              <div class="news" id="rssOutput5"></div>
+              <!-- <div class="news" id="rssOutput5"></div> -->
           </div>
           <div class="col-sm-4">
               <div class="news" id="rssOutput3"></div>

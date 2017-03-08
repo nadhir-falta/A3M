@@ -65,7 +65,7 @@ if(isset($_POST['submitted']))
             <li><a href="survey.html">SURVEY</a></li>
             <li><a class="drop" href="#">FORMS</a>
               <ul>
-                <li><a href="membership.html">MEMBERSHIP</a></li>
+                <li><a href="membership.php">MEMBERSHIP</a></li>
                 <li><a href="bylaws.html">BYLAWS</a></li>
               </ul>
             </li>
