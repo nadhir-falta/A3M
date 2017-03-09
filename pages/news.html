@@ -1,354 +1,236 @@
 <!DOCTYPE html>
 <html lang="">
 <head>
-<title>A3MICHIGAN</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
-<link href="../layout/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
-<link href="../layout/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" media="all">
-<style>
-  
-.news {
-    background: #fff;
-  position: relative;
-  overflow: hidden;
-  z-index:1;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -ms-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;  
-
-  border: 1px solid #eaeaea;
-}
-
-/*.news .img-figure {
-  position: relative;
-}
-
-.news .img-figure img {
-  position: relative; 
-  overflow: hidden;
-  -webkit-transition: all 1s ease;
-  -moz-transition: all 1s ease;
-  -ms-transition: all 1s ease;
-  -o-transition: all 1s ease;
-  transition: all 1s ease;
-}*/
-
-.news .img-figure img {
-  -webkit-transform: scale(1.10);
-  -moz-transform: scale(1.10);
-  -ms-transform: scale(1.10);
-  -o-transform: scale(1.10);
-  transform: scale(1.10);
-}
-
-.news .title {
-  /*padding: 29px 30px;*/
-  padding: 10px 30px;
-  left: 0;
-  background: #fff;
-  width: 100%;
-  height: 100%;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -ms-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;  
-}
-
-.news .title h1 {
-  margin: 0;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 19px;
-/*  color: #3D6AA2;*/
-  text-align: center;
-}
-
-.news .title  {
-  margin-top: -90px;
-  background: #fff;
-}
-
-.news .description {
-  position: relative;
-  font-weight: normal;
-  line-height: 22px;
-  opacity: 0;
-
-  text-align: center;
-
-  padding: 15px 30px 0px 30px;
-
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -ms-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;  
-}
-
-.news .description  {
-  opacity: 1;
-  max-height: 190px;
-  overflow: hidden;
-}
-
-.more {
-  text-align: center;
-}
-
-.more a {
-    position: relative;
-    font-size: 13px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    display: block;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -ms-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-    display: inline-block;
-    color: #28998b;
-}
-
-.more a:after {
-    content: '';
-    width: 18px;
-    height: 1px;
-
-    position: absolute;
-    left: 55px;
-    top: 9px;
-
-    background: #28998b;
-
-    vertical-align: middle;
-    margin-left: 10px;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -ms-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-
-
-.news a:after {
-    width: 30px;
-}
-
-.cat {
-  background: #a0bc9f;
-  color: #fff;
-  text-transform: uppercase;
-  position: absolute;
-  left: 0;
-  top: 20px;
-  z-index: 1;
-  padding: 3px 15px;
-}
-
-</style>
+    <title>A3MICHIGAN</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../layout/styles/news.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../layout/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../layout/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" media="all">
 </head>
 <body id="top">
 <!-- Top Background Image Wrapper -->
-<div class="bgded overlay" style="background-image:url('../img/backgrounds/feedback.jpg');"> 
-  <div class="wrapper row1">
-      <header id="header" class="hoc clear"> 
-        <div id="logo" class="fl_left">
-          <h1><a href="index.html"></a>A3M</h1>
-        </div>
-        <nav id="mainav" class="fl_right">
-          <ul class="clear">
-            <li><a href="../index.html">Home</a></li>
-            <li><a class="drop" href="#">ABOUT</a>
-              <ul>
-                <li><a href="../index.html#whatwedo">WHAT WE DO</a></li>
-                <li ><a href="feedback.php">FEEDBACK</a></li>
-              </ul>
-            </li>
-            <li><a href="survey.html">SURVEY</a></li>
-            <li><a class="drop" href="#">FORMS</a>
-              <ul>
-                <li><a href="membership.php">MEMBERSHIP</a></li>
-                <li><a href="bylaws.html">BYLAWS</a></li>
-              </ul>
-            </li>
-            <li ><a href="donation.php">DONATE</a></li>
-            <li><a class="drop" href="#">GALLERY</a>
-              <ul>
-                <li><a href="algeria.html">ALGERIA</a></li>
-                <li><a href="usa.html">USA</a></li>
-                <li><a href="michigan.html">MICHIAGN</a></li>
-              </ul>
-            </li>
-            <li class="active"><a href="news.html">NEWS</a></li>
-            <li><a href="#contact">CONTACT</a></li>
-          </ul>
-        </nav>
-        <!-- ################################################################################################ -->
-      </header>
-  </div>
+<div class="bgded overlay" style="background-image:url('../img/backgrounds/feedback.jpg');">
+    <div class="wrapper row1">
+        <header id="header" class="hoc clear">
+            <div id="logo" class="fl_left">
+                <h1><a href="index.html"></a>A3M</h1>
+            </div>
+            <nav id="mainav" class="fl_right">
+                <ul class="clear">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a class="drop" href="#">ABOUT</a>
+                        <ul>
+                            <li><a href="../index.html#whatwedo">WHAT WE DO</a></li>
+                            <li><a href="feedback.php">FEEDBACK</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="survey.html">SURVEY</a></li>
+                    <li><a class="drop" href="#">FORMS</a>
+                        <ul>
+                            <li><a href="membership.php">MEMBERSHIP</a></li>
+                            <li><a href="bylaws.html">BYLAWS</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="donation.php">DONATE</a></li>
+                    <li><a class="drop" href="#">GALLERY</a>
+                        <ul>
+                            <li><a href="algeria.html">ALGERIA</a></li>
+                            <li><a href="usa.html">USA</a></li>
+                            <li><a href="michigan.html">MICHIAGN</a></li>
+                        </ul>
+                    </li>
+                    <li class="active"><a href="news.html">NEWS</a></li>
+                    <li><a href="#contact">CONTACT</a></li>
+                </ul>
+            </nav>
+            <!-- ################################################################################################ -->
+        </header>
+    </div>
 
-  <section id="breadcrumb" class="hoc clear"> 
+    <section id="breadcrumb" class="hoc clear">
+        <!-- ################################################################################################ -->
+        <h6 class="heading">News</h6>
+        <!-- ################################################################################################ -->
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="#">News</a></li>
+        </ul>
+        <!-- ################################################################################################ -->
+    </section>
     <!-- ################################################################################################ -->
-    <h6 class="heading">News</h6>
-    <!-- ################################################################################################ -->
-    <ul>
-      <li><a href="../index.html">Home</a></li>
-      <li><a href="#">News</a></li>
-    </ul>
-    <!-- ################################################################################################ -->
-  </section>
-  <!-- ################################################################################################ -->
 </div>
 <div class="wrapper row3">
-  <main class="hoc container clear"> 
-    <!-- main body -->
-    <!-- ################################################################################################ -->
-    <script>
-      function showRSS(str, id) {
-        if (str.length==0) { 
-          document.getElementById("rssOutput").innerHTML="";
-          return;
-        }
-        if (window.XMLHttpRequest) {
-          // code for IE7+, Firefox, Chrome, Opera, Safari
-          xmlhttp=new XMLHttpRequest();
-        } else {  // code for IE6, IE5
-          xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange=function() {
-          if (this.readyState==4 && this.status==200) {
-            document.getElementById(id).innerHTML=this.responseText;
-          }
-        }
-        xmlhttp.open("GET","getrss.php?q="+str,true);
-        xmlhttp.send();
-      }
-      </script>
-    
-      <script>
-      
-      (function() {
-         // your page initialization code here
-         // the DOM will be available her
+    <main class="hoc container clear">
+        <!-- main body -->
+        <!-- ################################################################################################ -->
+        <script>
+            function showRSS(str, id) {
+                if (str.length == 0) {
+                    document.getElementById("rssOutput").innerHTML = "";
+                    return;
+                }
+                if (window.XMLHttpRequest) {
+                    // code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp = new XMLHttpRequest();
+                } else {  // code for IE6, IE5
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById(id).innerHTML = this.responseText;
+                    }
+                }
+                xmlhttp.open("GET", "getrss.php?q=" + str, true);
+                xmlhttp.send();
+            }
+        </script>
 
-          showRSS('algeria', 'rssOutput');
-          showRSS('aljazeera','rssOutput2');
-          showRSS('sports','rssOutput3');
-          showRSS('economy','rssOutput4');
-          showRSS('nytimes','rssOutput5');
-          showRSS('world','rssOutput6');
-          showRSS('health','rssOutput7');
-          showRSS('cnn','rssOutput8');
-          showRSS('culture','rssOutput9');
-          showRSS('elwatan','rssOutput10');
-      })();
-    </script>
-    <br>
-    <div class="container">
-      <div class="row">
-          <div class="col-sm-4">
-              <div class="news" id="rssOutput"></div>
-          </div>
-          <div class="col-sm-4">
-              <div class="news" id="rssOutput2"></div>
-              <!-- <div class="news" id="rssOutput5"></div> -->
-          </div>
-          <div class="col-sm-4">
-              <div class="news" id="rssOutput3"></div>
-          </div>
-      </div>
-      <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="news" id="rssOutput4"></div>
+        <script>
+
+            (function () {
+                // your page initialization code here
+                // the DOM will be available her
+
+                showRSS('algeria', 'rssOutput');
+                showRSS('aljazeera', 'rssOutput2');
+                showRSS('sports', 'rssOutput3');
+                showRSS('economy', 'rssOutput4');
+                showRSS('nytimes', 'rssOutput5');
+                showRSS('world', 'rssOutput6');
+                showRSS('health', 'rssOutput7');
+                showRSS('cnn', 'rssOutput8');
+                showRSS('culture', 'rssOutput9');
+                showRSS('elwatan', 'rssOutput10');
+            })();
+        </script>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="news" id="rssOutput"></div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="news" id="rssOutput2"></div>
+                    <!-- <div class="news" id="rssOutput5"></div> -->
+                </div>
+                <div class="col-sm-4">
+                    <div class="news" id="rssOutput3"></div>
+                </div>
             </div>
-            <div class="col-sm-4">
-                <div class="news" id="rssOutput7"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="news" id="rssOutput4"></div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="news" id="rssOutput7"></div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="news" id="rssOutput6"></div>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-4">
-                <div class="news" id="rssOutput6"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="news" id="rssOutput8"></div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="news" id="rssOutput9"></div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="news" id="rssOutput10"></div>
+                    </div>
+                </div>
             </div>
-        </div>
-      </div>
-      <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="news" id="rssOutput8"></div>
-            </div>
-            <div class="col-sm-4">
-                <div class="news" id="rssOutput9"></div>
-            </div>
-            <div class="col-sm-4">
-                <div class="news" id="rssOutput10"></div>
-            </div>
-        </div>
-      </div>
-  </main>
+    </main>
 </div>
 
 <!-- ################################################## Footer ################################# -->
 <div class="wrapper row4 bgded overlay footerbg" id="contact">
-  <footer id="footer" class="hoc clear"> 
-    <div class="one_third first">
-      <h6 class="heading">A3M</h6>
-      <p>A3m is an Algerian/American organization....etc</p>
-      <p class="btmspace-50">This is just a descriptive text you can ignore it if you want</p>
-      <nav>
-        <ul class="nospace">
-          <li><a href="index.html"><i class="fa fa-lg fa-home"></i></a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Donate</a></li>
-          <li><a href="#">Membership</a></li>
-          <li><a href="#">Feedback</a></li>
-          <li><a href="#">Bylaws</a></li>
-          <li><a href="#">Survey</a></li>
-          <li><a href="#">News</a></li>
-          <li><a href="#">Gallery Algeria</a></li>
-          <li><a href="#">Gallery USA</a></li>
-          <li><a href="#">Gallery Michigan</a></li>
-        </ul>
-      </nav>
-    </div>
-    <div class="one_third">
-      <h6 class="heading">Address and Phone Numbers</h6>
-      <ul class="nospace btmspace-30 linklist contact">
-        <li><i class="fa fa-map-marker"></i>
-          <address>
-          Street Name &amp; Number, Town, Postcode/Zip
-          </address>
-        </li>
-        <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-        <li><i class="fa fa-fax"></i> +00 (123) 456 7890</li>
-        <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
-      </ul>
-      <ul class="faico clear">
-        <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-        <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-        <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>
-        <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-        <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-        <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>
-      </ul>
-    </div>
-    <div class="one_third">
-      <h6 class="heading">Location</h6>
-      <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAz02yCRNu3uItDorLGL2s3tTJX6ye9DeU'></script><div style='overflow:hidden;height:335px;width:436px;'><div id='gmap_canvas' style='height:335px;width:436px;'></div><style>#gmap_canvas img{max-width:none!important;background:none!important}</style></div> <a href='http://maps-generator.com/'>maps-generator.com</a> <script type='text/javascript' src='https://embedmaps.com/google-maps-authorization/script.js?id=edb9cbe68b8845fb95f39b7df84c61d04cc2fbd7'></script><script type='text/javascript'>function init_map(){var myOptions = {zoom:12,center:new google.maps.LatLng(42.331427,-83.0457538),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(42.331427,-83.0457538)});infowindow = new google.maps.InfoWindow({content:'<strong></strong><br><br> Detroit<br>'});google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);</script>
+    <footer id="footer" class="hoc clear">
+        <div class="one_third first">
+            <h6 class="heading">A3M</h6>
+            <p>A3m is an Algerian/American organization....etc</p>
+            <p class="btmspace-50">This is just a descriptive text you can ignore it if you want</p>
+            <nav>
+                <ul class="nospace">
+                    <li><a href="index.html"><i class="fa fa-lg fa-home"></i></a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Donate</a></li>
+                    <li><a href="#">Membership</a></li>
+                    <li><a href="#">Feedback</a></li>
+                    <li><a href="#">Bylaws</a></li>
+                    <li><a href="#">Survey</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Gallery Algeria</a></li>
+                    <li><a href="#">Gallery USA</a></li>
+                    <li><a href="#">Gallery Michigan</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="one_third">
+            <h6 class="heading">Address and Phone Numbers</h6>
+            <ul class="nospace btmspace-30 linklist contact">
+                <li><i class="fa fa-map-marker"></i>
+                    <address>
+                        Street Name &amp; Number, Town, Postcode/Zip
+                    </address>
+                </li>
+                <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
+                <li><i class="fa fa-fax"></i> +00 (123) 456 7890</li>
+                <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+            </ul>
+            <ul class="faico clear">
+                <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
+                <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>
+            </ul>
+        </div>
+        <div class="one_third">
+            <h6 class="heading">Location</h6>
+            <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAz02yCRNu3uItDorLGL2s3tTJX6ye9DeU'></script>
+            <div style='overflow:hidden;height:335px;width:436px;'>
+                <div id='gmap_canvas' style='height:335px;width:436px;'></div>
+                <style>#gmap_canvas img {
+                    max-width: none !important;
+                    background: none !important
+                }</style>
+            </div>
+            <a href='http://maps-generator.com/'>maps-generator.com</a>
+            <script type='text/javascript'
+                    src='https://embedmaps.com/google-maps-authorization/script.js?id=edb9cbe68b8845fb95f39b7df84c61d04cc2fbd7'></script>
+            <script type='text/javascript'>function init_map() {
+                var myOptions = {
+                    zoom: 12,
+                    center: new google.maps.LatLng(42.331427, -83.0457538),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
+                marker = new google.maps.Marker({map: map, position: new google.maps.LatLng(42.331427, -83.0457538)});
+                infowindow = new google.maps.InfoWindow({content: '<strong></strong><br><br> Detroit<br>'});
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.open(map, marker);
+                });
+                infowindow.open(map, marker);
+            }
+            google.maps.event.addDomListener(window, 'load', init_map);</script>
 
-    </div>
-    <!-- ################################################################################################ -->
-  </footer>
+        </div>
+        <!-- ################################################################################################ -->
+    </footer>
 </div>
 
 <div class="wrapper row5">
-  <div id="copyright" class="hoc clear"> 
-    <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="http://www.a3michigan">www.a3michigan.org</a></p>
-  </div>
+    <div id="copyright" class="hoc clear">
+        <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="http://www.a3michigan">www.a3michigan.org</a>
+        </p>
+    </div>
 </div>
 
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>

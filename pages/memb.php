@@ -30,6 +30,9 @@
     <script type="text/javascript" src="../js/bootstrapValidator-min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            validateform = function () {
+                console.log('yaaaaaaaaaaaaaaaaaaw-*-*-*-*-*-*-*-*-*');
+            };
             $('#payment-form').bootstrapValidator({
                 message: 'This value is not valid',
                 feedbackIcons: {
@@ -54,7 +57,21 @@
                     return false; // submit from callback
                 },
                 fields: {
-                    street: {
+                    fname: {
+                        validators: {
+                            notEmpty: {
+                                message: 'First Name is required and cannot be empty'
+                            }
+                        }
+                    },
+                    lname: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Last Name is required and cannot be empty'
+                            }
+                        }
+                    },
+                    address1: {
                         validators: {
                             notEmpty: {
                                 message: 'The street is required and cannot be empty'
@@ -73,6 +90,13 @@
                             }
                         }
                     },
+                    state: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The state is required and cannot be empty'
+                            }
+                        }
+                    },
                     zip: {
                         validators: {
                             notEmpty: {
@@ -88,7 +112,7 @@
                     email: {
                         validators: {
                             notEmpty: {
-                                message: 'The email address is required and can\'t be empty'
+                                message: "The email address is required and can't be empty"
                             },
                             emailAddress: {
                                 message: 'The input is not a valid email address'
@@ -103,7 +127,7 @@
                     cardholdername: {
                         validators: {
                             notEmpty: {
-                                message: 'The card holder name is required and can\'t be empty'
+                                message: "The card holder name is required and can't be empty"
                             },
                             stringLength: {
                                 min: 6,
@@ -116,7 +140,7 @@
                         selector: '#cardnumber',
                         validators: {
                             notEmpty: {
-                                message: 'The credit card number is required and can\'t be empty'
+                                message: "The credit card number is required and can't be empty"
                             },
                             creditCard: {
                                 message: 'The credit card number is invalid'
@@ -193,7 +217,7 @@
                         selector: '#cvv',
                         validators: {
                             notEmpty: {
-                                message: 'The cvv is required and can\'t be empty'
+                                message: "The cvv is required and can't be empty"
                             },
                             cvv: {
                                 message: 'The value is not a valid CVV',
@@ -201,14 +225,47 @@
                             }
                         },
                     },
-                    amount: {
-                        selector: '#amount',
+                    phone: {
+                        selector: '#phone',
                         validators: {
                             notEmpty: {
-                                message: 'The amount is required and can\'t be empty'
+                                message: "The phone number is required and can't be empty"
                             },
-                            amount: {
+                            phone: {
                                 message: 'The amount is not a valid',
+                            }
+                        }
+                    },
+                    occupation: {
+                        selector: '#occupation',
+                        validators: {
+                            notEmpty: {
+                                message: "The occupation is required and can't be empty"
+                            },
+                            occupation: {
+                                message: 'The occupation is not a valid',
+                            }
+                        }
+                    },
+                    password: {
+                        selector: '#password',
+                        validators: {
+                            notEmpty: {
+                                message: "The password is required and can't be empty"
+                            },
+                            password: {
+                                message: 'The password is not a valid',
+                            }
+                        }
+                    },
+                    confirmPassword: {
+                        selector: '#confirmPassword',
+                        validators: {
+                            notEmpty: {
+                                message: "The confirmPassword is required and can't be empty"
+                            },
+                            confirmPassword: {
+                                message: 'The confirmPassword is not a valid',
                             }
                         }
                     }
@@ -238,8 +295,6 @@
                 form$.get(0).submit();
             }
         }
-
-
     </script>
 </head>
 <body>
@@ -285,21 +340,8 @@
 <main class="hoc container clear" style="padding-top: 0px;">
     <!--#################################################### Form  ####################################################-->
     <form action="" method="POST" id="payment-form" class="form-horizontal">
-        <div class="row row-centered">
-            <div class="">
-                <div class="page-header">
-                    <h2 class="gdfg">Secure Donation Form</h2>
-                </div>
-                <noscript>
-                    <div class="bs-callout bs-callout-danger">
-                        <h4>JavaScript is not enabled!</h4>
-                        <p>This payment form requires your browser to have JavaScript enabled. Please activate
-                            JavaScript and reload this page. Check <a href="http://enable-javascript.com"
-                                                                      target="_blank">enable-javascript.com</a> for more
-                            informations.</p>
-                    </div>
-                </noscript>
-                <?php
+        <div class="">
+            <?php
                 require '../lib/Stripe.php';
 
                 $error = '';
@@ -310,15 +352,18 @@
                     Stripe::setApiKey("sk_test_i79GJLb0WhkVSWqj1AbYh0bq");
 
                     try {
-                        if (empty($_POST['street']) || empty($_POST['city']) || empty($_POST['zip']))
+                        if (empty($_POST['address1']) || empty($_POST['city']) || empty($_POST['zip']))
                             throw new Exception("Fill out all required fields.");
                         if (!isset($_POST['stripeToken']))
                             throw new Exception("The Stripe Token was not generated correctly, Please refresh the page");
 
-                        $name = $_POST['donationType'];
-                        foreach ($name as $type) {
-                            $donationTypes = $donationTypes . $type . ', ';
+                        if (!empty($_POST['donationType'])) {
+                            $name = $_POST['donationType'];
+                            foreach ($name as $type) {
+                                $donationTypes = $donationTypes . $type . ', ';
+                            }
                         }
+
                         Stripe_Charge::create(array("amount" => $_POST['amount'] * 100, //is charged by centes so 100 cents make up a dollar
                                 "currency" => "usd",
                                 "card" => $_POST['stripeToken'],
@@ -327,90 +372,174 @@
                         );
                         $success = '<div class="alert alert-success">
                       <strong>Success!</strong> Your payment was successful.
-      				</div>';
+                    </div>';
                     } catch (Exception $e) {
                         $error = '<div class="alert alert-danger">
-      			  <strong>Error!</strong> ' . $e->getMessage() . '
-      			  </div>';
+                  <strong>Error!</strong> ' . $e->getMessage() . '
+                  </div>';
                     }
                 }
-                ?>
-                <div class="alert alert-danger" id="a_x200" style="display: none;"><strong>Error!</strong> <span
-                            class="payment-errors"></span></div>
-                <span class="payment-success">
-        <?= $success ?>
-        <?= $error ?>
-        </span>
-                <fieldset>
+            ?>
+            <div class="alert alert-danger" id="a_x200" style="display: none;"><strong>Error!</strong> <span
+                        class="payment-errors"></span></div>
+            <span class="payment-success">
+                <?= $success ?>
+                <?= $error ?>
+            </span>
+            <div class="row">
+                <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-2 col-md-offset-2">
+                    <h2>Please Sign Up
+                        <small> for A3M Membership.</small>
+                    </h2>
+                    <p>Full Membership is extended to persons and businesses who support our mission regardless of race,
+                        national origin, sex, disability, or religion</p>
+                    <hr class="colorgraph">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <input type="text" name="fname" id="fname" class="fname form-control input-sm"
+                                       placeholder="First Name">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <input type="text" name="lname" id="lname" class="lname form-control input-sm"
+                                       placeholder="Last Name">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <input type="text" name="spouse" id="spouse" class="spouse form-control input-sm"
+                                       placeholder="Spouse">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-8">
+                            <div class="form-group">
+                                <input type="text" name="address1" id="address1" class="address form-control input-sm"
+                                       placeholder="Address 1">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <input type="text" name="address2" id="address2" class="address2 form-control input-sm"
+                                       placeholder="Address 2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <input type="text" name="city" id="city" class="city form-control input-sm"
+                                       placeholder="City">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <input type="text" name="state" id="state" class="state form-control input-sm"
+                                       placeholder="State">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <input type="text" name="zip" id="zip" class="state form-control input-sm"
+                                       placeholder="Zip Code">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="phone" id="phone" class="zip form-control input-sm"
+                                       placeholder="Primary Phone">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="email" name="email" id="email" class="email form-control input-sm"
+                                       placeholder="Email Address">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="occupation" id="occupation"
+                                       class="occupation form-control input-sm" placeholder="Occupation">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="employer" id="employer" class="form-control input-sm"
+                                       placeholder="Employer">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="password" name="password" id="password"
+                                       class="password form-control input-sm" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="password" name="confirmPassword" id="confirmPassword"
+                                       class="confirmPassword form-control input-sm" placeholder="Confirm Password">
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="colorgraph">
 
-                    <!-- Form Name -->
-                    <legend>Billing Details</legend>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-3 col-md-3">
+                            <div class="form-group">
+                                <label><b>Membership Type:</b></label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-3 col-md-3">
+                            <div class="form-group">
+                                <label class="radio-inline"><input type="radio" name="membership" value="family"
+                                                                   required>Family $60</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-3 col-md-3">
+                            <div class="form-group">
+                                <label class="radio-inline"><input type="radio" name="membership" value="Individual"
+                                                                   required>Individual $40</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-3 col-md-3">
+                            <div class="form-group">
+                                <label class="radio-inline"><input type="radio" name="membership" value="Student"
+                                                                   required>Student $30</label>
+                            </div>
+                        </div>
+                    </div>
 
-                    <!-- Street -->
+                    <hr class="colorgraph">
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-8">
+                            <label><b>Make a Donation to Support A3M and your Community:</b></label>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <input type="number" name="amount" id="amount" class="form-control input-sm"
+                                       placeholder="Amount  $">
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="textinput">Street</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12" style="padding-right: 0px;padding-left: 0px;">
+                            <p><b>Donation allocation:</b> To designate your donation to a specific fund, please check
+                                the boxes bellow. To allow
+                                A3M to allocate your donation as needed, leave all boxes unchecked.</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-sm-6">
-                            <input type="text" name="street" placeholder="Street" class="address form-control">
-                        </div>
-                    </div>
-
-                    <!-- City -->
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="textinput">City</label>
-                        <div class="col-sm-6">
-                            <input type="text" name="city" placeholder="City" class="city form-control">
-                        </div>
-                    </div>
-
-                    <!-- State -->
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="textinput">State</label>
-                        <div class="col-sm-6">
-                            <input type="text" name="state" maxlength="65" placeholder="State"
-                                   class="state form-control">
-                        </div>
-                    </div>
-
-                    <!-- Postcal Code -->
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="textinput">Postal Code</label>
-                        <div class="col-sm-6">
-                            <input type="text" name="zip" maxlength="9" placeholder="Postal Code"
-                                   class="zip form-control">
-                        </div>
-                    </div>
-
-                    <!-- Country -->
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="textinput">Country</label>
-                        <div class="col-sm-6">
-                            <!--input type="text" name="country" placeholder="Country" class="country form-control"-->
-                            <div class="country bfh-selectbox bfh-countries" name="country" placeholder="Select Country"
-                                 data-flags="true" data-filter="true"></div>
-                        </div>
-                    </div>
-
-                    <!-- Email -->
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="textinput">Email</label>
-                        <div class="col-sm-6">
-                            <input type="text" name="email" maxlength="65" placeholder="Email"
-                                   class="email form-control">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="textinput"></label>
-                        <div class="col-sm-8">
-                            <label class="control-label" for="textinput"><b>Donation allocation:</b> To designate your
-                                donation to a specific fund, please check the boxes bellow. To allow
-                                A3M to allocate your donation as needed, leave all boxes unchecked.</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                        </div>
-                        <div class="col-sm-4">
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" name="donationType[]" value="Emergency">
@@ -426,7 +555,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" name="donationType[]" value="Burial">
@@ -444,8 +573,8 @@
                             <input type="checkbox" name="donationType[]" style="display: none">
                         </div>
                     </div>
-                </fieldset>
-                <fieldset>
+                    <hr class="colorgraph">
+
                     <legend>Card Details</legend>
 
                     <!-- Card Holder Name -->
@@ -506,42 +635,55 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="textinput">CVV</label>
                         <div class="col-sm-3">
-                            <input type="text" id="cvv" placeholder="CVV" maxlength="4" class="card-cvc form-control">
-                        </div>
-                    </div>
-
-                    <!-- CVV -->
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="textinput">Amount</label>
-                        <div class="col-sm-3">
-                            <input type="numer" id="amount" name="amount" placeholder="Amount $" maxlength="10"
-                                   class="amount form-control">
+                            <input type="text" id="cvv" placeholder="CVV" maxlength="4"
+                                   class="card-cvc form-control">
                         </div>
                     </div>
 
                     <!-- Important notice -->
                     <div class="form-group">
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Important notice</h3>
-                            </div>
-                            <div class="panel-body">
-                                <p>Your card will be charged with the amount shown above after submit.</p>
-                                <!-- <p>Your account statement will show the following booking text:
-                                  XXXXXXX </p> -->
+                        <br>
+
+                        <div class="row">
+                            <div class="col-xs-8 col-sm-9 col-md-9">
+                                By clicking <strong class="label label-primary">Register</strong>, you agree to the <a
+                                        href="#" data-toggle="modal" data-target="#t_and_c_m">Terms and Conditions</a>
+                                set out by this site, including our Cookie Use.
                             </div>
                         </div>
+                        <br>
 
                         <!-- Submit -->
                         <div class="control-group">
                             <div class="controls">
                                 <center>
-                                    <button class="btn btn-success" type="submit">Donate Now</button>
+                                    <button type="submit" class="btn btn-primary btn-block btn-lg" onclick="validateform()">Register</button>
                                 </center>
                             </div>
                         </div>
-                </fieldset>
+                    </div>
+                </div>
+            </div>
     </form>
+    <!-- Modal -->
+    <div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
+                </div>
+                <div class="modal-body">
+                    <p>This is a test agreement</p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">I Agree</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     <!--#################################################### End Of Form  ####################################################-->
     <div class="clear"></div>
 </main>

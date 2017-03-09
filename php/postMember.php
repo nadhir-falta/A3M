@@ -16,6 +16,7 @@
     $occupation =   $_POST["occupation"];
     $employer =   $_POST["employer"];
     $membership =   $_POST["membership"];
+    $password =   $_POST["password"];
     // validate the variables ========
     // if (!ctype_alpha(str_replace(array("'", "-"), "",$fname))) { 
     //    $errors['fnameAlph'] = true;
@@ -48,7 +49,7 @@
         $password = "Zb121788n@d";
         $dbname = "a3m-members";
 
-        echo "**** $fname $lname $spouse $address1 $address2 $city $state $zip $phone $email $occupation $employer $membership" ;
+        echo "**** $fname $lname $spouse $address1 $address2 $city $state $zip $phone $email $occupation $employer $membership $password" ;
         // 1. Create a database connection
         $connection = mysqli_connect($servername,$username,$password);
         if (!$connection) {
@@ -67,8 +68,8 @@
         }
 
         // mysqli_query($connection,"INSERT INTO `users` (`fname`, `lname`, `spouse`, `address1`, `address2`, `city`, `state`, `zipcode`, `phone`, `email`, `occupation`, `employer`, `membership`) VALUES ('$fname', '$lname', '$spouse', '$address1', '$address2', '$city', '$state', '$zip' , '$phone', '$email', '$occupation', '$employer', '$membership')") or die(mysqli_error($connection));
-        $sql = "INSERT INTO `users` (`fname`, `lname`, `spouse`, `address1`, `address2`, `city`, `state`, `zipcode`, `phone`, `email`, `occupation`, `employer`, `membership`) VALUES
-                                    ('$fname', '$lname', '$spouse', '$address1', '$address2', '$city', '$state', '$zip' , '$phone', '$email', '$occupation', '$employer', '$membership')";
+        $sql = "INSERT INTO `users` (`fname`, `lname`, `spouse`, `address1`, `address2`, `city`, `state`, `zipcode`, `phone`, `email`, `occupation`, `employer`, `membership`, `password`) VALUES
+                                    ('$fname', '$lname', '$spouse', '$address1', '$address2', '$city', '$state', '$zip' , '$phone', '$email', '$occupation', '$employer', '$membership', '$password')";
 
 
         if(!mysqli_query($connection,$sql)) {
