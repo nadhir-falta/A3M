@@ -25,7 +25,6 @@
     </style>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="../js/bootstrap-min.js"></script>
     <script src="../js/bootstrap-formhelpers-min.js"></script>
     <script type="text/javascript" src="../js/bootstrapValidator-min.js"></script>
     <script type="text/javascript">
@@ -294,50 +293,57 @@
         }
     </script>
 </head>
-<body>
-<div class="wrapper row1" style="position: fixed;display: block;height: 75px;z-index: 9999;width: 100%;">
-    <header id="header" class="hoc clear">
-        <div id="logo" class="fl_left">
-            <h1><a href="index.html"></a>A3M</h1>
-        </div>
-        <nav id="mainav" class="fl_right">
-            <ul class="clear">
-                <li><a href="../index.html">Home</a></li>
-                <li><a class="drop" href="#">ABOUT</a>
-                    <ul>
-                        <li><a href="../index.html#whatwedo">WHAT WE DO</a></li>
-                        <li><a href="feedback.php">FEEDBACK</a></li>
-                    </ul>
-                </li>
-                <li><a href="survey.html">SURVEY</a></li>
-                <li><a class="drop" href="#">FORMS</a>
-                    <ul>
-                        <li><a href="membership.php">MEMBERSHIP</a></li>
-                        <li><a href="bylaws.html">BYLAWS</a></li>
-                    </ul>
-                </li>
-                <li class="active"><a href="donation.php">DONATE</a></li>
-                <li><a class="drop" href="#">GALLERY</a>
-                    <ul>
-                        <li><a href="algeria.html">ALGERIA</a></li>
-                        <li><a href="usa.html">USA</a></li>
-                        <li><a href="michigan.html">MICHIAGN</a></li>
-                    </ul>
-                </li>
-                <li><a href="news.html">NEWS</a></li>
-                <li><a href="#contact"">CONTACT</a></li>
-            </ul>
-        </nav>
-        <!-- ################################################################################################ -->
-    </header>
+<body id="top">
+<div class="bgded overlay" style="background-image:url('../img/backgrounds/membership.jpg');">
+    <div class="wrapper row1">
+        <header id="header" class="hoc clear">
+            <div id="logo" class="fl_left">
+                <h1><a href="index.html"></a>A3M</h1>
+            </div>
+            <nav id="mainav" class="fl_right">
+                <ul class="clear">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a class="drop" href="#">ABOUT</a>
+                        <ul>
+                            <li><a href="../index.html#whatwedo">WHAT WE DO</a></li>
+                            <li><a href="feedback.php">FEEDBACK</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="survey.html">SURVEY</a></li>
+                    <li class="active"><a class="drop" href="#">FORMS</a>
+                        <ul>
+                            <li><a href="membership.php">MEMBERSHIP</a></li>
+                            <li><a href="bylaws.html">BYLAWS</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="donation.php">DONATE</a></li>
+                    <li><a class="drop" href="#">GALLERY</a>
+                        <ul>
+                            <li><a href="algeria.html">ALGERIA</a></li>
+                            <li><a href="usa.html">USA</a></li>
+                            <li><a href="michigan.html">MICHIAGN</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="news.html">NEWS</a></li>
+                    <li><a href="#contact"">CONTACT</a></li>
+                </ul>
+            </nav>
+            <!-- ################################################################################################ -->
+        </header>
+    </div>
+
+    <section id="breadcrumb" class="hoc clear">
+        <h6 class="heading">Membership</h6>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="#">Membership</a></li>
+        </ul>
+    </section>
 </div>
-<div class="bgded overlay">
-    <img src="../img/backgrounds/donations.jpg" style="height: 450px; width: 100%;">;
-</div>
-<main class="hoc container clear" style="padding-top: 0px;">
-    <!--#################################################### Form  ####################################################-->
-    <form action="" method="POST" id="payment-form" class="form-horizontal">
-        <div class="">
+<div class="wrapper row3">
+    <main class="hoc container clear">
+        <form action="" method="POST" id="payment-form">
+
             <?php
                 require '../lib/Stripe.php';
                 $error = '';
@@ -635,70 +641,68 @@
                     </div>
                     <hr class="colorgraph">
 
-                    <legend>Card Details</legend>
+                    <fieldset>
+                        <legend>Card Details</legend>
 
-                    <!-- Card Holder Name -->
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="textinput">Card Holder's Name</label>
-                        <div class="col-sm-6">
-                            <input type="text" name="cardholdername" maxlength="70" placeholder="Card Holder Name"
-                                   class="card-holder-name form-control">
-                        </div>
-                    </div>
-
-                    <!-- Card Number -->
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="textinput">Card Number</label>
-                        <div class="col-sm-6">
-                            <input type="text" id="cardnumber" maxlength="19" placeholder="Card Number"
-                                   class="card-number form-control">
-                        </div>
-                    </div>
-
-                    <!-- Expiry-->
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="textinput">Card Expiry Date</label>
-                        <div class="col-sm-6">
-                            <div class="form-inline">
-                                <select name="select2" data-stripe="exp-month"
-                                        class="card-expiry-month stripe-sensitive required form-control">
-                                    <option value="01" selected="selected">01</option>
-                                    <option value="02">02</option>
-                                    <option value="03">03</option>
-                                    <option value="04">04</option>
-                                    <option value="05">05</option>
-                                    <option value="06">06</option>
-                                    <option value="07">07</option>
-                                    <option value="08">08</option>
-                                    <option value="09">09</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                </select>
-                                <span> / </span>
-                                <select name="select2" data-stripe="exp-year"
-                                        class="card-expiry-year stripe-sensitive required form-control">
-                                </select>
-                                <script type="text/javascript">
-                                    var select = $(".card-expiry-year"),
-                                        year = new Date().getFullYear();
-
-                                    for (var i = 0; i < 12; i++) {
-                                        select.append($("<option value='" + (i + year) + "' " + (i === 0 ? "selected" : "") + ">" + (i + year) + "</option>"))
-                                    }
-                                </script>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="textinput">Card Holder's Name</label>
+                            <div class="col-sm-6 form-group">
+                                <input type="text" name="cardholdername" maxlength="70"
+                                       placeholder="Card Holder Name" class="card-holder-name form-control">
                             </div>
                         </div>
-                    </div>
 
-                    <!-- CVV -->
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="textinput">CVV</label>
-                        <div class="col-sm-3">
-                            <input type="text" id="cvv" placeholder="CVV" maxlength="4"
-                                   class="card-cvc form-control">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="textinput">Card Number</label>
+                            <div class="col-sm-6 form-group">
+                                <input type="text" id="cardnumber" maxlength="19" placeholder="Card Number"
+                                       class="card-number form-control">
+                            </div>
                         </div>
-                    </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="textinput">Card Expiry Date</label>
+                            <div class="col-sm-6 form-group">
+                                <div class="form-inline">
+                                    <select name="select2" data-stripe="exp-month"
+                                            class="card-expiry-month stripe-sensitive required form-control">
+                                        <option value="01" selected="selected">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                    </select>
+                                    <span> / </span>
+                                    <select name="select2" data-stripe="exp-year"
+                                            class="card-expiry-year stripe-sensitive required form-control">
+                                    </select>
+                                    <script type="text/javascript">
+                                        var select = $(".card-expiry-year"),
+                                            year = new Date().getFullYear();
+
+                                        for (var i = 0; i < 12; i++) {
+                                            select.append($("<option value='" + (i + year) + "' " + (i === 0 ? "selected" : "") + ">" + (i + year) + "</option>"))
+                                        }
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="textinput">CVV/CVV2</label>
+                            <div class="col-sm-3 form-group">
+                                <input type="text" id="cvv" placeholder="CVV" maxlength="4"
+                                       class="card-cvc form-control">
+                            </div>
+                        </div>
+                    </fieldset>
 
                     <!-- Important notice -->
                     <div class="form-group">
@@ -717,33 +721,33 @@
                         <div class="control-group">
                             <div class="controls">
                                 <center>
-                                    <button type="submit" class="btn btn-primary btn-block btn-lg" onclick="validateform()">Register</button>
+                                    <button type="submit" class="btn btn-primary btn-block btn-lg">Register</button>
                                 </center>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-    </form>
-    <!-- Modal -->
-    <div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
-                </div>
-                <div class="modal-body">
-                    <p>This is a test agreement</p>
+            <!-- Modal -->
+            <div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>This is a test agreement</p>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">I Agree</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">I Agree</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+    </form>
     <!--#################################################### End Of Form  ####################################################-->
     <div class="clear"></div>
 </main>

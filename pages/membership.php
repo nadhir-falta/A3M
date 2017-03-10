@@ -25,7 +25,6 @@
     </style>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="../js/bootstrap-min.js"></script>
     <script src="../js/bootstrap-formhelpers-min.js"></script>
     <script type="text/javascript" src="../js/bootstrapValidator-min.js"></script>
     <script type="text/javascript">
@@ -38,7 +37,6 @@
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 submitHandler: function (validator, form, submitButton) {
-                    console.log('yaaaaaaaaaaaaaaw');
                     // createToken returns immediately - the supplied callback submits the form if there are no errors
                     Stripe.card.createToken({
                         number: $('.card-number').val(),
@@ -296,7 +294,6 @@
     </script>
 </head>
 <body id="top">
-<!-- Top Background Image Wrapper -->
 <div class="bgded overlay" style="background-image:url('../img/backgrounds/membership.jpg');">
     <div class="wrapper row1">
         <header id="header" class="hoc clear">
@@ -331,6 +328,7 @@
                     <li><a href="#contact"">CONTACT</a></li>
                 </ul>
             </nav>
+            <!-- ################################################################################################ -->
         </header>
     </div>
 
@@ -348,24 +346,26 @@
 
             <?php
             require '../lib/Stripe.php';
-
             $error = '';
             $success = '';
+            $dbErrors = array();  // array to hold validation errors
+            $dbSuccess = '';
+            $info = array();
             $donationTypes = '';
-
             if ($_POST) {
                 Stripe::setApiKey("sk_test_i79GJLb0WhkVSWqj1AbYh0bq");
 
                 try {
                     if (empty($_POST['address1']) || empty($_POST['city']) || empty($_POST['zip']))
                         throw new Exception("Fill out all required fields.");
-
                     if (!isset($_POST['stripeToken']))
                         throw new Exception("The Stripe Token was not generated correctly, Please refresh the page");
 
-                    $name = $_POST['donationType'];
-                    foreach ($name as $type) {
-                        $donationTypes = $donationTypes . $type . ', ';
+                    if (!empty($_POST['donationType'])) {
+                        $name = $_POST['donationType'];
+                        foreach ($name as $type) {
+                            $donationTypes = $donationTypes . $type . ', ';
+                        }
                     }
 
                     Stripe_Charge::create(array("amount" => $_POST['amount'] * 100, //is charged by centes so 100 cents make up a dollar
@@ -375,275 +375,337 @@
                         )
                     );
                     $success = '<div class="alert alert-success">
-                              <strong>Success!</strong> Your payment was successful.
-                            </div>';
+                                      <strong>Success!</strong> Your payment was successful.
+                                    </div>';
                 } catch (Exception $e) {
                     $error = '<div class="alert alert-danger">
-                                <strong>Error!</strong> ' . $e->getMessage() . '
-                            </div>';
+                                    <strong>Error!</strong> ' . $e->getMessage() . '
+                                  </div>';
+                }
+                // array to pass back data
+                $fname = $_POST["fname"];
+                $lname = $_POST["lname"];
+                $spouse = $_POST["spouse"];
+                $address1 = $_POST["address1"];
+                $address2 = $_POST["address2"];
+                $city = $_POST["city"];
+                $state = $_POST["state"];
+                $zip = $_POST["zip"];
+                $phone = $_POST["phone"];
+                $email = $_POST["email"];
+                $occupation = $_POST["occupation"];
+                $employer = $_POST["employer"];
+                $membership = $_POST["membership"];
+                $password = $_POST["password"];
+
+                // response if there are errors
+                if (empty($dbErrors)) {
+                    $info['success'] = true;
+                    $info['message'] = 'Success!';
+
+                    $servername = "localhost";
+                    $username = "root";
+                    $dbpassword = "Zb121788n@d";
+                    $dbname = "a3m-members";
+
+                    // 1. Create a database connection
+                    $connection = mysqli_connect($servername, $username, $dbpassword);
+                    if (!$connection) {
+                        die("Database connection failed: " . mysqli_error());
+                    }
+                    // 2. Select a database to use
+                    $db_select = mysqli_select_db($connection, $dbname);
+
+                    $sql = "INSERT INTO `users` (`fname`, `lname`, `spouse`, `address1`, `address2`, `city`, `state`, `zipcode`, `phone`, `email`, `occupation`, `employer`, `membership`, `password`) VALUES
+                                    ('$fname', '$lname', '$spouse', '$address1', '$address2', '$city', '$state', '$zip' , '$phone', '$email', '$occupation', '$employer', '$membership', '$password')";
+
+                    if (!mysqli_query($connection, $sql)) {
+                        $dbErrors['duplicate'] = true;
+                        $info['success'] = false;
+                        $info['errors'] = $dbErrors;
+                        echo '' . mysqli_error($connection);
+                        // echo json_encode($info);
+                        // die('Error : ' . mysql_error());
+                    } else {
+                        echo "yaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaay";
+                        $dbSuccess = "Your information has been successfully added to the database.";
+                        // mysql_close($sql_connection);
+                    }
+                } else {
+                    // if there are items in our errors array, return those errors
+                    $info['success'] = false;
+                    $info['errors'] = $dbErrors;
                 }
             }
             ?>
             <div class="alert alert-danger" id="a_x200" style="display: none;"><strong>Error!</strong> <span
                         class="payment-errors"></span></div>
             <span class="payment-success">
-        <?= $success ?>
-        <?= $error ?>
-        </span>
-            <!-- main body -->
-            <div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-2 col-md-offset-2">
-                        <!-- <form role="form" action='../php/postMember.php' method='post'> -->
-                        <h2>Please Sign Up
-                            <small> for A3M Membership.</small>
-                        </h2>
-                        <p>Full Membership is extended to persons and businesses who support our mission regardless of
-                            race, national origin, sex, disability, or religion</p>
-                        <hr class="colorgraph">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-4 col-md-4">
-                                <div class="form-group">
-                                    <input type="text" name="fname" id="fname" class="fname form-control input-sm"
-                                           placeholder="First Name">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-4 col-md-4">
-                                <div class="form-group">
-                                    <input type="text" name="lname" id="lname" class="lname form-control input-sm"
-                                           placeholder="Last Name">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-4 col-md-4">
-                                <div class="form-group">
-                                    <input type="text" name="spouse" id="spouse" class="spouse form-control input-sm"
-                                           placeholder="Spouse">
-                                </div>
+                <?php
+                foreach ($dbErrors as $result) {
+                    echo $result, '<br>';
+                }
+                ?>
+                <?= $dbSuccess ?>
+            </span>
+            <span class="payment-success">
+                <?= $success ?>
+                <?= $error ?>
+            </span>
+            <div class="row">
+                <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-2 col-md-offset-2">
+                    <h2>Please Sign Up
+                        <small> for A3M Membership.</small>
+                    </h2>
+                    <p>Full Membership is extended to persons and businesses who support our mission regardless of race,
+                        national origin, sex, disability, or religion</p>
+                    <hr class="colorgraph">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <input type="text" name="fname" id="fname" class="fname form-control input-sm"
+                                       placeholder="First Name">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-8 col-md-8">
-                                <div class="form-group">
-                                    <input type="text" name="address1" id="address1"
-                                           class="address form-control input-sm" placeholder="Address 1">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-4 col-md-4">
-                                <div class="form-group">
-                                    <input type="text" name="address2" id="address2"
-                                           class="address2 form-control input-sm" placeholder="Address 2">
-                                </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <input type="text" name="lname" id="lname" class="lname form-control input-sm"
+                                       placeholder="Last Name">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-4 col-md-4">
-                                <div class="form-group">
-                                    <input type="text" name="city" id="city" class="city form-control input-sm"
-                                           placeholder="City">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-4 col-md-4">
-                                <div class="form-group">
-                                    <input type="text" name="state" id="state" class="state form-control input-sm"
-                                           placeholder="State">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-4 col-md-4">
-                                <div class="form-group">
-                                    <input type="text" name="zip" id="zip" class="state form-control input-sm"
-                                           placeholder="Zip Code">
-                                </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <input type="text" name="spouse" id="spouse" class="spouse form-control input-sm"
+                                       placeholder="Spouse">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <input type="text" name="phone" id="phone" class="zip form-control input-sm"
-                                           placeholder="Primary Phone">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <input type="email" name="email" id="email" class="email form-control input-sm"
-                                           placeholder="Email Address">
-                                </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-8">
+                            <div class="form-group">
+                                <input type="text" name="address1" id="address1" class="address form-control input-sm"
+                                       placeholder="Address 1">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <input type="text" name="occupation" id="occupation"
-                                           class="occupation form-control input-sm" placeholder="Occupation">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <input type="text" name="employer" id="employer" class="form-control input-sm"
-                                           placeholder="Employer">
-                                </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <input type="text" name="address2" id="address2" class="address2 form-control input-sm"
+                                       placeholder="Address 2">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <input type="password" name="password" id="password"
-                                           class="password form-control input-sm" placeholder="Password">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <input type="password" name="confirmPassword" id="confirmPassword"
-                                           class="confirmPassword form-control input-sm" placeholder="Confirm Password">
-                                </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <input type="text" name="city" id="city" class="city form-control input-sm"
+                                       placeholder="City">
                             </div>
                         </div>
-                        <hr class="colorgraph">
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <input type="text" name="state" id="state" class="state form-control input-sm"
+                                       placeholder="State">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <input type="text" name="zip" id="zip" class="state form-control input-sm"
+                                       placeholder="Zip Code">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="phone" id="phone" class="zip form-control input-sm"
+                                       placeholder="Primary Phone">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="email" name="email" id="email" class="email form-control input-sm"
+                                       placeholder="Email Address">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="occupation" id="occupation"
+                                       class="occupation form-control input-sm" placeholder="Occupation">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="employer" id="employer" class="form-control input-sm"
+                                       placeholder="Employer">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="password" name="password" id="password"
+                                       class="password form-control input-sm" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="password" name="confirmPassword" id="confirmPassword"
+                                       class="confirmPassword form-control input-sm" placeholder="Confirm Password">
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="colorgraph">
 
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-3 col-md-3">
-                                <div class="form-group">
-                                    <label><b>Membership Type:</b></label>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-3 col-md-3">
-                                <div class="form-group">
-                                    <label class="radio-inline"><input type="radio" name="membership" value="family"
-                                                                       required>Family $60</label>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-3 col-md-3">
-                                <div class="form-group">
-                                    <label class="radio-inline"><input type="radio" name="membership" value="Individual"
-                                                                       required>Individual $40</label>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-3 col-md-3">
-                                <div class="form-group">
-                                    <label class="radio-inline"><input type="radio" name="membership" value="Student"
-                                                                       required>Student $30</label>
-                                </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-3 col-md-3">
+                            <div class="form-group">
+                                <label><b>Membership Type:</b></label>
                             </div>
                         </div>
-
-                        <hr class="colorgraph">
-
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-8 col-md-8">
-                                <label><b>Make a Donation to Support A3M and your Community:</b></label>
-                            </div>
-                            <div class="col-xs-12 col-sm-4 col-md-4">
-                                <div class="form-group">
-                                    <input type="number" name="amount" id="amount" class="form-control input-sm"
-                                           placeholder="Amount  $">
-                                </div>
+                        <div class="col-xs-12 col-sm-3 col-md-3">
+                            <div class="form-group">
+                                <label class="radio-inline"><input type="radio" name="membership" value="family"
+                                                                   required>Family $60</label>
                             </div>
                         </div>
+                        <div class="col-xs-12 col-sm-3 col-md-3">
+                            <div class="form-group">
+                                <label class="radio-inline"><input type="radio" name="membership" value="Individual"
+                                                                   required>Individual $40</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-3 col-md-3">
+                            <div class="form-group">
+                                <label class="radio-inline"><input type="radio" name="membership" value="Student"
+                                                                   required>Student $30</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="colorgraph">
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-8">
+                            <label><b>Make a Donation to Support A3M and your Community:</b></label>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <input type="number" name="amount" id="amount" class="form-control input-sm"
+                                       placeholder="Amount  $">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-12 col-md-12" style="padding-right: 0px;padding-left: 0px;">
+                            <p><b>Donation allocation:</b> To designate your donation to a specific fund, please check
+                                the boxes bellow. To allow
+                                A3M to allocate your donation as needed, leave all boxes unchecked.</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="donationType[]" value="Emergency">
+                                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                                    Emergency & Hardship Fund
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="donationType[]" value="Activities">
+                                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                                    Activities & Social Events
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="donationType[]" value="Burial">
+                                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                                    Burial & Cemetery Fees Fund
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="donationType[]" value="Scholarships">
+                                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                                    Academics & Scholarships
+                                </label>
+                            </div>
+                            <input type="checkbox" name="donationType[]" style="display: none">
+                        </div>
+                    </div>
+                    <hr class="colorgraph">
+
+                    <fieldset>
+                        <legend>Card Details</legend>
+
                         <div class="form-group">
-                            <div class="col-xs-12 col-sm-12 col-md-12" style="padding-right: 0px;padding-left: 0px;">
-                                <p><b>Donation allocation:</b> To designate your donation to a specific fund, please
-                                    check the boxes bellow. To allow
-                                    A3M to allocate your donation as needed, leave all boxes unchecked.</p>
+                            <label class="col-sm-4 control-label" for="textinput">Card Holder's Name</label>
+                            <div class="col-sm-6 form-group">
+                                <input type="text" name="cardholdername" maxlength="70"
+                                       placeholder="Card Holder Name" class="card-holder-name form-control">
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <div class="col-sm-6">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="donationType[]" value="Emergency">
-                                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                                        Emergency & Hardship Fund
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="donationType[]" value="Activities">
-                                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                                        Activities & Social Events
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="donationType[]" value="Burial">
-                                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                                        Burial & Cemetery Fees Fund
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="donationType[]" value="Scholarships">
-                                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                                        Academics & Scholarships
-                                    </label>
-                                </div>
-                                <input type="checkbox" name="donationType[]" style="display: none">
+                            <label class="col-sm-4 control-label" for="textinput">Card Number</label>
+                            <div class="col-sm-6 form-group">
+                                <input type="text" id="cardnumber" maxlength="19" placeholder="Card Number"
+                                       class="card-number form-control">
                             </div>
                         </div>
-                        <hr class="colorgraph">
-                        <fieldset>
-                            <legend>Card Details</legend>
 
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label" for="textinput">Card Holder's Name</label>
-                                <div class="col-sm-6 form-group">
-                                    <input type="text" name="cardholdername" maxlength="70"
-                                           placeholder="Card Holder Name" class="card-holder-name form-control">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="textinput">Card Expiry Date</label>
+                            <div class="col-sm-6 form-group">
+                                <div class="form-inline">
+                                    <select name="select2" data-stripe="exp-month"
+                                            class="card-expiry-month stripe-sensitive required form-control">
+                                        <option value="01" selected="selected">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                    </select>
+                                    <span> / </span>
+                                    <select name="select2" data-stripe="exp-year"
+                                            class="card-expiry-year stripe-sensitive required form-control">
+                                    </select>
+                                    <script type="text/javascript">
+                                        var select = $(".card-expiry-year"),
+                                            year = new Date().getFullYear();
+
+                                        for (var i = 0; i < 12; i++) {
+                                            select.append($("<option value='" + (i + year) + "' " + (i === 0 ? "selected" : "") + ">" + (i + year) + "</option>"))
+                                        }
+                                    </script>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label" for="textinput">Card Number</label>
-                                <div class="col-sm-6 form-group">
-                                    <input type="text" id="cardnumber" maxlength="19" placeholder="Card Number"
-                                           class="card-number form-control">
-                                </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="textinput">CVV/CVV2</label>
+                            <div class="col-sm-3 form-group">
+                                <input type="text" id="cvv" placeholder="CVV" maxlength="4"
+                                       class="card-cvc form-control">
                             </div>
+                        </div>
+                    </fieldset>
 
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label" for="textinput">Card Expiry Date</label>
-                                <div class="col-sm-6 form-group">
-                                    <div class="form-inline">
-                                        <select name="select2" data-stripe="exp-month"
-                                                class="card-expiry-month stripe-sensitive required form-control">
-                                            <option value="01" selected="selected">01</option>
-                                            <option value="02">02</option>
-                                            <option value="03">03</option>
-                                            <option value="04">04</option>
-                                            <option value="05">05</option>
-                                            <option value="06">06</option>
-                                            <option value="07">07</option>
-                                            <option value="08">08</option>
-                                            <option value="09">09</option>
-                                            <option value="10">10</option>
-                                            <option value="11">11</option>
-                                            <option value="12">12</option>
-                                        </select>
-                                        <span> / </span>
-                                        <select name="select2" data-stripe="exp-year"
-                                                class="card-expiry-year stripe-sensitive required form-control">
-                                        </select>
-                                        <script type="text/javascript">
-                                            var select = $(".card-expiry-year"),
-                                                year = new Date().getFullYear();
-
-                                            for (var i = 0; i < 12; i++) {
-                                                select.append($("<option value='" + (i + year) + "' " + (i === 0 ? "selected" : "") + ">" + (i + year) + "</option>"))
-                                            }
-                                        </script>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label" for="textinput">CVV/CVV2</label>
-                                <div class="col-sm-3 form-group">
-                                    <input type="text" id="cvv" placeholder="CVV" maxlength="4"
-                                           class="card-cvc form-control">
-                                </div>
-                            </div>
-                        </fieldset>
-
+                    <!-- Important notice -->
+                    <div class="form-group">
                         <br>
 
                         <div class="row">
@@ -653,41 +715,42 @@
                                 set out by this site, including our Cookie Use.
                             </div>
                         </div>
+                        <br>
 
-                        <hr class="colorgraph">
-                        <div class="row">
-                            <div class="col-xs-12 col-md-12"><input type="submit"
-                                                                    class="btn btn-primary btn-block btn-lg"></div>
-                            <!-- <div class="col-xs-12 col-md-6"><a href="#" class="btn btn-success btn-block btn-lg">Sign In</a></div> -->
+                        <!-- Submit -->
+                        <div class="control-group">
+                            <div class="controls">
+                                <center>
+                                    <button type="submit" class="btn btn-primary btn-block btn-lg">Register</button>
+                                </center>
+                            </div>
                         </div>
-                        <!--       </form> -->
                     </div>
                 </div>
-                <!-- Modal -->
-                <div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
-                            </div>
-                            <div class="modal-body">
-                                <p>This is a test agreement</p>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">I Agree</button>
-                            </div>
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
             </div>
-</div>
-<!-- / main body -->
-<div class="clear"></div>
-</form>
-</main>
+            <!-- Modal -->
+            <div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>This is a test agreement</p>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">I Agree</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        </form>
+        <!--#################################################### End Of Form  ####################################################-->
+        <div class="clear"></div>
+    </main>
 </div>
 
 <!-- ################################################## Footer ################################# -->
@@ -773,7 +836,7 @@
 
 <div class="wrapper row5">
     <div id="copyright" class="hoc clear">
-        <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="http://www.a3michigan">www.a3michigan.org</a>
+        <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="http://www.a3michigan">www.a3michigan.com</a>
         </p>
     </div>
 </div>
@@ -782,5 +845,6 @@
 <!-- JAVASCRIPTS -->
 <script src="../layout/scripts/jquery.backtotop.js"></script>
 <script src="../layout/scripts/jquery.mobilemenu.js"></script>
+<script src="../layout/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
