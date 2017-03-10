@@ -30,9 +30,6 @@
     <script type="text/javascript" src="../js/bootstrapValidator-min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            validateform = function () {
-                console.log('yaaaaaaaaaaaaaaaaaaw-*-*-*-*-*-*-*-*-*');
-            };
             $('#payment-form').bootstrapValidator({
                 message: 'This value is not valid',
                 feedbackIcons: {
@@ -343,11 +340,12 @@
         <div class="">
             <?php
                 require '../lib/Stripe.php';
-
                 $error = '';
                 $success = '';
+                $dbErrors = array();  // array to hold validation errors
+                $dbSuccess = '';
+                $info = array();
                 $donationTypes = '';
-
                 if ($_POST) {
                     Stripe::setApiKey("sk_test_i79GJLb0WhkVSWqj1AbYh0bq");
 
@@ -371,17 +369,79 @@
                             )
                         );
                         $success = '<div class="alert alert-success">
-                      <strong>Success!</strong> Your payment was successful.
-                    </div>';
+                                      <strong>Success!</strong> Your payment was successful.
+                                    </div>';
                     } catch (Exception $e) {
                         $error = '<div class="alert alert-danger">
-                  <strong>Error!</strong> ' . $e->getMessage() . '
-                  </div>';
+                                    <strong>Error!</strong> ' . $e->getMessage() . '
+                                  </div>';
+                    }
+                        // array to pass back data
+                    $fname = $_POST["fname"];
+                    $lname = $_POST["lname"];
+                    $spouse = $_POST["spouse"];
+                    $address1 = $_POST["address1"];
+                    $address2 = $_POST["address2"];
+                    $city =  $_POST["city"];
+                    $state = $_POST["state"];
+                    $zip =   $_POST["zip"];
+                    $phone =   $_POST["phone"];
+                    $email =   $_POST["email"];
+                    $occupation =   $_POST["occupation"];
+                    $employer =   $_POST["employer"];
+                    $membership =   $_POST["membership"];
+                    $password =   $_POST["password"];
+
+                    // response if there are errors
+                    if (empty($dbErrors)) {
+                        $info['success'] = true;
+                        $info['message'] = 'Success!';
+
+                        $servername = "localhost";
+                        $username = "root";
+                        $dbpassword = "Zb121788n@d";
+                        $dbname = "a3m-members";
+
+                        // 1. Create a database connection
+                        $connection = mysqli_connect($servername,$username,$dbpassword);
+                        if (!$connection) {
+                            die("Database connection failed: " . mysqli_error());
+                        }
+                        // 2. Select a database to use
+                        $db_select = mysqli_select_db($connection, $dbname);
+
+                        $sql = "INSERT INTO `users` (`fname`, `lname`, `spouse`, `address1`, `address2`, `city`, `state`, `zipcode`, `phone`, `email`, `occupation`, `employer`, `membership`, `password`) VALUES
+                                    ('$fname', '$lname', '$spouse', '$address1', '$address2', '$city', '$state', '$zip' , '$phone', '$email', '$occupation', '$employer', '$membership', '$password')";
+
+                        if(!mysqli_query($connection,$sql)) {
+                            $dbErrors['duplicate'] = true;
+                            $info['success'] = false;
+                            $info['errors']  = $dbErrors;
+                            echo ''.mysqli_error($connection);
+                            // echo json_encode($info);
+                            // die('Error : ' . mysql_error());
+                        } else {
+                            echo "yaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaay";
+                            $dbSuccess = "Your information has been successfully added to the database.";
+                            // mysql_close($sql_connection);
+                        }
+                    } else {
+                        // if there are items in our errors array, return those errors
+                        $info['success'] = false;
+                        $info['errors']  = $dbErrors;
                     }
                 }
             ?>
             <div class="alert alert-danger" id="a_x200" style="display: none;"><strong>Error!</strong> <span
                         class="payment-errors"></span></div>
+            <span class="payment-success">
+                <?php
+                    foreach($dbErrors as $result) {
+                        echo $result, '<br>';
+                    }
+                ?>
+                <?= $dbSuccess ?>
+            </span>
             <span class="payment-success">
                 <?= $success ?>
                 <?= $error ?>

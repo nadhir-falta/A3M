@@ -490,3 +490,8 @@ table a, #comments a{background-color:inherit;}
     height: 40px;
     padding-top: 5px;
 }
+
+.has-feedback .form-control-feedback {
+	top: 0 !important;
+	text-align: left !important;
+}
