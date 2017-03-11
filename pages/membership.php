@@ -352,56 +352,22 @@
             $dbSuccess = '';
             $info = array();
             $donationTypes = '';
+            $membershipAmount = 0;
+            $donationAmount = 0;
+            $customer_json = [ 'paid' => 0];
+
             if ($_POST) {
+
                 Stripe::setApiKey("sk_test_i79GJLb0WhkVSWqj1AbYh0bq");
 
                 try {
-                    if (empty($_POST['address1']) || empty($_POST['city']) || empty($_POST['zip']))
+                    if (empty($_POST['fname']) || empty($_POST['lname']) || empty($_POST['address1']) ||
+                        empty($_POST['city']) || empty($_POST['state']) || empty($_POST['zip']) ||
+                        empty($_POST['phone']) || empty($_POST['email']) || empty($_POST['occupation']) ||
+                        empty($_POST['membership']) || empty($_POST['password']) || empty($_POST['confirmPassword']))
                         throw new Exception("Fill out all required fields.");
                     if (!isset($_POST['stripeToken']))
                         throw new Exception("The Stripe Token was not generated correctly, Please refresh the page");
-
-                    if (!empty($_POST['donationType'])) {
-                        $name = $_POST['donationType'];
-                        foreach ($name as $type) {
-                            $donationTypes = $donationTypes . $type . ', ';
-                        }
-                    }
-
-                    Stripe_Charge::create(array("amount" => $_POST['amount'] * 100, //is charged by centes so 100 cents make up a dollar
-                            "currency" => "usd",
-                            "card" => $_POST['stripeToken'],
-                            "description" => $donationTypes
-                        )
-                    );
-                    $success = '<div class="alert alert-success">
-                                      <strong>Success!</strong> Your payment was successful.
-                                    </div>';
-                } catch (Exception $e) {
-                    $error = '<div class="alert alert-danger">
-                                    <strong>Error!</strong> ' . $e->getMessage() . '
-                                  </div>';
-                }
-                // array to pass back data
-                $fname = $_POST["fname"];
-                $lname = $_POST["lname"];
-                $spouse = $_POST["spouse"];
-                $address1 = $_POST["address1"];
-                $address2 = $_POST["address2"];
-                $city = $_POST["city"];
-                $state = $_POST["state"];
-                $zip = $_POST["zip"];
-                $phone = $_POST["phone"];
-                $email = $_POST["email"];
-                $occupation = $_POST["occupation"];
-                $employer = $_POST["employer"];
-                $membership = $_POST["membership"];
-                $password = $_POST["password"];
-
-                // response if there are errors
-                if (empty($dbErrors)) {
-                    $info['success'] = true;
-                    $info['message'] = 'Success!';
 
                     $servername = "localhost";
                     $username = "root";
@@ -416,25 +382,115 @@
                     // 2. Select a database to use
                     $db_select = mysqli_select_db($connection, $dbname);
 
-                    $sql = "INSERT INTO `users` (`fname`, `lname`, `spouse`, `address1`, `address2`, `city`, `state`, `zipcode`, `phone`, `email`, `occupation`, `employer`, `membership`, `password`) VALUES
+                    //check if the a member with the same first name and last exist
+                    $fname = $_POST["fname"];
+                    $lname = $_POST["lname"];
+                    $result = mysqli_query($connection, "SELECT * FROM users WHERE fname='$fname' and lname='$lname'");
+                    $row = mysqli_fetch_array($result, MYSQLI_NUM);
+
+                    if($row[0]) {
+                        throw new Exception("A member with that first and last name already exist in our database. No payment has been made yet");
+                    }
+
+                    //Setup Donation type string for Description in payment portal
+                    if (!empty($_POST['donationType'])) {
+                        $name = $_POST['donationType'];
+                        foreach ($name as $type) {
+                            $donationTypes = $donationTypes . $type . ', ';
+                        }
+                    }
+
+                    //Setup payment amount based on membership type
+                    if($_POST['membership'] === 'Family') {
+                        $membershipAmount = 60;
+                    }
+                    if($_POST['membership'] === 'Individual') {
+                        $membershipAmount = 40;
+                    }
+                    if($_POST['membership'] === 'Student') {
+                        $membershipAmount = 630;
+                    }
+                    if (!empty($_POST['donationAmount'])) {
+                        $donationAmount = $_POST['donationAmount'] * 100 ;//is charged by centes so 100 cents make up a dollar
+                    }
+                    $totalAmount = $donationAmount +  $membershipAmount * 100;
+                    $descText = $membershipAmount . ' for '. $_POST['membership'].' Membership, and ' .  $donationAmount . ' donation for ' . $donationTypes;
+
+                    //conduct the payment thought Stripe
+                    $customer = Stripe_Charge::create(array("amount" => $totalAmount, //is charged by centes so 100 cents make up a dollar
+                            "currency" => "usd",
+                            "card" => $_POST['stripeToken'],
+                            "description" => $descText
+                        )
+                    );
+                    $customer_json = json_decode($customer, true);
+                    //echo json_encode($customer_json, JSON_PRETTY_PRINT);
+                    $success = '<div class="alert alert-success">
+                                      <strong>Success!</strong> Your payment was successful.
+                                    </div>';
+                } catch (Exception $e) {
+                    $error = '<div class="alert alert-danger">
+                                    <strong>Error!</strong> ' . $e->getMessage() . '
+                                  </div>';
+                }
+
+                //if payment was successful add data to the database
+                if ($customer_json['paid'] == 1) {
+                    // data to pass to the database
+                    $fname = $_POST["fname"];
+                    $lname = $_POST["lname"];
+                    $spouse = $_POST["spouse"];
+                    $address1 = $_POST["address1"];
+                    $address2 = $_POST["address2"];
+                    $city = $_POST["city"];
+                    $state = $_POST["state"];
+                    $zip = $_POST["zip"];
+                    $phone = $_POST["phone"];
+                    $email = $_POST["email"];
+                    $occupation = $_POST["occupation"];
+                    $employer = $_POST["employer"];
+                    $membership = $_POST["membership"];
+                    $password = $_POST["password"];
+
+                    // response if there are errors
+                    if (empty($dbErrors)) {
+                        $info['success'] = true;
+                        $info['message'] = 'Success!';
+
+                        $servername = "localhost";
+                        $username = "root";
+                        $dbpassword = "Zb121788n@d";
+                        $dbname = "a3m-members";
+
+                        // 1. Create a database connection
+                        $connection = mysqli_connect($servername, $username, $dbpassword);
+                        if (!$connection) {
+                            die("Database connection failed: " . mysqli_error());
+                        }
+                        // 2. Select a database to use
+                        $db_select = mysqli_select_db($connection, $dbname);
+
+                        $sql = "INSERT INTO `users` (`fname`, `lname`, `spouse`, `address1`, `address2`, `city`, `state`, `zipcode`, `phone`, `email`, `occupation`, `employer`, `membership`, `password`) VALUES
                                     ('$fname', '$lname', '$spouse', '$address1', '$address2', '$city', '$state', '$zip' , '$phone', '$email', '$occupation', '$employer', '$membership', '$password')";
 
-                    if (!mysqli_query($connection, $sql)) {
-                        $dbErrors['duplicate'] = true;
+                        if (!mysqli_query($connection, $sql)) {
+                            $dbErrors['duplicate'] = true;
+                            $info['success'] = false;
+                            $info['errors'] = $dbErrors;
+                            echo '' . mysqli_error($connection);
+                            // echo json_encode($info);
+                            // die('Error : ' . mysql_error());
+                        } else {
+                            $dbSuccess = '<div class="alert alert-success">
+                                            <strong>Success!</strong> Your information has been successfully added to our database.
+                                          </div>';
+                            //mysqli_close($sql_connection);
+                        }
+                    } else {
+                        // if there are items in our errors array, return those errors
                         $info['success'] = false;
                         $info['errors'] = $dbErrors;
-                        echo '' . mysqli_error($connection);
-                        // echo json_encode($info);
-                        // die('Error : ' . mysql_error());
-                    } else {
-                        echo "yaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaay";
-                        $dbSuccess = "Your information has been successfully added to the database.";
-                        // mysql_close($sql_connection);
                     }
-                } else {
-                    // if there are items in our errors array, return those errors
-                    $info['success'] = false;
-                    $info['errors'] = $dbErrors;
                 }
             }
             ?>
@@ -442,9 +498,9 @@
                         class="payment-errors"></span></div>
             <span class="payment-success">
                 <?php
-                foreach ($dbErrors as $result) {
-                    echo $result, '<br>';
-                }
+                    foreach ($dbErrors as $result) {
+                        echo $result, '<br>';
+                    }
                 ?>
                 <?= $dbSuccess ?>
             </span>
@@ -566,7 +622,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-3 col-md-3">
                             <div class="form-group">
-                                <label class="radio-inline"><input type="radio" name="membership" value="family"
+                                <label class="radio-inline"><input type="radio" name="membership" value="Family"
                                                                    required>Family $60</label>
                             </div>
                         </div>
@@ -592,7 +648,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             <div class="form-group">
-                                <input type="number" name="amount" id="amount" class="form-control input-sm"
+                                <input type="number" name="donationAmount" id="donationAmount" class="form-control input-sm"
                                        placeholder="Amount  $">
                             </div>
                         </div>
