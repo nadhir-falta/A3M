@@ -53,7 +53,7 @@ File: Layout CSS
 .services li article{padding:20px; border:1px solid;}
 .services li article *{margin:0; padding:0;}
 .services li article i{margin-bottom:20px;}
-.services li article .heading{margin-bottom:15px; font-size:1.2rem;}
+.services li article .heading{margin-bottom:15px; font-size:1.5rem;}
 .services li article p{}
 
 .excerpts{}
@@ -296,7 +296,7 @@ input:focus, textarea:focus, *:required:focus{border-color:#A2B70D;}
 .services li article:hover > a i{color:#A2B70D;}
 
 .excerpts article{border-color:#EDEDED; box-shadow:0px 0px 5px 5px #EDEDED;}/* There is sadly no box-shadow-color, so the full tag is here */
-.excerpts article:hover{border-color:#A2B70D; box-shadow:0px 0px 5px 5px rgba(162,183,13,.2)/* #A2B70D */;}
+.excerpts article:hover{border: 2px solid red; box-shadow:0px 0px 5px 5px rgba(162,183,13,.6)/* #A2B70D */;}
 
 .excerpts article figure figcaption{color:#FFFFFF;}
 .excerpts article figure figcaption time strong{color:#414905; background-color:#EDEDED;}
@@ -315,7 +315,7 @@ input:focus, textarea:focus, *:required:focus{border-color:#A2B70D;}
 
 
 /* Navigation */
-#mainav li a{color:inherit;}
+#mainav li a{color:inherit;text-decoration: none;}
 #mainav .active a, #mainav a:hover, #mainav li:hover > a{color:#A2B70D; background-color:inherit;}
 #mainav li li a, #mainav .active li a{color:#FFFFFF; background-color:rgba(0,0,0,.5); border-color:rgba(0,0,0,.1);}
 #mainav li li:hover > a, #mainav .active .active > a{color:#FFFFFF; background-color:red;}

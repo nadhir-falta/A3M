@@ -1,274 +1,320 @@
 <!DOCTYPE html>
 <html lang="">
 <head>
-<title>A3MICHIGAN</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <title>A3MICHIGAN</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body id="top">
 <!-- Top Background Image Wrapper -->
 <div class="bgded overlay" style="background-image:url('img/backgrounds/home-bg.jpg');">
-  <div class="wrapper row1">
-    <header id="header" class="hoc clear">
-      <div id="logo" class="fl_left">
-        <h1><a href="index.html"></a>A3M</h1>
-      </div>
-      <nav id="mainav" class="fl_right">
-        <ul class="clear">
-          <li class="active"><a href="index.html">Home</a></li>
-          <li><a class="drop" href="#">ABOUT</a>
-            <ul>
-              <li><a href="#whatwedo">WHAT WE DO</a></li>
-              <li><a href="pages/feedback.php">FEEDBACK</a></li>
-            </ul>
-          </li>
-          <li><a href="pages/survey.html">SURVEY</a></li>
-          <li><a class="drop" href="#">FORMS</a>
-            <ul>
-              <li><a href="pages/membership.php">MEMBERSHIP</a></li>
-              <li><a href="pages/bylaws.html">BYLAWS</a></li>
-            </ul>
-          </li>
-          <li><a href="pages/donation.php">DONATE</a></li>
-          <li><a class="drop" href="#">GALLERY</a>
-            <ul>
-              <li><a href="pages/algeria.html">ALGERIA</a></li>
-              <li><a href="pages/usa.html">USA</a></li>
-              <li><a href="pages/michigan.html">MICHIAGN</a></li>
-            </ul>
-          </li>
-          <li><a href="pages/news.html">NEWS</a></li>
-          <li><a href="#contact"">CONTACT</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
-            <ul id="login-dp" class="dropdown-menu">
-              <li>
-                <div class="row">
-                  <div class="col-md-12">
-                    <form class="form" action="./php/login.php" method="POST" id="login-nav" style="display: block">
-                      <div class="form-group">
-                        <label class="sr-only" for="email">Email address</label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Email address" required>
-                      </div>
-                      <div class="form-group">
-                        <label class="sr-only" for="password">Password</label>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
-                      </div>
-                      <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </li>
-          <li><a href="./pages/membership.php" data-toggle="modal" data-target='#modalRegister'>Register</a></li>
-        </ul>
-      </nav>
-    </header>
-  </div>
-  <section id="pageintro" class="hoc clear">
-    <div> 
-      <!-- ################################################################################################ -->
-      <h2 class="heading" style="text-align: left; width: 400px;">
-      <span style="color: green;">A</span>lgerian 
-      <span style="color: red;">A</span>merican 
-      <span style="color: white;">A</span>ssociation of 
-      <span style="color: green;">Mic</span><span style="color: red;">hi</span><span style="color: white;">gan</span></h2>
-      <h3>Where we serve the Algerian-Ameriacan community better</h3>
-      <footer><a class="btn" href="#whatwedo">Learn More</a></footer>
-      <!-- ################################################################################################ -->
+    <div class="wrapper row1">
+        <header id="header" class="hoc clear">
+            <div id="logo" class="fl_left">
+                <h1><a href="index.html"></a>A3M</h1>
+            </div>
+            <nav id="mainav" class="fl_right">
+                <ul class="clear">
+                    <li class="active"><a href="index.html">Home</a></li>
+                    <li><a class="drop" href="#">ABOUT</a>
+                        <ul>
+                            <li><a href="#whatwedo">WHAT WE DO</a></li>
+                            <li><a href="pages/feedback.php">FEEDBACK</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="pages/survey.html">SURVEY</a></li>
+                    <li><a class="drop" href="#">FORMS</a>
+                        <ul>
+                            <li><a href="pages/membership.php">MEMBERSHIP</a></li>
+                            <li><a href="pages/bylaws.html">BYLAWS</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="pages/donation.php">DONATE</a></li>
+                    <li><a class="drop" href="#">GALLERY</a>
+                        <ul>
+                            <li><a href="pages/algeria.html">ALGERIA</a></li>
+                            <li><a href="pages/usa.html">USA</a></li>
+                            <li><a href="pages/michigan.html">MICHIAGN</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="pages/news.html">NEWS</a></li>
+                    <li><a href="#contact"">CONTACT</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="caret"> </span>
+                            Login</a>
+                        <ul id="login-dp" class="dropdown-menu">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form class="form" action="./php/login.php" method="POST" id="login-nav"
+                                              style="display: block">
+                                            <div class="form-group">
+                                                <label class="sr-only" for="email">Email address</label>
+                                                <input type="email" class="form-control" name="email" id="email"
+                                                       placeholder="Email address" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="password">Password</label>
+                                                <input type="password" class="form-control" name="password"
+                                                       id="password" placeholder="Password" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="./pages/membership.php">Register</a></li>
+                </ul>
+            </nav>
+        </header>
     </div>
-  </section>
+    <section id="pageintro" class="hoc clear">
+        <div>
+            <!-- ################################################################################################ -->
+            <h2 class="heading" style="text-align: left; width: 400px;">
+                <span style="color: green;">A</span>lgerian
+                <span style="color: red;">A</span>merican
+                <span style="color: white;">A</span>ssociation of
+                <span style="color: green;">Mic</span><span style="color: red;">hi</span><span
+                    style="color: white;">gan</span></h2>
+            <h3>Where we serve the Algerian-Ameriacan community better</h3>
+            <footer><a class="btn" href="#whatwedo">Learn More</a></footer>
+            <!-- ################################################################################################ -->
+        </div>
+    </section>
 </div>
 
 <div class="wrapper row2">
-  <section class="container"> 
-    <!-- ################################################################################################ -->
-    <div id="whatwedo" class="sectiontitle" style="text-align: left;">
-      <br>
-      <br>
-      <h6 class="heading" style="text-align: center;">What We Do</h6>
-      <br>
-      <p><b>The Algerian American Association Of Michigan (A3M) was founded in 2016 with the following goals:</b></p>
-      <br>
+    <section class="container">
+        <!-- ################################################################################################ -->
+        <div id="whatwedo" class="sectiontitle" style="text-align: left;">
+            <br>
+            <br>
+            <h6 class="heading" style="text-align: center;">What We Do</h6>
+            <br>
+            <p><b>The Algerian American Association Of Michigan (A3M) was founded in 2016 with the following goals:</b>
+            </p>
+            <br>
 
-      <ul>
-        <li><p> To provide a forum for Algerian Americans to serve their interests and preserve their rich cultural traditions so they and their children would take pride in their unique heritage, their knowledge of Multiple languages, and their bicultural experience. </p></li>
-        <li><p>To promote understanding and enhance interaction between the Algerian-American community and the rest of the American public and its institutions.  </p></li>
-        <li><p> To promote understanding and cooperation between the American and Algerian peoples, and support Algeria’s efforts toward progress.
-                A3M is planning to hold several annual functions, which include but are not limited to Major Holiday events such as the “  Mutual US-DZ Independence Day Celebration  ”,  " EIDs",  and other social and recreational events which attract adults, youth and children. </p></li>
-      </ul>
-      <br>
-      <p>A3M is attempting to obtain a nonprofit tax-exempt Michigan corporation status, required documentation has been filed with proper authorities and upon receipt of an approval, we will communicate to our community such information.</p>
-      <br>
-      <p>A3M  relies on the volunteer work of its members, who are professionals that offer their time, effort and resources to help achieve the goals that the organization is trying to accomplish.</p>
-      <br>
-      <p>The success or failure of  A3M is ultimately  linked to the participation of its  members. The Actual Steering Committee and The Actual Board Directors  are nothing more than active volunteer members committed for a set period of time to fulfill a minimum program.  It is the A3M future members who should animate activities with the help of the Board.</p>
-      <br>
-      <p>The A3M’s bylaws allow complementing classes of membership for Algerian Americans and others who are interested in the Algerian culture and the A3M activities.</p>
-      <p>For further information regarding  A3M, please contact us via email: ﻿﻿﻿﻿info@A3Michigan.org</p>
-    </div>
+            <ul>
+                <li><p> To provide a forum for Algerian Americans to serve their interests and preserve their rich
+                    cultural traditions so they and their children would take pride in their unique heritage, their
+                    knowledge of Multiple languages, and their bicultural experience. </p></li>
+                <li><p>To promote understanding and enhance interaction between the Algerian-American community and the
+                    rest of the American public and its institutions. </p></li>
+                <li><p> To promote understanding and cooperation between the American and Algerian peoples, and support
+                    Algeria’s efforts toward progress.
+                    A3M is planning to hold several annual functions, which include but are not limited to Major Holiday
+                    events such as the “ Mutual US-DZ Independence Day Celebration ”, " EIDs", and other social and
+                    recreational events which attract adults, youth and children. </p></li>
+            </ul>
+            <br>
+            <p>A3M is attempting to obtain a nonprofit tax-exempt Michigan corporation status, required documentation
+                has been filed with proper authorities and upon receipt of an approval, we will communicate to our
+                community such information.</p>
+            <br>
+            <p>A3M relies on the volunteer work of its members, who are professionals that offer their time, effort and
+                resources to help achieve the goals that the organization is trying to accomplish.</p>
+            <br>
+            <p>The success or failure of A3M is ultimately linked to the participation of its members. The Actual
+                Steering Committee and The Actual Board Directors are nothing more than active volunteer members
+                committed for a set period of time to fulfill a minimum program. It is the A3M future members who should
+                animate activities with the help of the Board.</p>
+            <br>
+            <p>The A3M’s bylaws allow complementing classes of membership for Algerian Americans and others who are
+                interested in the Algerian culture and the A3M activities.</p>
+            <p>For further information regarding A3M, please contact us via email: ﻿﻿﻿﻿info@A3Michigan.org</p>
+        </div>
 
 
-    <ul class="nospace group services">
-      <li class="one_quarter first">
-        <article><a href="#"><i class="fa fa-3x fa-sign-in"></i></a>
-          <h6 class="heading font-x1"><a href="#">Membership</a></h6>
-          <p>Learn how to become a member of the A3M, and enjoy the benefits of our organization</p>
-        </article>
-      </li>
-      <li class="one_quarter">
-        <article><a href="#"><i class="fa fa-3x fa-credit-card"></i></a>
-          <h6 class="heading font-x1"><a href="#">Donations</a></h6>
-          <p>MAKING A DONATION WILL HELP US ACHIEVE OUR MISSION.</p>
-        </article>
-      </li>
-      <li class="one_quarter">
-        <article><a href="#"><i class="fa fa-3x fa-comments-o"></i></a>
-          <h6 class="heading font-x1"><a href="#">Contact us</a></h6>
-          <p>Come closer and get to know us and what we do for the community.</p>
-        </article>
-      </li>
-      <li class="one_quarter">
-        <article><a href="#"><i class="fa fa-3x fa-newspaper-o"></i></a>
-          <h6 class="heading font-x1"><a href="#">News</a></h6>
-          <p>Learn more about your community with A3M.</p>
-        </article>
-      </li>
-    </ul>
-    <!-- ################################################################################################ -->
-    <div class="clear"></div>
-  </section>
+        <ul class="nospace group services">
+            <li class="one_quarter first">
+                <article><a href="#"><i class="fa fa-3x fa-sign-in"></i></a>
+                    <h6 class="heading font-x1"><a href="#">Membership</a></h6>
+                    <p>Learn how to become a member of the A3M, and enjoy the benefits of our organization</p>
+                </article>
+            </li>
+            <li class="one_quarter">
+                <article><a href="#"><i class="fa fa-3x fa-credit-card"></i></a>
+                    <h6 class="heading font-x1"><a href="#">Donations</a></h6>
+                    <p>MAKING A DONATION WILL HELP US ACHIEVE OUR MISSION.</p>
+                </article>
+            </li>
+            <li class="one_quarter">
+                <article><a href="#"><i class="fa fa-3x fa-comments-o"></i></a>
+                    <h6 class="heading font-x1"><a href="#">Contact us</a></h6>
+                    <p>Come closer and get to know us and what we do for the community.</p>
+                </article>
+            </li>
+            <li class="one_quarter">
+                <article><a href="#"><i class="fa fa-3x fa-newspaper-o"></i></a>
+                    <h6 class="heading font-x1"><a href="#">News</a></h6>
+                    <p>Learn more about your community with A3M.</p>
+                </article>
+            </li>
+        </ul>
+        <!-- ################################################################################################ -->
+        <div class="clear"></div>
+    </section>
 </div>
 
 <div class="wrapper row3">
-  <section class="hoc container clear"> 
-    <!-- ################################################################################################ -->
-    <div class="sectiontitle">
-      <h6 class="heading">Coming Events</h6>
-      <p>Please Join us for the next scheduled Events</p>
-    </div>
-    <div class="group excerpts">
-      <article class="one_third first">
-        <figure><img src="img/backgrounds/ramadhan.jpg" alt="" style="height: 220px;">
-          <figcaption>
-            <time datetime="2045-04-06T08:15+00:00"><strong>06</strong> <em>Apr</em></time>
-          </figcaption>
-        </figure>
-        <div class="hgroup">
-          <h4 class="heading">Ramadhan Ftour</h4>
-          <ul class="nospace meta">
-            <li>by <a href="#">A3M</a></li>
-            <li>in <a href="#">Category Name</a></li>
-          </ul>
+    <section class="hoc container clear">
+        <!-- ################################################################################################ -->
+        <div class="sectiontitle">
+            <h6 class="heading">Coming Events</h6>
+            <p>Please Join us for the next scheduled Events</p>
         </div>
-        <div class="txtwrap">
-          <p>This is just a descriptive Text, you can ignore it if you want</p>
+        <div class="group excerpts">
+            <article class="one_third first">
+                <figure><img src="img/backgrounds/ramadhan.jpg" alt="" style="height: 220px;">
+                    <figcaption>
+                        <time datetime="2045-04-06T08:15+00:00"><strong>06</strong> <em>Apr</em></time>
+                    </figcaption>
+                </figure>
+                <div class="hgroup">
+                    <h4 class="heading">Ramadhan Ftour</h4>
+                    <ul class="nospace meta">
+                        <li>by <a href="#">A3M</a></li>
+                        <li>in <a href="#">Category Name</a></li>
+                    </ul>
+                </div>
+                <div class="txtwrap">
+                    <p>This is just a descriptive Text, you can ignore it if you want</p>
+                </div>
+                <footer><a class="btn" href="#">Read More &raquo;</a></footer>
+            </article>
+            <article class="one_third">
+                <figure><img src="img/backgrounds/eid.jpg" alt="" style="height: 220px;"">
+                    <figcaption>
+                        <time datetime="2045-04-05T08:15+00:00"><strong>05</strong> <em>Apr</em></time>
+                    </figcaption>
+                </figure>
+                <div class="hgroup">
+                    <h4 class="heading">Eid gathering</h4>
+                    <ul class="nospace meta">
+                        <li>by <a href="#">A3M</a></li>
+                        <li>in <a href="#">Category Name</a></li>
+                    </ul>
+                </div>
+                <div class="txtwrap">
+                    <p>This is just a descriptive Text, you can ignore it if you want</p>
+                </div>
+                <footer><a class="btn" href="#">Read More &raquo;</a></footer>
+            </article>
+            <article class="one_third">
+                <figure><img src="img/backgrounds/scholarship.jpg" alt="" style="height: 220px;"">
+                    <figcaption>
+                        <time datetime="2045-04-04T08:15+00:00"><strong>04</strong> <em>Apr</em></time>
+                    </figcaption>
+                </figure>
+                <div class="hgroup">
+                    <h4 class="heading">Scholarship</h4>
+                    <ul class="nospace meta">
+                        <li>by <a href="#">A3M</a></li>
+                        <li>in <a href="#">Category Name</a></li>
+                    </ul>
+                </div>
+                <div class="txtwrap">
+                    <p>This is just a descriptive Text, you can ignore it if you want]</p>
+                </div>
+                <footer><a class="btn" href="#">Read More &raquo;</a></footer>
+            </article>
         </div>
-        <footer><a class="btn" href="#">Read More &raquo;</a></footer>
-      </article>
-      <article class="one_third">
-        <figure><img src="img/backgrounds/eid.jpg" alt="" style="height: 220px;"">
-          <figcaption>
-            <time datetime="2045-04-05T08:15+00:00"><strong>05</strong> <em>Apr</em></time>
-          </figcaption>
-        </figure>
-        <div class="hgroup">
-          <h4 class="heading">Eid gathering</h4>
-          <ul class="nospace meta">
-            <li>by <a href="#">A3M</a></li>
-            <li>in <a href="#">Category Name</a></li>
-          </ul>
-        </div>
-        <div class="txtwrap">
-          <p>This is just a descriptive Text, you can ignore it if you want</p>
-        </div>
-        <footer><a class="btn" href="#">Read More &raquo;</a></footer>
-      </article>
-      <article class="one_third">
-        <figure><img src="img/backgrounds/scholarship.jpg" alt="" style="height: 220px;"">
-          <figcaption>
-            <time datetime="2045-04-04T08:15+00:00"><strong>04</strong> <em>Apr</em></time>
-          </figcaption>
-        </figure>
-        <div class="hgroup">
-          <h4 class="heading">Scholarship</h4>
-          <ul class="nospace meta">
-            <li>by <a href="#">A3M</a></li>
-            <li>in <a href="#">Category Name</a></li>
-          </ul>
-        </div>
-        <div class="txtwrap">
-          <p>This is just a descriptive Text, you can ignore it if you want]</p>
-        </div>
-        <footer><a class="btn" href="#">Read More &raquo;</a></footer>
-      </article>
-    </div>
 
-    <div class="clear"></div>
-  </section>
+        <div class="clear"></div>
+    </section>
 </div>
 
 <div class="wrapper row4 bgded overlay footerbg" id="contact">
-  <footer id="footer" class="hoc clear"> 
-    <div class="one_third first">
-      <h6 class="heading">A3M</h6>
-      <p>A3m is an Algerian/American organization....etc</p>
-      <p class="btmspace-50">This is just a descriptive text you can ignore it if you want</p>
-      <nav>
-        <ul class="nospace">
-          <li><a href="index.html"><i class="fa fa-lg fa-home"></i></a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Donate</a></li>
-          <li><a href="#">Membership</a></li>
-          <li><a href="#">Feedback</a></li>
-          <li><a href="#">Bylaws</a></li>
-          <li><a href="#">Survey</a></li>
-          <li><a href="#">News</a></li>
-          <li><a href="#">Gallery Algeria</a></li>
-          <li><a href="#">Gallery USA</a></li>
-          <li><a href="#">Gallery Michigan</a></li>
-        </ul>
-      </nav>
-    </div>
-    <div class="one_third">
-      <h6 class="heading">Address and Phone Numbers</h6>
-      <ul class="nospace btmspace-30 linklist contact">
-        <li><i class="fa fa-map-marker"></i>
-          <address>
-          Street Name &amp; Number, Town, Postcode/Zip
-          </address>
-        </li>
-        <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-        <li><i class="fa fa-fax"></i> +00 (123) 456 7890</li>
-        <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
-      </ul>
-      <ul class="faico clear">
-        <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-        <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-        <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>
-        <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-        <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-        <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>
-      </ul>
-    </div>
-    <div class="one_third">
-      <h6 class="heading">Location</h6>
-      <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAz02yCRNu3uItDorLGL2s3tTJX6ye9DeU'></script><div style='overflow:hidden;height:335px;width:436px;'><div id='gmap_canvas' style='height:335px;width:436px;'></div><style>#gmap_canvas img{max-width:none!important;background:none!important}</style></div> <a href='http://maps-generator.com/'>maps-generator.com</a> <script type='text/javascript' src='https://embedmaps.com/google-maps-authorization/script.js?id=edb9cbe68b8845fb95f39b7df84c61d04cc2fbd7'></script><script type='text/javascript'>function init_map(){var myOptions = {zoom:12,center:new google.maps.LatLng(42.331427,-83.0457538),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(42.331427,-83.0457538)});infowindow = new google.maps.InfoWindow({content:'<strong></strong><br><br> Detroit<br>'});google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);</script>
+    <footer id="footer" class="hoc clear">
+        <div class="one_third first">
+            <h6 class="heading">A3M</h6>
+            <p>A3m is an Algerian/American organization....etc</p>
+            <p class="btmspace-50">This is just a descriptive text you can ignore it if you want</p>
+            <nav>
+                <ul class="nospace">
+                    <li><a href="index.html"><i class="fa fa-lg fa-home"></i></a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Donate</a></li>
+                    <li><a href="#">Membership</a></li>
+                    <li><a href="#">Feedback</a></li>
+                    <li><a href="#">Bylaws</a></li>
+                    <li><a href="#">Survey</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Gallery Algeria</a></li>
+                    <li><a href="#">Gallery USA</a></li>
+                    <li><a href="#">Gallery Michigan</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="one_third">
+            <h6 class="heading">Address and Phone Numbers</h6>
+            <ul class="nospace btmspace-30 linklist contact">
+                <li><i class="fa fa-map-marker"></i>
+                    <address>
+                        Street Name &amp; Number, Town, Postcode/Zip
+                    </address>
+                </li>
+                <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
+                <li><i class="fa fa-fax"></i> +00 (123) 456 7890</li>
+                <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+            </ul>
+            <ul class="faico clear">
+                <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
+                <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>
+            </ul>
+        </div>
+        <div class="one_third">
+            <h6 class="heading">Location</h6>
+            <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAz02yCRNu3uItDorLGL2s3tTJX6ye9DeU'></script>
+            <div style='overflow:hidden;height:335px;width:436px;'>
+                <div id='gmap_canvas' style='height:335px;width:436px;'></div>
+                <style>#gmap_canvas img {
+                    max-width: none !important;
+                    background: none !important
+                }</style>
+            </div>
+            <a href='http://maps-generator.com/'>maps-generator.com</a>
+            <script type='text/javascript'
+                    src='https://embedmaps.com/google-maps-authorization/script.js?id=edb9cbe68b8845fb95f39b7df84c61d04cc2fbd7'></script>
+            <script type='text/javascript'>function init_map() {
+                var myOptions = {
+                    zoom: 12,
+                    center: new google.maps.LatLng(42.331427, -83.0457538),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
+                marker = new google.maps.Marker({map: map, position: new google.maps.LatLng(42.331427, -83.0457538)});
+                infowindow = new google.maps.InfoWindow({content: '<strong></strong><br><br> Detroit<br>'});
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.open(map, marker);
+                });
+                infowindow.open(map, marker);
+            }
+            google.maps.event.addDomListener(window, 'load', init_map);</script>
 
-    </div>
-    <!-- ################################################################################################ -->
-  </footer>
+        </div>
+        <!-- ################################################################################################ -->
+    </footer>
 </div>
 
 <div class="wrapper row5">
-  <div id="copyright" class="hoc clear"> 
-    <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="http://www.a3michigan">www.a3michigan.org</a></p>
-  </div>
+    <div id="copyright" class="hoc clear">
+        <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="http://www.a3michigan">www.a3michigan.org</a>
+        </p>
+    </div>
 </div>
 
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
