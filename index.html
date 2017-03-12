@@ -8,15 +8,10 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body id="top">
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
 <!-- Top Background Image Wrapper -->
-<div class="bgded overlay" style="background-image:url('img/backgrounds/home-bg.jpg');"> 
-  <!-- ################################################################################################ -->
+<div class="bgded overlay" style="background-image:url('img/backgrounds/home-bg.jpg');">
   <div class="wrapper row1">
-    <header id="header" class="hoc clear"> 
-      <!-- ################################################################################################ -->
+    <header id="header" class="hoc clear">
       <div id="logo" class="fl_left">
         <h1><a href="index.html"></a>A3M</h1>
       </div>
@@ -46,14 +41,35 @@
           </li>
           <li><a href="pages/news.html">NEWS</a></li>
           <li><a href="#contact"">CONTACT</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+            <ul id="login-dp" class="dropdown-menu">
+              <li>
+                <div class="row">
+                  <div class="col-md-12">
+                    <form class="form" action="./php/login.php" method="POST" id="login-nav" style="display: block">
+                      <div class="form-group">
+                        <label class="sr-only" for="email">Email address</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Email address" required>
+                      </div>
+                      <div class="form-group">
+                        <label class="sr-only" for="password">Password</label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                      </div>
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li><a href="./pages/membership.php" data-toggle="modal" data-target='#modalRegister'>Register</a></li>
         </ul>
       </nav>
-      <!-- ################################################################################################ -->
     </header>
   </div>
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
   <section id="pageintro" class="hoc clear">
     <div> 
       <!-- ################################################################################################ -->
@@ -67,12 +83,8 @@
       <!-- ################################################################################################ -->
     </div>
   </section>
-  <!-- ################################################################################################ -->
 </div>
-<!-- End Top Background Image Wrapper -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
+
 <div class="wrapper row2">
   <section class="container"> 
     <!-- ################################################################################################ -->
@@ -201,7 +213,6 @@
   </section>
 </div>
 
-<!-- ################################################## Footer ################################# -->
 <div class="wrapper row4 bgded overlay footerbg" id="contact">
   <footer id="footer" class="hoc clear"> 
     <div class="one_third first">
