@@ -1,11 +1,5 @@
 <?PHP
-/*
-    Contact Form from HTML Form Guide
-    This program is free software published under the
-    terms of the GNU Lesser General Public License.
-    See this page for more info:
-    http://www.html-form-guide.com/contact-form/creating-a-contact-form.html
-*/
+
 require_once("../php/fgcontactform.php");
 
 $formproc = new FGContactForm();
@@ -23,7 +17,7 @@ $formproc->SetFormRandomKey('7L882IjeBO838UM');
 
 if (isset($_POST['submitted'])) {
     if ($formproc->ProcessForm()) {
-        $formproc->RedirectToURL("../feedback/thank-you.php");
+        $formproc->RedirectToURL("./thank-you.php");
     }
 }
 
