@@ -191,7 +191,7 @@ nav ul, nav ol{margin:0; padding:0; list-style:none;}
 #mainav form select option{margin:5px; padding:0; border:none;}
 
 /* Breadcrumb */
-#breadcrumb{padding:240px 0 30px;}
+#breadcrumb{padding:350px 0 30px;}
 #breadcrumb ul{margin:0; padding:0; list-style:none; text-transform:uppercase;}
 #breadcrumb li{display:inline-block; margin:0 6px 0 0; padding:0;}
 #breadcrumb li a{display:block; position:relative; margin:0; padding:0 12px 0 0; font-size:12px;}
@@ -279,7 +279,7 @@ input:focus, textarea:focus, *:required:focus{border-color:#A2B70D;}
 
 
 /* Rows */
-.row1{color:#FFFFFF; background-color:rgba(0,0,0,.60);}
+.row1{color:#FFFFFF; background-color:rgba(0,0,0,.60);position: fixed;z-index: 99999999;top: 0;}
 .row2{color:#191919;}
 .row3{color:#191919; background-color:#FFFFFF;}
 .row4{color:#CBCBCB;}

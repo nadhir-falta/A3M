@@ -1,3 +1,50 @@
+<?php
+$userID = $_GET['id'];
+$servername = "localhost";
+$username = "root";
+$dbpassword = "Zb121788n@d";
+$dbname = "a3m-members";
+$childrenTable = '';
+$connection = mysqli_connect($servername, $username, $dbpassword);
+if (!$connection) {
+    die("Database connection failed: " . mysqli_error());
+}
+$db_select = mysqli_select_db($connection, $dbname);
+$parent_result = mysqli_query($connection, "SELECT * FROM users WHERE userID='$userID'");
+$children_result = mysqli_query($connection, "SELECT * FROM children WHERE parentID='$userID'");
+$parent_row = mysqli_fetch_array($parent_result, MYSQLI_NUM);
+$children_row = mysqli_fetch_array($parent_result, MYSQLI_NUM);
+while($row = mysqli_fetch_array($children_result)){
+    $childrenTable =  $childrenTable . '<table class="table table-user-information"><tbody><tr><td>Name:</td><td>'. $row[1] . ' ' . $row[2] . '</td></tr><tr><td>Age:</td><td>'. $row[3] .'</td></tr><tr><td>Gender:</td><td>'. $row[4] .'</td></tr></tbody></table>';
+}
+if(isset($_POST['submit'])){
+    $parentID = $_GET['id'];
+    $childFname = $_POST["childFname"];
+    $childLname = $_POST["childLname"];
+    $age = $_POST["age"];
+    $gender = $_POST["gender"];
+    $servername = "localhost";
+    $username = "root";
+    $dbpassword = "Zb121788n@d";
+    $dbname = "a3m-members";
+    $connection = mysqli_connect($servername, $username, $dbpassword);
+    if (!$connection) {
+        die("Database connection failed: " . mysqli_error());
+    }
+    $db_select = mysqli_select_db($connection, $dbname);
+    $sql = "INSERT INTO `children` (`childFname`, `childLname`, `age`, `gender`, `parentID`) VALUES
+                                        ('$childFname', '$childLname', '$age', '$gender', '$parentID')";
+
+    if (!mysqli_query($connection, $sql)) {
+        $dbErrors['duplicate'] = true;
+        $info['success'] = false;
+        $info['errors'] = $dbErrors;
+    } else {
+        header('Location: '. $_SERVER['REQUEST_URI']);
+        exit;
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="">
 <head>
@@ -8,12 +55,6 @@
     <link href="../layout/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
     <link href="../layout/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" media="all">
     <script type='text/javascript' src='../js/gen_validatorv31.js'></script>
-    <style>
-        .error {
-            color: red;
-            font-style: italic;
-        }
-    </style>
 </head>
 <body id="top">
 <!-- Top Background Image Wrapper -->
@@ -94,73 +135,6 @@
 </div>
 <div class="wrapper row3">
     <main class="hoc container clear">
-        <!-- main body -->
-        <?php
-            $userID = $_GET['id'];
-
-            $servername = "localhost";
-            $username = "root";
-            $dbpassword = "Zb121788n@d";
-            $dbname = "a3m-members";
-
-            $childrenTable = '';
-            $connection = mysqli_connect($servername, $username, $dbpassword);
-            if (!$connection) {
-                die("Database connection failed: " . mysqli_error());
-            }
-            $db_select = mysqli_select_db($connection, $dbname);
-
-            $parent_result = mysqli_query($connection, "SELECT * FROM users WHERE userID='$userID'");
-            $children_result = mysqli_query($connection, "SELECT * FROM children WHERE parentID='$userID'");
-
-            $parent_row = mysqli_fetch_array($parent_result, MYSQLI_NUM);
-            $children_row = mysqli_fetch_array($parent_result, MYSQLI_NUM);
-            while($row = mysqli_fetch_array($children_result)){
-                $childrenTable =  $childrenTable . '<table class="table table-user-information">
-                        <tbody>
-                            <tr>
-                                <td>Name:</td>
-                                <td>'. $row[1] . ' ' . $row[2] . '</td>
-                            </tr>
-                            <tr>
-                                <td>Age:</td>
-                                <td>'. $row[3] .'</td>
-                            </tr>
-                            <tr>
-                                <td>Gender:</td>
-                                <td>'. $row[4] .'</td>
-                            </tr>
-                        </tbody>
-                    </table>';
-            }
-        if(isset($_POST['submit'])){
-            $parentID = $_GET['id'];
-            $childFname = $_POST["childFname"];
-            $childLname = $_POST["childLname"];
-            $age = $_POST["age"];
-            $gender = $_POST["gender"];
-            $servername = "localhost";
-            $username = "root";
-            $dbpassword = "Zb121788n@d";
-            $dbname = "a3m-members";
-            $connection = mysqli_connect($servername, $username, $dbpassword);
-            if (!$connection) {
-                die("Database connection failed: " . mysqli_error());
-            }
-            $db_select = mysqli_select_db($connection, $dbname);
-            $sql = "INSERT INTO `children` (`childFname`, `childLname`, `age`, `gender`, `parentID`) VALUES
-                                    ('$childFname', '$childLname', '$age', '$gender', '$parentID')";
-
-            if (!mysqli_query($connection, $sql)) {
-                $dbErrors['duplicate'] = true;
-                $info['success'] = false;
-                $info['errors'] = $dbErrors;
-            } else {
-                header('Location: '. $_SERVER['REQUEST_URI']);
-                exit;
-            }
-        }
-        ?>
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" >
                 <div class="panel panel-info">
@@ -180,7 +154,7 @@
                                     </tr>
                                     <tr>
                                         <td>Address:</td>
-                                        <td><?= $parent_row[4] . ' ' . $parent_row[5] . '<br>' . $parent_row[6] . ' ' . $parent_row[7] . ' ' . $parent_row[8]?></td>
+                                        <td><?php echo $parent_row[4] . ' ' . $parent_row[5] . '<br>' . $parent_row[6] . ' ' . $parent_row[7] . ' ' . $parent_row[8]?></td>
                                     </tr>
                                     <tr>
                                         <td>Phone</td>
@@ -222,7 +196,7 @@
                                 <img alt="User Pic" src="../img/baby-avatar.jpg" class="img-circle img-responsive">
                             </div>
                             <div class=" col-md-9 col-lg-9 ">
-                                <?= $childrenTable ?>
+                                <?php echo $childrenTable ?>
                             </div>
                         </div>
                         <div class="row">
