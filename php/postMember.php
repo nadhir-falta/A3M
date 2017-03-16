@@ -47,7 +47,7 @@
         $servername = "localhost";
         $username = "root";
         $password = "Zb121788n@d";
-        $dbname = "a3m-members";
+        $dbname = "a3m";
 
         echo "**** $fname $lname $spouse $address1 $address2 $city $state $zip $phone $email $occupation $employer $membership $password" ;
         // 1. Create a database connection
