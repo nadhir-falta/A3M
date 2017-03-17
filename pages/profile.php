@@ -3,7 +3,7 @@ $userID = $_GET['id'];
 $servername = "localhost";
 $username = "root";
 $dbpassword = "Zb121788n@d";
-$dbname = "a3m";
+$dbname = "a3m-db";
 $childrenTable = '';
 $connection = mysqli_connect($servername, $username, $dbpassword);
 if (!$connection) {
@@ -26,7 +26,7 @@ if(isset($_POST['submit'])){
     $servername = "localhost";
     $username = "root";
     $dbpassword = "Zb121788n@d";
-    $dbname = "a3m";
+    $dbname = "a3m-db";
     $connection = mysqli_connect($servername, $username, $dbpassword);
     if (!$connection) {
         die("Database connection failed: " . mysqli_error());

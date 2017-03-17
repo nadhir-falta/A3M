@@ -406,7 +406,7 @@
                         $servername = "localhost";
                         $username = "root";
                         $dbpassword = "Zb121788n@d";
-                        $dbname = "a3m";
+                        $dbname = "a3m-db";
 
                         // 1. Create a database connection
                         $connection = mysqli_connect($servername,$username,$dbpassword);
