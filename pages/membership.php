@@ -399,14 +399,15 @@
                         throw new Exception("The Stripe Token was not generated correctly, Please refresh the page");
 
                     $servername = "localhost";
-                    $username = "root";
+                    $username = "nfalta";
                     $dbpassword = "Zb121788n@d";
                     $dbname = "a3m-db";
 
                     // 1. Create a database connection
-                    $connection = mysqli_connect($servername, $username, $dbpassword);
-                    if (!$connection) {
-                        die("Database connection failed: " . mysqli_error());
+                    $connection = new mysqli($servername, $username, $dbpassword, $dbname);
+                    if ($connection->connect_errno) {
+                        printf("Connect failed: %s\n", $connection->connect_error);
+                        exit();
                     }
                     // 2. Select a database to use
                     $db_select = mysqli_select_db($connection, $dbname);
@@ -487,14 +488,15 @@
                         $info['message'] = 'Success!';
 
                         $servername = "localhost";
-                        $username = "root";
+                        $username = "nfalta";
                         $dbpassword = "Zb121788n@d";
                         $dbname = "a3m-db";
 
                         // 1. Create a database connection
-                        $connection = mysqli_connect($servername, $username, $dbpassword);
-                        if (!$connection) {
-                            die("Database connection failed: " . mysqli_error());
+                        $connection = new mysqli($servername, $username, $dbpassword, $dbname);
+                        if ($connection->connect_errno) {
+                            printf("Connect failed: %s\n", $connection->connect_error);
+                            exit();
                         }
                         // 2. Select a database to use
                         $db_select = mysqli_select_db($connection, $dbname);

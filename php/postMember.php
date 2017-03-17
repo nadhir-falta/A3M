@@ -45,7 +45,7 @@
         // $con = mysql_connect("localhost", "root", "Zb121788n@d") or die('Could not connect: ' . mysql_error());
 
         $servername = "localhost";
-        $username = "root";
+        $username = "nfalta";
         $password = "Zb121788n@d";
         $dbname = "a3m-db";
 

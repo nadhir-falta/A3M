@@ -1,7 +1,7 @@
 <?php
 $userID = $_GET['id'];
 $servername = "localhost";
-$username = "root";
+$username = "nfalta";
 $dbpassword = "Zb121788n@d";
 $dbname = "a3m-db";
 $childrenTable = '';
@@ -24,7 +24,7 @@ if(isset($_POST['submit'])){
     $age = $_POST["age"];
     $gender = $_POST["gender"];
     $servername = "localhost";
-    $username = "root";
+    $username = "nfalta";
     $dbpassword = "Zb121788n@d";
     $dbname = "a3m-db";
     $connection = mysqli_connect($servername, $username, $dbpassword);

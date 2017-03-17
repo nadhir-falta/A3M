@@ -2,7 +2,7 @@
 
 if ($_POST) {
     $servername = "localhost";
-    $username = "root";
+    $username = "nfalta";
     $dbpassword = "Zb121788n@d";
     $dbname = "a3m-db";
 
