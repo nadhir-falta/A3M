@@ -1,46 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="">
 <head>
-    <title>A3Michigan</title>
-    <meta name="author" content="Ste Brennan - Code Computerlove - http://www.codecomputerlove.com/"/>
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <link href="../gallery/styles.css" type="text/css" rel="stylesheet"/>
-
-    <link href="../gallery/photoswipe.css" type="text/css" rel="stylesheet"/>
-
-    <script type="text/javascript" src="../gallery/lib/klass.min.js"></script>
-    <script type="text/javascript" src="../gallery/code.photoswipe-3.0.5.min.js"></script>
-
+    <title>A3MICHIGAN</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
-    <link rel="stylesheet" href="../css/bootstrap-min.css">
-    <link rel="stylesheet" href="../css/bootstrap-formhelpers-min.css" media="screen">
-    <link rel="stylesheet" href="../css/bootstrapValidator-min.css"/>
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
-    <link rel="stylesheet" href="../css/bootstrap-side-notes.css"/>
-
-    <script type="text/javascript">
-
-        (function (window, PhotoSwipe) {
-
-            document.addEventListener('DOMContentLoaded', function () {
-
-                var
-                    options = {},
-                    instance = PhotoSwipe.attach(window.document.querySelectorAll('#Gallery a'), options);
-
-            }, false);
-
-
-        }(window, window.Code.PhotoSwipe));
-
-    </script>
-
+    <link href="../layout/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../layout/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
-<body>
-<div class="bgded overlay">
-
-    <!--#################################################### Nav  ####################################################-->
+<body id="top">
+<!-- Top Background Image Wrapper -->
+<div class="bgded overlay" style="background-image:url('../img/backgrounds/alg-brushed.jpg');">
     <div class="wrapper row1">
         <header id="header" class="hoc clear">
             <div id="logo" class="fl_left">
@@ -56,14 +27,14 @@
                         </ul>
                     </li>
                     <li><a href="survey.html">SURVEY</a></li>
-                    <li><a class="drop" href="#">FORMS</a>
+                    <li class="active"><a class="drop" href="#">FORMS</a>
                         <ul>
                             <li><a href="register.html">MEMBERSHIP</a></li>
                             <li><a href="bylaws.html">BYLAWS</a></li>
                         </ul>
                     </li>
                     <li><a href="donation.php">DONATE</a></li>
-                    <li class="active"><a class="drop" href="#">GALLERIES</a>
+                    <li><a class="drop" href="#">GALLERIES</a>
                         <ul>
                             <li><a href="algeria.html">ALGERIA</a></li>
                             <li><a href="usa.html">USA</a></li>
@@ -104,34 +75,57 @@
             <!-- ################################################################################################ -->
         </header>
     </div>
-    <!--#################################################### End of Nav  ####################################################-->
-    <!-- ########################################### end of breadcrumb ############################################### -->
+
+    <section id="breadcrumb" class="hoc clear">
+        <!-- ################################################################################################ -->
+        <h6 class="heading">Membership</h6>
+        <!-- ################################################################################################ -->
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="./membership.php">Membership</a></li>
+        </ul>
+        <!-- ################################################################################################ -->
+    </section>
+    <!-- ################################################################################################ -->
 </div>
-<div id="MainContent">
-    <div class="page-content">
-        <h1>Michigan</h1>
-    </div>
-
-    <ul id="Gallery" class="gallery">
-        <li><a href="../gallery/images/michigan/1.jpg"><img src="../gallery/images/michigan/1.jpg" alt="3"/></a></li>
-        <li><a href="../gallery/images/michigan/2.jpg"><img src="../gallery/images/michigan/2.jpg" alt="4"/></a></li>
-        <li><a href="../gallery/images/michigan/3.jpg"><img src="../gallery/images/michigan/3.jpg" alt="1"/></a></li>
-        <li><a href="../gallery/images/michigan/4.jpg"><img src="../gallery/images/michigan/4.jpg" alt="2"/></a></li>
-
-        <li><a href="../gallery/images/michigan/5.jpg"><img src="../gallery/images/michigan/5.jpg"
-                                                            alt="Image donations"/></a></li>
-        <li><a href="../gallery/images/michigan/6.jpg"><img src="../gallery/images/michigan/6.jpg"
-                                                            alt="Image donations"/></a></li>
-        <li><a href="../gallery/images/michigan/7.jpg"><img src="../gallery/images/michigan/7.jpg"
-                                                            alt="Image donations"/></a></li>
-    </ul>
-
-</div>
-
-
-<!-- / main body -->
-<div class="clear"></div>
-</main>
+<div class="wrapper row3">
+    <main class="hoc container clear">
+        <!-- main body -->
+        <h2>
+            <small>Become a Member</small>
+        </h2>
+        <p>Choose the type of membership that better suits you from the dropdown below and proceed to checkout via paypal.
+        After your successfull payment, you will be redirected back to finish your registration with A3M.</p>
+        <hr class="colorgraph">
+        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top" style="margin: auto; max-width: 300px;">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="K8WBR2D7LPTAU">
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <input type="hidden" name="on0" value="membership"><label>Membership Type:</label>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <div class="form-inline">
+                            <select name="os0" class="card-expiry-month stripe-sensitive required form-control">
+                                <option value="Student">Student $30.00 USD</option>
+                                <option value="Individual">Individual $40.00 USD</option>
+                                <option value="Family">Family $60.00 USD</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <input type="hidden" name="currency_code" value="USD">
+            <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+            <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        </form>
 </div>
 
 <!-- ################################################## Footer ################################# -->

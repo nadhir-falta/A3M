@@ -62,7 +62,7 @@ if(isset($_POST['submit'])){
     <div class="wrapper row1">
         <header id="header" class="hoc clear">
             <div id="logo" class="fl_left">
-                <h1><a href="index.html"></a>A3M</h1>
+                <h1><a href="../index.html"></a>A3M</h1>
             </div>
             <nav id="mainav" class="fl_right">
                 <ul class="clear">
@@ -76,16 +76,16 @@ if(isset($_POST['submit'])){
                     <li><a href="survey.html">SURVEY</a></li>
                     <li><a class="drop" href="#">FORMS</a>
                         <ul>
-                            <li><a href="membership.php">MEMBERSHIP</a></li>
+                            <li><a href="register.html">MEMBERSHIP</a></li>
                             <li><a href="bylaws.html">BYLAWS</a></li>
                         </ul>
                     </li>
                     <li><a href="donation.php">DONATE</a></li>
-                    <li><a class="drop" href="#">GALLERY</a>
+                    <li><a class="drop" href="#">GALLERIES</a>
                         <ul>
                             <li><a href="algeria.html">ALGERIA</a></li>
                             <li><a href="usa.html">USA</a></li>
-                            <li><a href="michigan.html">MICHIAGN</a></li>
+                            <li><a href="michigan.html">MICHIGAN</a></li>
                         </ul>
                     </li>
                     <li><a href="news.html">NEWS</a></li>
@@ -100,14 +100,12 @@ if(isset($_POST['submit'])){
                                         <form class="form" action="../php/login.php" method="POST" id="login-nav"
                                               style="display: block">
                                             <div class="form-group">
-                                                <label class="sr-only" for="email">Email address</label>
-                                                <input type="email" class="form-control" name="email" id="email"
-                                                       placeholder="Email address" required>
+                                                <label class="sr-only" for="logEmail">Email address</label>
+                                                <input type="email" class="form-control" name="logEmail" id="logEmail" placeholder="Email address" required>
                                             </div>
                                             <div class="form-group">
-                                                <label class="sr-only" for="password">Password</label>
-                                                <input type="password" class="form-control" name="password"
-                                                       id="password" placeholder="Password" required>
+                                                <label class="sr-only" for="logPassword">Password</label>
+                                                <input type="password" class="form-control" name="logPassword" id="logPassword" placeholder="Password" required>
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary btn-block">Sign in</button>
@@ -118,7 +116,7 @@ if(isset($_POST['submit'])){
                             </li>
                         </ul>
                     </li>
-                    <li><a href="./membership.php">Register</a></li>
+                    <li><a href="./register.html">Register</a></li>
                 </ul>
             </nav>
         </header>
@@ -254,17 +252,17 @@ if(isset($_POST['submit'])){
             <p class="btmspace-50">This is just a descriptive text you can ignore it if you want</p>
             <nav>
                 <ul class="nospace">
-                    <li><a href="index.html"><i class="fa fa-lg fa-home"></i></a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Donate</a></li>
-                    <li><a href="#">Membership</a></li>
-                    <li><a href="#">Feedback</a></li>
-                    <li><a href="#">Bylaws</a></li>
-                    <li><a href="#">Survey</a></li>
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">Gallery Algeria</a></li>
-                    <li><a href="#">Gallery USA</a></li>
-                    <li><a href="#">Gallery Michigan</a></li>
+                    <li><a href="../index.html"><i class="fa fa-lg fa-home"></i></a></li>
+
+                    <li><a href="./donation.php">Donate</a></li>
+                    <li><a href="./membership.php">Membership</a></li>
+                    <li><a href="./feedback.php">Feedback</a></li>
+                    <li><a href="./bylaws.html">Bylaws</a></li>
+                    <li><a href="./survey.html">Survey</a></li>
+                    <li><a href="./news.html">News</a></li>
+                    <li><a href="./algeria.html">Gallery Algeria</a></li>
+                    <li><a href="./usa.html">Gallery USA</a></li>
+                    <li><a href="./michigan.html">Gallery Michigan</a></li>
                 </ul>
             </nav>
         </div>
@@ -334,6 +332,11 @@ if(isset($_POST['submit'])){
 </div>
 
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
+<div style="z-index: 99999;position: fixed;bottom: 20px;left: 20px;">
+    <a href="./donation.php">
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" alt="PayPal - The safer, easier way to pay online!">
+    </a>
+</div>
 <!-- JAVASCRIPTS -->
 <script src="../layout/scripts/jquery.min.js"></script>
 <script src="../layout/scripts/jquery.backtotop.js"></script>

@@ -28,20 +28,20 @@
                     <li><a href="pages/survey.html">SURVEY</a></li>
                     <li><a class="drop" href="#">FORMS</a>
                         <ul>
-                            <li><a href="pages/membership.php">MEMBERSHIP</a></li>
+                            <li><a href="pages/register.html">MEMBERSHIP</a></li>
                             <li><a href="pages/bylaws.html">BYLAWS</a></li>
                         </ul>
                     </li>
                     <li><a href="pages/donation.php">DONATE</a></li>
-                    <li><a class="drop" href="#">GALLERY</a>
+                    <li><a class="drop" href="#">GALLERIES</a>
                         <ul>
                             <li><a href="pages/algeria.html">ALGERIA</a></li>
                             <li><a href="pages/usa.html">USA</a></li>
-                            <li><a href="pages/michigan.html">MICHIAGN</a></li>
+                            <li><a href="pages/michigan.html">MICHIGAN</a></li>
                         </ul>
                     </li>
                     <li><a href="pages/news.html">NEWS</a></li>
-                    <li><a href="#contact"">CONTACT</a></li>
+                    <li><a href="#contact">CONTACT</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="caret"> </span>
                             Login</a>
@@ -52,14 +52,12 @@
                                         <form class="form" action="./php/login.php" method="POST" id="login-nav"
                                               style="display: block">
                                             <div class="form-group">
-                                                <label class="sr-only" for="email">Email address</label>
-                                                <input type="email" class="form-control" name="email" id="email"
-                                                       placeholder="Email address" required>
+                                                <label class="sr-only" for="logEmail">Email address</label>
+                                                <input type="email" class="form-control" name="logEmail" id="logEmail" placeholder="Email address" required>
                                             </div>
                                             <div class="form-group">
-                                                <label class="sr-only" for="password">Password</label>
-                                                <input type="password" class="form-control" name="password"
-                                                       id="password" placeholder="Password" required>
+                                                <label class="sr-only" for="logPassword">Password</label>
+                                                <input type="password" class="form-control" name="logPassword" id="logPassword" placeholder="Password" required>
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary btn-block">Sign in</button>
@@ -70,7 +68,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a href="./pages/membership.php">Register</a></li>
+                    <li><a href="./pages/register.html">Register</a></li>
                 </ul>
             </nav>
         </header>
@@ -80,15 +78,20 @@
             <!-- ################################################################################################ -->
             <h2 class="heading" style="text-align: left; width: 400px;">
                 <span style="color: green;">A</span>lgerian
-                <span style="color: red;">A</span>merican
+                <span style="color: red;">A</span>meri<span style="color: blue;">can</span>
                 <span style="color: white;">A</span>ssociation of
                 <span style="color: green;">Mic</span><span style="color: red;">hi</span><span
                     style="color: white;">gan</span></h2>
-            <h3>Where we serve the Algerian-Ameriacan community better</h3>
+            <h3>Where we serve the Algerian-American community better</h3>
             <footer><a class="btn" href="#whatwedo">Learn More</a></footer>
             <!-- ################################################################################################ -->
         </div>
     </section>
+</div>
+<div style="z-index: 99999;position: fixed;bottom: 20px;left: 20px;">
+    <a href="./pages/donation.php">
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" alt="PayPal - The safer, easier way to pay online!">
+    </a>
 </div>
 
 <div class="wrapper row2">
@@ -97,7 +100,7 @@
         <div id="whatwedo" class="sectiontitle" style="text-align: left;">
             <br>
             <br>
-            <h6 class="heading" style="text-align: center;">What We Do</h6>
+            <h6 class="heading" style="text-align: center;color: #008f68;">What We Do</h6>
             <br>
             <p><b>The Algerian American Association Of Michigan (A3M) was founded in 2016 with the following goals:</b>
             </p>
@@ -136,26 +139,26 @@
 
         <ul class="nospace group services">
             <li class="one_quarter first">
-                <article><a href="#"><i class="fa fa-3x fa-sign-in"></i></a>
-                    <h6 class="heading font-x1"><a href="#">Membership</a></h6>
+                <article><a href="./pages/register.html"><i class="fa fa-3x fa-sign-in"></i></a>
+                    <h6 class="heading font-x1"><a href="./pages/register.html">Membership</a></h6>
                     <p>Join the A3M, and enjoy the benefits of our organization</p>
                 </article>
             </li>
             <li class="one_quarter">
-                <article><a href="#"><i class="fa fa-3x fa-credit-card"></i></a>
-                    <h6 class="heading font-x1"><a href="#">Donations</a></h6>
+                <article><a href="./pages/donation.php"><i class="fa fa-3x fa-credit-card"></i></a>
+                    <h6 class="heading font-x1"><a href="./pages/donation.php">Donations</a></h6>
                     <p>Making a donation will help us achieve our mission</p>
                 </article>
             </li>
             <li class="one_quarter">
-                <article><a href="#"><i class="fa fa-3x fa-comments-o"></i></a>
-                    <h6 class="heading font-x1"><a href="#">Contact us</a></h6>
+                <article><a href="#contact"><i class="fa fa-3x fa-comments-o"></i></a>
+                    <h6 class="heading font-x1"><a href="#contact">Contact us</a></h6>
                     <p>Come closer and get to know us and what we do for the community.</p>
                 </article>
             </li>
             <li class="one_quarter">
-                <article><a href="#"><i class="fa fa-3x fa-newspaper-o"></i></a>
-                    <h6 class="heading font-x1"><a href="#">News</a></h6>
+                <article><a href="./pages/news.html"><i class="fa fa-3x fa-newspaper-o"></i></a>
+                    <h6 class="heading font-x1"><a href="./pages/news.html">News</a></h6>
                     <p>Learn more about your community with A3M.</p>
                 </article>
             </li>
@@ -169,8 +172,8 @@
     <section class="hoc container clear">
         <!-- ################################################################################################ -->
         <div class="sectiontitle">
-            <h6 class="heading">Coming Events</h6>
-            <p>Please Join us for the next scheduled Events</p>
+            <h6 class="heading" style="text-align: center;color: #008f68;">Coming Events</h6>
+            <h4>Please Join us for the next scheduled Events</h4>
         </div>
         <div class="group excerpts">
             <article class="one_third first">
@@ -180,7 +183,7 @@
                     </figcaption>
                 </figure>
                 <div class="hgroup">
-                    <h4 class="heading">Ramadhan Ftour</h4>
+                    <h2 class="heading">Ramadhan Ftour</h2>
                     <ul class="nospace meta">
                         <li>by <a href="#">A3M</a></li>
                         <li>in <a href="#">Category Name</a></li>
@@ -242,16 +245,15 @@
             <nav>
                 <ul class="nospace">
                     <li><a href="index.html"><i class="fa fa-lg fa-home"></i></a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Donate</a></li>
-                    <li><a href="#">Membership</a></li>
-                    <li><a href="#">Feedback</a></li>
-                    <li><a href="#">Bylaws</a></li>
-                    <li><a href="#">Survey</a></li>
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">Gallery Algeria</a></li>
-                    <li><a href="#">Gallery USA</a></li>
-                    <li><a href="#">Gallery Michigan</a></li>
+                    <li><a href="./pages/donation.php">Donate</a></li>
+                    <li><a href="./pages/register.html">Membership</a></li>
+                    <li><a href="./pages/feedback.php">Feedback</a></li>
+                    <li><a href="./pages/bylaws.html">Bylaws</a></li>
+                    <li><a href="./pages/survey.html">Survey</a></li>
+                    <li><a href="./pages/news.html">News</a></li>
+                    <li><a href="./pages/algeria.html">Gallery Algeria</a></li>
+                    <li><a href="./pages/usa.html">Gallery USA</a></li>
+                    <li><a href="./pages/michigan.html">Gallery Michigan</a></li>
                 </ul>
             </nav>
         </div>

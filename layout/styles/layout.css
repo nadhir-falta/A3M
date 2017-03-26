@@ -78,10 +78,10 @@ File: Layout CSS
 
 .excerpts article .hgroup, .excerpts article .txtwrap, .excerpts article footer{padding:20px;}
 .excerpts article .hgroup, .excerpts article footer{text-align:center;}
-.excerpts article .hgroup .heading{margin:0; font-size:1.2rem; text-align:center;}
+.excerpts article .hgroup .heading{margin:0; font-size:1.8rem; text-align:center;}
 .excerpts article .hgroup em{display:block; font-size:.8rem; font-style:normal;}
 .excerpts article .hgroup .meta{text-align:center;}
-.excerpts article .hgroup .meta li{display:inline-block; font-size:.8rem;}
+.excerpts article .hgroup .meta li{display:inline-block; font-size:1.2rem;}
 .excerpts article .hgroup .meta li::after{margin-left:5px; content:"/";}
 .excerpts article .hgroup .meta li:last-child::after{margin:0; content:"";}
 .excerpts article .txtwrap *{margin:0; padding:0;}
@@ -291,7 +291,7 @@ input:focus, textarea:focus, *:required:focus{border-color:#A2B70D;}
 
 
 /* Content Area */
-.services li article{border-color:#D7D7D7;}
+.services li article{border-color:#D7D7D7;min-height: 200px;}
 .services li article > a{color:inherit;}
 .services li article:hover > a i{color:#A2B70D;}
 
@@ -545,4 +545,11 @@ table a, #comments a{background-color:inherit;}
 		background-color: inherit;
 		border-top:0 none;
 	}
+}
+
+
+.heading {
+	font-size: 4em;
+	font-family: "Segoe UI", "Helvetica Neue", Helvetica, Roboto, 'Open Sans', FreeSans, sans-serif;
+	font-style: italic;
 }

@@ -298,7 +298,7 @@
     <div class="wrapper row1">
         <header id="header" class="hoc clear">
             <div id="logo" class="fl_left">
-                <h1><a href="index.html"></a>A3M</h1>
+                <h1><a href="../index.html"></a>A3M</h1>
             </div>
             <nav id="mainav" class="fl_right">
                 <ul class="clear">
@@ -312,20 +312,20 @@
                     <li><a href="survey.html">SURVEY</a></li>
                     <li class="active"><a class="drop" href="#">FORMS</a>
                         <ul>
-                            <li><a href="membership.php">MEMBERSHIP</a></li>
+                            <li><a href="register.html">MEMBERSHIP</a></li>
                             <li><a href="bylaws.html">BYLAWS</a></li>
                         </ul>
                     </li>
                     <li><a href="donation.php">DONATE</a></li>
-                    <li><a class="drop" href="#">GALLERY</a>
+                    <li><a class="drop" href="#">GALLERIES</a>
                         <ul>
                             <li><a href="algeria.html">ALGERIA</a></li>
                             <li><a href="usa.html">USA</a></li>
-                            <li><a href="michigan.html">MICHIAGN</a></li>
+                            <li><a href="michigan.html">MICHIGAN</a></li>
                         </ul>
                     </li>
                     <li><a href="news.html">NEWS</a></li>
-                    <li><a href="#contact"">CONTACT</a></li>
+                    <li><a href="#contact">CONTACT</a></li>
                 </ul>
             </nav>
             <!-- ################################################################################################ -->
@@ -336,7 +336,7 @@
         <h6 class="heading">Membership</h6>
         <ul>
             <li><a href="../index.html">Home</a></li>
-            <li><a href="#">Membership</a></li>
+            <li><a href="./membership.php">Membership</a></li>
         </ul>
     </section>
 </div>
@@ -762,17 +762,17 @@
             <p class="btmspace-50">This is just a descriptive text you can ignore it if you want</p>
             <nav>
                 <ul class="nospace">
-                    <li><a href="index.html"><i class="fa fa-lg fa-home"></i></a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Donate</a></li>
-                    <li><a href="#">Membership</a></li>
-                    <li><a href="#">Feedback</a></li>
-                    <li><a href="#">Bylaws</a></li>
-                    <li><a href="#">Survey</a></li>
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">Gallery Algeria</a></li>
-                    <li><a href="#">Gallery USA</a></li>
-                    <li><a href="#">Gallery Michigan</a></li>
+                    <li><a href="../index.html"><i class="fa fa-lg fa-home"></i></a></li>
+
+                    <li><a href="./donation.php">Donate</a></li>
+                    <li><a href="./membership.php">Membership</a></li>
+                    <li><a href="./feedback.php">Feedback</a></li>
+                    <li><a href="./bylaws.html">Bylaws</a></li>
+                    <li><a href="./survey.html">Survey</a></li>
+                    <li><a href="./news.html">News</a></li>
+                    <li><a href="./algeria.html">Gallery Algeria</a></li>
+                    <li><a href="./usa.html">Gallery USA</a></li>
+                    <li><a href="./michigan.html">Gallery Michigan</a></li>
                 </ul>
             </nav>
         </div>

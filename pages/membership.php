@@ -1,3 +1,63 @@
+<?php
+$pp_hostname = "www.sandbox.paypal.com";
+$req = 'cmd=_notify-synch';
+
+$tx_token = $_GET['tx'];
+$auth_token = "QMsNOGiyI4Bvt5lVLpa0eaC7nBxop19MAWUd6owXlUgYCxinHgyd-4NDVuu";
+$req .= "&tx=$tx_token&at=$auth_token";
+$payStatus = false;
+$membershipType = '';
+$paymentSuccesText = '';
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, "https://$pp_hostname/cgi-bin/webscr");
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $req);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array("Host: $pp_hostname"));
+$res = curl_exec($ch);
+curl_close($ch);
+
+if(!$res){
+    //HTTP ERROR
+}else{
+    // parse the data
+    $lines = explode("\n", trim($res));
+    $keyarray = array();
+    if (strcmp ($lines[0], "SUCCESS") == 0) {
+        $payStatus = true;
+        for ($i = 1; $i < count($lines); $i++) {
+//            echo '$lines[$i]'. $lines[$i];
+//            echo '<br>';
+            $temp = explode("=", $lines[$i],2);
+            $keyarray[urldecode($temp[0])] = urldecode($temp[1]);
+        }
+
+        $payerfirstname = $keyarray['first_name'];
+        $payerlastname = $keyarray['last_name'];
+        $payerEmail = $keyarray["payer_email"];
+        $itemname = $keyarray['item_name'];
+        $amount = $keyarray['payment_gross'];
+        $membershipType = $keyarray['option_selection1'];
+
+        $paymentSuccesText = "<div class='alert alert-success'><p><h3>Thank you <?php echo $payerfirstname . ' ' . $payerlastname; ?></h3><h4> for your Interest in becoming a member of A3M</h4></p>" .
+        "<b>Next Step:</b><br>\n".
+        "<li>Fill out the form below to complete your application, once your application is approved, you will be notified by an email from our admin</li></div>";
+//        "<li>Name:" .  $payerfirstname . ' ' . $payerlastname . "</li>\n".
+//        "<li>Email:" .  $payerEmail . "</li>\n".
+//        "<li>Item:" .  $itemname . "</li>\n".
+//        "<li>Amount:" .  $amount . "</li>\n".
+//        "<li>Membership:" .  $membershipType . "</li></div>";
+
+    }
+    else if (strcmp ($lines[0], "FAIL") == 0) {
+        // log for manual investigation
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,19 +70,6 @@
     <link rel="stylesheet" href="../css/bootstrapValidator-min.css"/>
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
     <link rel="stylesheet" href="../css/bootstrap-side-notes.css"/>
-    <style type="text/css">
-        .col-centered {
-            display: inline-block;
-            float: none;
-            text-align: left;
-            margin-right: -4px;
-        }
-
-        .row-centered {
-            margin-left: 9px;
-            margin-right: 9px;
-        }
-    </style>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="../js/bootstrap-formhelpers-min.js"></script>
@@ -36,22 +83,22 @@
                     invalid: 'glyphicon glyphicon-remove',
                     validating: 'glyphicon glyphicon-refresh'
                 },
-                submitHandler: function (validator, form, submitButton) {
-                    // createToken returns immediately - the supplied callback submits the form if there are no errors
-                    Stripe.card.createToken({
-                        number: $('.card-number').val(),
-                        cvc: $('.card-cvc').val(),
-                        exp_month: $('.card-expiry-month').val(),
-                        exp_year: $('.card-expiry-year').val(),
-                        name: $('.card-holder-name').val(),
-                        address_line1: $('.address').val(),
-                        address_city: $('.city').val(),
-                        address_zip: $('.zip').val(),
-                        address_state: $('.state').val(),
-                        address_country: $('.country').val()
-                    }, stripeResponseHandler);
-                    return false; // submit from callback
-                },
+//                submitHandler: function (validator, form, submitButton) {
+//                    // createToken returns immediately - the supplied callback submits the form if there are no errors
+//                    Stripe.card.createToken({
+//                        number: $('.card-number').val(),
+//                        cvc: $('.card-cvc').val(),
+//                        exp_month: $('.card-expiry-month').val(),
+//                        exp_year: $('.card-expiry-year').val(),
+//                        name: $('.card-holder-name').val(),
+//                        address_line1: $('.address').val(),
+//                        address_city: $('.city').val(),
+//                        address_zip: $('.zip').val(),
+//                        address_state: $('.state').val(),
+//                        address_country: $('.country').val()
+//                    }, stripeResponseHandler);
+//                    return false; // submit from callback
+//                },
                 fields: {
                     fname: {
                         validators: {
@@ -120,107 +167,6 @@
                             }
                         }
                     },
-                    cardholdername: {
-                        validators: {
-                            notEmpty: {
-                                message: "The card holder name is required and can't be empty"
-                            },
-                            stringLength: {
-                                min: 6,
-                                max: 70,
-                                message: 'The card holder name must be more than 6 and less than 70 characters long'
-                            }
-                        }
-                    },
-                    cardnumber: {
-                        selector: '#cardnumber',
-                        validators: {
-                            notEmpty: {
-                                message: "The credit card number is required and can't be empty"
-                            },
-                            creditCard: {
-                                message: 'The credit card number is invalid'
-                            },
-                        }
-                    },
-                    expMonth: {
-                        selector: '[data-stripe="exp-month"]',
-                        validators: {
-                            notEmpty: {
-                                message: 'The expiration month is required'
-                            },
-                            digits: {
-                                message: 'The expiration month can contain digits only'
-                            },
-                            callback: {
-                                message: 'Expired',
-                                callback: function (value, validator) {
-                                    value = parseInt(value, 10);
-                                    var year = validator.getFieldElements('expYear').val(),
-                                        currentMonth = new Date().getMonth() + 1,
-                                        currentYear = new Date().getFullYear();
-                                    if (value < 0 || value > 12) {
-                                        return false;
-                                    }
-                                    if (year == '') {
-                                        return true;
-                                    }
-                                    year = parseInt(year, 10);
-                                    if (year > currentYear || (year == currentYear && value > currentMonth)) {
-                                        validator.updateStatus('expYear', 'VALID');
-                                        return true;
-                                    } else {
-                                        return false;
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    expYear: {
-                        selector: '[data-stripe="exp-year"]',
-                        validators: {
-                            notEmpty: {
-                                message: 'The expiration year is required'
-                            },
-                            digits: {
-                                message: 'The expiration year can contain digits only'
-                            },
-                            callback: {
-                                message: 'Expired',
-                                callback: function (value, validator) {
-                                    value = parseInt(value, 10);
-                                    var month = validator.getFieldElements('expMonth').val(),
-                                        currentMonth = new Date().getMonth() + 1,
-                                        currentYear = new Date().getFullYear();
-                                    if (value < currentYear || value > currentYear + 100) {
-                                        return false;
-                                    }
-                                    if (month == '') {
-                                        return false;
-                                    }
-                                    month = parseInt(month, 10);
-                                    if (value > currentYear || (value == currentYear && month > currentMonth)) {
-                                        validator.updateStatus('expMonth', 'VALID');
-                                        return true;
-                                    } else {
-                                        return false;
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    cvv: {
-                        selector: '#cvv',
-                        validators: {
-                            notEmpty: {
-                                message: "The cvv is required and can't be empty"
-                            },
-                            cvv: {
-                                message: 'The value is not a valid CVV',
-                                creditCardField: 'cardnumber'
-                            }
-                        },
-                    },
                     phone: {
                         selector: '#phone',
                         validators: {
@@ -251,6 +197,10 @@
                             },
                             password: {
                                 message: 'The password is not a valid',
+                            },
+                            identical: {
+                                field: 'confirmPassword',
+                                message: 'The password and its confirm are not the same'
                             }
                         }
                     },
@@ -262,6 +212,10 @@
                             },
                             confirmPassword: {
                                 message: 'The confirmPassword is not a valid',
+                            },
+                            identical: {
+                                field: 'password',
+                                message: 'The password and its confirm are not the same'
                             }
                         }
                     }
@@ -269,36 +223,13 @@
             });
         });
     </script>
-    <script type="text/javascript">
-        // this identifies your website in the createToken call below
-        Stripe.setPublishableKey('pk_test_tuEsC3Zxra0MUICLhxZDrwI7');
-
-        function stripeResponseHandler(status, response) {
-            if (response.error) {
-                // re-enable the submit button
-                $('.submit-button').removeAttr("disabled");
-                // show hidden div
-                document.getElementById('a_x200').style.display = 'block';
-                // show the errors on the form
-                $(".payment-errors").html(response.error.message);
-            } else {
-                var form$ = $("#payment-form");
-                // token contains id, last4, and card type
-                var token = response['id'];
-                // insert the token into the form so it gets submitted to the server
-                form$.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
-                // and submit
-                form$.get(0).submit();
-            }
-        }
-    </script>
 </head>
 <body id="top">
 <div class="bgded overlay" style="background-image:url('../img/backgrounds/membership.jpg');">
     <div class="wrapper row1">
         <header id="header" class="hoc clear">
             <div id="logo" class="fl_left">
-                <h1><a href="index.html"></a>A3M</h1>
+                <h1><a href="../index.html"></a>A3M</h1>
             </div>
             <nav id="mainav" class="fl_right">
                 <ul class="clear">
@@ -312,20 +243,20 @@
                     <li><a href="survey.html">SURVEY</a></li>
                     <li class="active"><a class="drop" href="#">FORMS</a>
                         <ul>
-                            <li><a href="membership.php">MEMBERSHIP</a></li>
+                            <li><a href="register.html">MEMBERSHIP</a></li>
                             <li><a href="bylaws.html">BYLAWS</a></li>
                         </ul>
                     </li>
                     <li><a href="donation.php">DONATE</a></li>
-                    <li><a class="drop" href="#">GALLERY</a>
+                    <li><a class="drop" href="#">GALLERIES</a>
                         <ul>
                             <li><a href="algeria.html">ALGERIA</a></li>
                             <li><a href="usa.html">USA</a></li>
-                            <li><a href="michigan.html">MICHIAGN</a></li>
+                            <li><a href="michigan.html">MICHIGAN</a></li>
                         </ul>
                     </li>
                     <li><a href="news.html">NEWS</a></li>
-                    <li><a href="#contact"">CONTACT</a></li>
+                    <li><a href="#contact">CONTACT</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="caret"> </span>
                             Login</a>
@@ -336,14 +267,12 @@
                                         <form class="form" action="../php/login.php" method="POST" id="login-nav"
                                               style="display: block">
                                             <div class="form-group">
-                                                <label class="sr-only" for="email">Email address</label>
-                                                <input type="email" class="form-control" name="email" id="email"
-                                                       placeholder="Email address" required>
+                                                <label class="sr-only" for="logEmail">Email address</label>
+                                                <input type="email" class="form-control" name="logEmail" id="logEmail" placeholder="Email address" required>
                                             </div>
                                             <div class="form-group">
-                                                <label class="sr-only" for="password">Password</label>
-                                                <input type="password" class="form-control" name="password"
-                                                       id="password" placeholder="Password" required>
+                                                <label class="sr-only" for="logPassword">Password</label>
+                                                <input type="password" class="form-control" name="logPassword" id="logPassword" placeholder="Password" required>
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary btn-block">Sign in</button>
@@ -354,7 +283,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a href="./membership.php">Register</a></li>
+                    <li><a href="./register.html">Register</a></li>
                 </ul>
             </nav>
             <!-- ################################################################################################ -->
@@ -365,7 +294,7 @@
         <h6 class="heading">Membership</h6>
         <ul>
             <li><a href="../index.html">Home</a></li>
-            <li><a href="#">Membership</a></li>
+            <li><a href="./membership.php">Membership</a></li>
         </ul>
     </section>
 </div>
@@ -374,172 +303,98 @@
         <form action="" method="POST" id="payment-form">
 
             <?php
-            require '../lib/Stripe.php';
-            $error = '';
-            $success = '';
             $dbErrors = array();  // array to hold validation errors
             $dbSuccess = '';
+            $duplicateError = '';
             $info = array();
-            $donationTypes = '';
-            $membershipAmount = 0;
-            $donationAmount = 0;
-            $customer_json = [ 'paid' => 0];
+            if ($_POST && $payStatus) {
+                $servername = "localhost";
+                $username = "nfalta";
+                $dbpassword = "Zb121788n@d";
+                $dbname = "a3m-db";
 
-            if ($_POST) {
+                // data to pass to the database
+                $fname = $_POST["fname"];
+                $lname = $_POST["lname"];
+                $spouse = $_POST["spouse"];
+                $address1 = $_POST["address1"];
+                $address2 = $_POST["address2"];
+                $city = $_POST["city"];
+                $state = $_POST["state"];
+                $zip = $_POST["zip"];
+                $phone = $_POST["phone"];
+                $email = $_POST["email"];
+                $occupation = $_POST["occupation"];
+                $employer = $_POST["employer"];
+                $membership = $membershipType;
+                $password = $_POST["password"];
 
-                Stripe::setApiKey("sk_test_i79GJLb0WhkVSWqj1AbYh0bq");
+                // 1. Create a database connection
+                $connection = new mysqli($servername, $username, $dbpassword, $dbname);
+                if ($connection->connect_errno) {
+                    printf("Connect failed: %s\n", $connection->connect_error);
+                    exit();
+                }
+                // 2. Select a database to use
+                $db_select = mysqli_select_db($connection, $dbname);
 
-                try {
-                    if (empty($_POST['fname']) || empty($_POST['lname']) || empty($_POST['address1']) ||
-                        empty($_POST['city']) || empty($_POST['state']) || empty($_POST['zip']) ||
-                        empty($_POST['phone']) || empty($_POST['email']) || empty($_POST['occupation']) ||
-                        empty($_POST['membership']) || empty($_POST['password']) || empty($_POST['confirmPassword']))
-                        throw new Exception("Fill out all required fields.");
-                    if (!isset($_POST['stripeToken']))
-                        throw new Exception("The Stripe Token was not generated correctly, Please refresh the page");
+                //check if the a member with the same first name and last exist
+                $fname = $_POST["fname"];
+                $lname = $_POST["lname"];
+                $result = mysqli_query($connection, "SELECT * FROM users WHERE fname='$fname' and lname='$lname'");
+                $row = mysqli_fetch_array($result, MYSQLI_NUM);
 
-                    $servername = "localhost";
-                    $username = "nfalta";
-                    $dbpassword = "Zb121788n@d";
-                    $dbname = "a3m-db";
-
-                    // 1. Create a database connection
-                    $connection = new mysqli($servername, $username, $dbpassword, $dbname);
-                    if ($connection->connect_errno) {
-                        printf("Connect failed: %s\n", $connection->connect_error);
-                        exit();
-                    }
-                    // 2. Select a database to use
-                    $db_select = mysqli_select_db($connection, $dbname);
-
-                    //check if the a member with the same first name and last exist
-                    $fname = $_POST["fname"];
-                    $lname = $_POST["lname"];
-                    $result = mysqli_query($connection, "SELECT * FROM users WHERE fname='$fname' and lname='$lname'");
-                    $row = mysqli_fetch_array($result, MYSQLI_NUM);
-
-                    if($row[0]) {
-                        throw new Exception("A member with that first and last name already exist in our database. No payment has been made yet");
-                    }
-
-                    //Setup Donation type string for Description in payment portal
-                    if (!empty($_POST['donationType'])) {
-                        $name = $_POST['donationType'];
-                        foreach ($name as $type) {
-                            $donationTypes = $donationTypes . $type . ', ';
-                        }
-                    }
-
-                    //Setup payment amount based on membership type
-                    if($_POST['membership'] === 'Family') {
-                        $membershipAmount = 60;
-                    }
-                    if($_POST['membership'] === 'Individual') {
-                        $membershipAmount = 40;
-                    }
-                    if($_POST['membership'] === 'Student') {
-                        $membershipAmount = 30;
-                    }
-                    if (!empty($_POST['donationAmount'])) {
-                        $donationAmount = $_POST['donationAmount'] ;//is charged by centes so 100 cents make up a dollar
-                    }
-                    $totalAmount = ($donationAmount +  $membershipAmount) * 100;
-                    $descText = '$' . $membershipAmount . ' for '. $_POST['membership'].' Membership, and $' .  $donationAmount . ' donation for ' . $donationTypes;
-
-                    //conduct the payment thought Stripe
-                    $customer = Stripe_Charge::create(array("amount" => $totalAmount, //is charged by centes so 100 cents make up a dollar
-                            "currency" => "usd",
-                            "card" => $_POST['stripeToken'],
-                            "description" => $descText
-                        )
-                    );
-                    $customer_json = json_decode($customer, true);
-                    //echo json_encode($customer_json, JSON_PRETTY_PRINT);
-                    $success = '<div class="alert alert-success">
-                                      <strong>Success!</strong> Your payment was successful.
-                                    </div>';
-                } catch (Exception $e) {
-                    $error = '<div class="alert alert-danger">
-                                    <strong>Error!</strong> ' . $e->getMessage() . '
-                                  </div>';
+                if($row[0]) {
+                    $duplicateError = '<div class="alert alert-danger">
+                                        <strong>Error!</strong> A member with that first and last name already exist in our database.
+                                      </div>';
                 }
 
-                //if payment was successful add data to the database
-                if ($customer_json['paid'] == 1) {
-                    // data to pass to the database
-                    $fname = $_POST["fname"];
-                    $lname = $_POST["lname"];
-                    $spouse = $_POST["spouse"];
-                    $address1 = $_POST["address1"];
-                    $address2 = $_POST["address2"];
-                    $city = $_POST["city"];
-                    $state = $_POST["state"];
-                    $zip = $_POST["zip"];
-                    $phone = $_POST["phone"];
-                    $email = $_POST["email"];
-                    $occupation = $_POST["occupation"];
-                    $employer = $_POST["employer"];
-                    $membership = $_POST["membership"];
-                    $password = $_POST["password"];
+                if (!$duplicateError) {
+                    $sql = "INSERT INTO `users` (`fname`, `lname`, `spouse`, `address1`, `address2`, `city`, `state`, `zipcode`, `phone`, `email`, `occupation`, `employer`, `membership`, `password`) VALUES
+                                ('$fname', '$lname', '$spouse', '$address1', '$address2', '$city', '$state', '$zip' , '$phone', '$email', '$occupation', '$employer', '$membership', '$password')";
 
-                    // response if there are errors
-                    if (empty($dbErrors)) {
-                        $info['success'] = true;
-                        $info['message'] = 'Success!';
-
-                        $servername = "localhost";
-                        $username = "nfalta";
-                        $dbpassword = "Zb121788n@d";
-                        $dbname = "a3m-db";
-
-                        // 1. Create a database connection
-                        $connection = new mysqli($servername, $username, $dbpassword, $dbname);
-                        if ($connection->connect_errno) {
-                            printf("Connect failed: %s\n", $connection->connect_error);
-                            exit();
-                        }
-                        // 2. Select a database to use
-                        $db_select = mysqli_select_db($connection, $dbname);
-
-                        $sql = "INSERT INTO `users` (`fname`, `lname`, `spouse`, `address1`, `address2`, `city`, `state`, `zipcode`, `phone`, `email`, `occupation`, `employer`, `membership`, `password`) VALUES
-                                    ('$fname', '$lname', '$spouse', '$address1', '$address2', '$city', '$state', '$zip' , '$phone', '$email', '$occupation', '$employer', '$membership', '$password')";
-
-                        if (!mysqli_query($connection, $sql)) {
-                            $dbErrors['duplicate'] = true;
-                            $info['success'] = false;
-                            $info['errors'] = $dbErrors;
-                            echo '' . mysqli_error($connection);
-                            // echo json_encode($info);
-                            // die('Error : ' . mysql_error());
-                        } else {
-                            $dbSuccess = '<div class="alert alert-success">
-                                            <strong>Success!</strong> Your information has been successfully added to our database.
-                                          </div>';
-                            //mysqli_close($sql_connection);
-                        }
-                    } else {
-                        // if there are items in our errors array, return those errors
+                    if (!mysqli_query($connection, $sql)) {
+                        $dbErrors['duplicate'] = true;
                         $info['success'] = false;
                         $info['errors'] = $dbErrors;
+                        echo '' . mysqli_error($connection);
+                        echo '**************************************************************';
+                    } else {
+                        $dbSuccess = '<div class="alert alert-success">
+                                        <strong>Success!</strong> 
+                                        Your application has been successfully submitted.
+                                        You can login to see your profile.
+                                      </div>';
+                        ?>
+                        <style type="text/css">
+                            #registrationCont{
+                                display:none !important;
+                            }
+                            #loginForm{
+                                display:block !important;
+                            }
+                            #paymentSucc{
+                                display:none !important;
+                            }
+                        </style>
+                        <?php
                     }
+                } else {
+                    echo '----------------------------------------------------------------------';
                 }
             }
             ?>
-            <div class="alert alert-danger" id="a_x200" style="display: none;"><strong>Error!</strong> <span
-                        class="payment-errors"></span></div>
+            <span class="payment-success" id="paymentSucc">
+                <?= $paymentSuccesText ?>
+            </span>
+            <span class="payment-errors">
+                <?= $duplicateError ?>
+            </span>
             <span class="payment-success">
-                <?php
-                    foreach ($dbErrors as $result) {
-                        echo $result, '<br>';
-                    }
-                ?>
                 <?= $dbSuccess ?>
             </span>
-            <span class="payment-success">
-                <?= $success ?>
-                <?= $error ?>
-            </span>
-            <div class="row">
+            <div class="row" id="registrationCont">
                 <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-2 col-md-offset-2">
                     <h2>Please Sign Up
                         <small> for A3M Membership.</small>
@@ -643,200 +498,38 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="colorgraph">
-
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-3 col-md-3">
-                            <div class="form-group">
-                                <label><b>Membership Type:</b></label>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-3 col-md-3">
-                            <div class="form-group">
-                                <label class="radio-inline"><input type="radio" name="membership" value="Family"
-                                                                   required>Family $60</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-3 col-md-3">
-                            <div class="form-group">
-                                <label class="radio-inline"><input type="radio" name="membership" value="Individual"
-                                                                   required>Individual $40</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-3 col-md-3">
-                            <div class="form-group">
-                                <label class="radio-inline"><input type="radio" name="membership" value="Student"
-                                                                   required>Student $30</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr class="colorgraph">
-
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-8 col-md-8">
-                            <label><b>Make a Donation to Support A3M and your Community:</b></label>
-                        </div>
-                        <div class="col-xs-12 col-sm-4 col-md-4">
-                            <div class="form-group">
-                                <input type="number" name="donationAmount" id="donationAmount" class="form-control input-sm"
-                                       placeholder="Amount  $">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-12 col-sm-12 col-md-12" style="padding-right: 0px;padding-left: 0px;">
-                            <p><b>Donation allocation:</b> To designate your donation to a specific fund, please check
-                                the boxes bellow. To allow
-                                A3M to allocate your donation as needed, leave all boxes unchecked.</p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="donationType[]" value="Emergency">
-                                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                                    Emergency & Hardship Fund
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="donationType[]" value="Activities">
-                                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                                    Activities & Social Events
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="donationType[]" value="Burial">
-                                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                                    Burial & Cemetery Fees Fund
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="donationType[]" value="Scholarships">
-                                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                                    Academics & Scholarships
-                                </label>
-                            </div>
-                            <input type="checkbox" name="donationType[]" style="display: none">
-                        </div>
-                    </div>
-                    <hr class="colorgraph">
-
-                    <fieldset>
-                        <legend>Card Details</legend>
-
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="textinput">Card Holder's Name</label>
-                            <div class="col-sm-6 form-group">
-                                <input type="text" name="cardholdername" maxlength="70"
-                                       placeholder="Card Holder Name" class="card-holder-name form-control">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="textinput">Card Number</label>
-                            <div class="col-sm-6 form-group">
-                                <input type="text" id="cardnumber" maxlength="19" placeholder="Card Number"
-                                       class="card-number form-control">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="textinput">Card Expiry Date</label>
-                            <div class="col-sm-6 form-group">
-                                <div class="form-inline">
-                                    <select name="select2" data-stripe="exp-month"
-                                            class="card-expiry-month stripe-sensitive required form-control">
-                                        <option value="01" selected="selected">01</option>
-                                        <option value="02">02</option>
-                                        <option value="03">03</option>
-                                        <option value="04">04</option>
-                                        <option value="05">05</option>
-                                        <option value="06">06</option>
-                                        <option value="07">07</option>
-                                        <option value="08">08</option>
-                                        <option value="09">09</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                    </select>
-                                    <span> / </span>
-                                    <select name="select2" data-stripe="exp-year"
-                                            class="card-expiry-year stripe-sensitive required form-control">
-                                    </select>
-                                    <script type="text/javascript">
-                                        var select = $(".card-expiry-year"),
-                                            year = new Date().getFullYear();
-
-                                        for (var i = 0; i < 12; i++) {
-                                            select.append($("<option value='" + (i + year) + "' " + (i === 0 ? "selected" : "") + ">" + (i + year) + "</option>"))
-                                        }
-                                    </script>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="textinput">CVV/CVV2</label>
-                            <div class="col-sm-3 form-group">
-                                <input type="text" id="cvv" placeholder="CVV" maxlength="4"
-                                       class="card-cvc form-control">
-                            </div>
-                        </div>
-                    </fieldset>
-
-                    <!-- Important notice -->
-                    <div class="form-group">
-                        <br>
-
-                        <div class="row">
-                            <div class="col-xs-8 col-sm-9 col-md-9">
-                                By clicking <strong class="label label-primary">Register</strong>, you agree to the <a
-                                        href="#" data-toggle="modal" data-target="#t_and_c_m">Terms and Conditions</a>
-                                set out by this site, including our Cookie Use.
-                            </div>
-                        </div>
-                        <br>
-
-                        <!-- Submit -->
-                        <div class="control-group">
-                            <div class="controls">
-                                <center>
-                                    <button type="submit" class="btn btn-primary btn-block btn-lg">Register</button>
-                                </center>
-                            </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <center>
+                                <button type="submit" class="btn btn-primary btn-block btn-lg">Register</button>
+                            </center>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Modal -->
-            <div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>This is a test agreement</p>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">I Agree</button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
         </form>
         <!--#################################################### End Of Form  ####################################################-->
         <div class="clear"></div>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-2 col-md-offset-2">
+            <div class="row" id="loginForm" style="display: none;">
+                <div class="col-md-12">
+                    <form class="form" action="../php/login.php" method="POST" id="login-nav"
+                          style="display: block">
+                        <div class="form-group">
+                            <label class="sr-only" for="logEmail">Email address</label>
+                            <input type="email" class="form-control" name="logEmail" id="logEmail" placeholder="Email address" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="logPassword">Password</label>
+                            <input type="password" class="form-control" name="logPassword" id="logPassword" placeholder="Password" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </main>
 </div>
 
@@ -849,17 +542,16 @@
             <p class="btmspace-50">This is just a descriptive text you can ignore it if you want</p>
             <nav>
                 <ul class="nospace">
-                    <li><a href="index.html"><i class="fa fa-lg fa-home"></i></a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Donate</a></li>
-                    <li><a href="#">Membership</a></li>
-                    <li><a href="#">Feedback</a></li>
-                    <li><a href="#">Bylaws</a></li>
-                    <li><a href="#">Survey</a></li>
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">Gallery Algeria</a></li>
-                    <li><a href="#">Gallery USA</a></li>
-                    <li><a href="#">Gallery Michigan</a></li>
+                    <li><a href="../index.html"><i class="fa fa-lg fa-home"></i></a></li>
+                    <li><a href="./donation.php">Donate</a></li>
+                    <li><a href="./membership.php">Membership</a></li>
+                    <li><a href="./feedback.php">Feedback</a></li>
+                    <li><a href="./bylaws.html">Bylaws</a></li>
+                    <li><a href="./survey.html">Survey</a></li>
+                    <li><a href="./news.html">News</a></li>
+                    <li><a href="./algeria.html">Gallery Algeria</a></li>
+                    <li><a href="./usa.html">Gallery USA</a></li>
+                    <li><a href="./michigan.html">Gallery Michigan</a></li>
                 </ul>
             </nav>
         </div>
@@ -929,6 +621,11 @@
 </div>
 
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
+<div style="z-index: 99999;position: fixed;bottom: 20px;left: 20px;">
+    <a href="./donation.php">
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" alt="PayPal - The safer, easier way to pay online!">
+    </a>
+</div>
 <!-- JAVASCRIPTS -->
 <script src="../layout/scripts/jquery.backtotop.js"></script>
 <script src="../layout/scripts/jquery.mobilemenu.js"></script>
