@@ -604,3 +604,6 @@ table a, #comments a{background-color:inherit;}
 .nav>li>a {
 	padding: 15px 14px !important;
 }
+
+.paymentOption{border-color:#EDEDED; box-shadow:0px 0px 5px 5px #EDEDED; min-height: 300px !important;}
+.paymentOption:hover{border: 2px solid red; box-shadow:0px 0px 5px 5px rgba(162,183,13,.6)/* #A2B70D */;}

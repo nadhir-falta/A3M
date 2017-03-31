@@ -78,41 +78,71 @@
 <div class="wrapper row3">
     <main class="hoc container clear">
         <!-- main body -->
-        <h2>
-            <small>Become a Member</small>
-        </h2>
-        <p>Choose the type of membership that better suits you from the dropdown below and proceed to checkout via paypal.
-        After your successfull payment, you will be redirected back to finish your registration with A3M.</p>
-        <hr class="colorgraph">
-        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top" style="margin: auto; max-width: 300px;">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="K8WBR2D7LPTAU">
-            <div class="row">
-                <div class="form-group">
-                    <div class="col-sm-6">
-                        <input type="hidden" name="on0" value="membership"><label>Membership Type:</label>
+        <div class="row">
+            <h2>
+                <small>Become a Member</small>
+            </h2>
+            <p>
+                Choose the type of membership that better suits you from the dropdown below and proceed to checkout via paypal.
+                After your successfull payment, you will be redirected back to finish your registration with A3M.</p>
+            <hr class="colorgraph">
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 paymentOption">
+                <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="K8WBR2D7LPTAU">
+                    <div class="row">
+                        <img src="../img/backgrounds/cc.jpg">
                     </div>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="form-group">
-                    <div class="col-sm-6">
-                        <div class="form-inline">
-                            <select name="os0" class="card-expiry-month stripe-sensitive required form-control">
-                                <option value="Student">Student $30.00 USD</option>
-                                <option value="Individual">Individual $40.00 USD</option>
-                                <option value="Family">Family $60.00 USD</option>
-                            </select>
+                    <div class="row" style=" margin: 3px;">
+                        <p>
+                            Choose the type of membership that better suits you from the dropdown below and proceed to checkout via paypal.
+                            After your successfull payment, you will be redirected back to finish your registration with A3M.</p>
+                    </div>
+                    <div class="row" style="margin: auto; max-width: 300px;">
+                        <div class="form-group">
+                            <div>
+                                <input type="hidden" name="on0" value="membership"><label>Membership Type:</label>
+                            </div>
+                            <div>
+                                <div class="form-inline">
+                                    <select name="os0" class="card-expiry-month stripe-sensitive required form-control">
+                                        <option value="Student">Student $30.00 USD</option>
+                                        <option value="Individual">Individual $40.00 USD</option>
+                                        <option value="Family">Family $60.00 USD</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
+                        <input type="hidden" name="currency_code" value="USD">
+                        <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                        <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
                     </div>
+                </form>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12" style="text-align: center; padding: 15px; font-weight: bold">OR</div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 paymentOption">
+                <div style="margin: auto; max-width: 300px;">
+                    <img src="../img/backgrounds/cash.png" style="width: 240px;">
+                    <!--<h2 style="margin-top: 0px;">-->
+                        <!--<small>Check or Cash:</small>-->
+                    <!--</h2>-->
+                    <p>If you are paying with cash or check, please fill out the form below
+                        <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                        and send it along with the check to the address provided in the form</p><br>
+                    </p>
                 </div>
             </div>
-            <br>
-            <input type="hidden" name="currency_code" value="USD">
-            <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-            <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
-        </form>
+        </div>
+        <br>
+        <hr>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <iframe src="../assets/membership.pdf"
+                        style="width:100%; height:500px;" frameborder="0"></iframe>
+            </div>
+        </div>
 </div>
 
 <!-- ################################################## Footer ################################# -->
