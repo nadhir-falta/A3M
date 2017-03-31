@@ -325,7 +325,7 @@
                         </ul>
                     </li>
                     <li><a href="news.html">NEWS</a></li>
-                    <li><a href="#contact">CONTACT</a></li>
+                    <li><a href="../index.html#contact">CONTACT</a></li>
                 </ul>
             </nav>
             <!-- ################################################################################################ -->
@@ -336,7 +336,7 @@
         <h6 class="heading">Membership</h6>
         <ul>
             <li><a href="../index.html">Home</a></li>
-            <li><a href="./membership.php">Membership</a></li>
+            <li><a href="./register.html">Membership</a></li>
         </ul>
     </section>
 </div>
@@ -758,14 +758,13 @@
     <footer id="footer" class="hoc clear">
         <div class="one_third first">
             <h6 class="heading">A3M</h6>
-            <p>A3m is an Algerian/American organization....etc</p>
-            <p class="btmspace-50">This is just a descriptive text you can ignore it if you want</p>
+            <p>A3M is an Algerian American association that serves the needs of the Algerian American in Michigan</p>
             <nav>
                 <ul class="nospace">
                     <li><a href="../index.html"><i class="fa fa-lg fa-home"></i></a></li>
 
                     <li><a href="./donation.php">Donate</a></li>
-                    <li><a href="./membership.php">Membership</a></li>
+                    <li><a href="./register.html">Membership</a></li>
                     <li><a href="./feedback.php">Feedback</a></li>
                     <li><a href="./bylaws.html">Bylaws</a></li>
                     <li><a href="./survey.html">Survey</a></li>
@@ -781,12 +780,14 @@
             <ul class="nospace btmspace-30 linklist contact">
                 <li><i class="fa fa-map-marker"></i>
                     <address>
-                        Street Name &amp; Number, Town, Postcode/Zip
+                         Algerian-American Association
+ of Michigan
+ 3385 Buckingham Trl
+ W Bloomfield, MI 48323
                     </address>
                 </li>
-                <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-                <li><i class="fa fa-fax"></i> +00 (123) 456 7890</li>
-                <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+
+                <li><i class="fa fa-envelope-o"></i> info@a3michigan.org</li>
             </ul>
             <ul class="faico clear">
                 <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
@@ -800,14 +801,14 @@
         <div class="one_third">
             <h6 class="heading">Location</h6>
             <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAz02yCRNu3uItDorLGL2s3tTJX6ye9DeU'></script>
-            <div style='overflow:hidden;height:335px;width:436px;'>
-                <div id='gmap_canvas' style='height:335px;width:436px;'></div>
+            <div style='overflow:hidden;height:260px;width:80%;'>
+                <div id='gmap_canvas' style='height:260px;width:80%;'></div>
                 <style>#gmap_canvas img {
                         max-width: none !important;
                         background: none !important
                     }</style>
             </div>
-            <a href='http://maps-generator.com/'>maps-generator.com</a>
+
             <script type='text/javascript'
                     src='https://embedmaps.com/google-maps-authorization/script.js?id=edb9cbe68b8845fb95f39b7df84c61d04cc2fbd7'></script>
             <script type='text/javascript'>function init_map() {

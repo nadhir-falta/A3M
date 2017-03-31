@@ -2,6 +2,19 @@
 $pp_hostname = "www.sandbox.paypal.com";
 $req = 'cmd=_notify-synch';
 
+$configs = include('../php/dbconf.php');
+$servername = $configs->servername;
+$username = $configs->username;
+$dbpassword = $configs->dbpassword;
+$dbname = $configs->dbname;
+// 1. Create a database connection
+$connection = new mysqli($servername, $username, $dbpassword, $dbname);
+if ($connection->connect_errno) {
+    exit();
+}
+// 2. Select a database to use
+$db_select = mysqli_select_db($connection, $dbname);
+
 $tx_token = $_GET['tx'];
 $auth_token = "QMsNOGiyI4Bvt5lVLpa0eaC7nBxop19MAWUd6owXlUgYCxinHgyd-4NDVuu";
 $req .= "&tx=$tx_token&at=$auth_token";
@@ -41,7 +54,7 @@ if(!$res){
         $amount = $keyarray['payment_gross'];
         $membershipType = $keyarray['option_selection1'];
 
-        $paymentSuccesText = "<div class='alert alert-success'><p><h3>Thank you <?php echo $payerfirstname . ' ' . $payerlastname; ?></h3><h4> for your Interest in becoming a member of A3M</h4></p>" .
+        $paymentSuccesText = "<div class='alert alert-success'><p><h3>Thank you " . $payerfirstname . ' ' . $payerlastname . "</h3><h4> for your Interest in becoming a member of A3M</h4></p>" .
         "<b>Next Step:</b><br>\n".
         "<li>Fill out the form below to complete your application, once your application is approved, you will be notified by an email from our admin</li></div>";
 //        "<li>Name:" .  $payerfirstname . ' ' . $payerlastname . "</li>\n".
@@ -61,16 +74,15 @@ if(!$res){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>A3Michigan</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
     <link rel="stylesheet" href="../css/bootstrap-min.css">
     <link rel="stylesheet" href="../css/bootstrap-formhelpers-min.css" media="screen">
     <link rel="stylesheet" href="../css/bootstrapValidator-min.css"/>
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
     <link rel="stylesheet" href="../css/bootstrap-side-notes.css"/>
-    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="../js/bootstrap-formhelpers-min.js"></script>
     <script type="text/javascript" src="../js/bootstrapValidator-min.js"></script>
@@ -83,22 +95,6 @@ if(!$res){
                     invalid: 'glyphicon glyphicon-remove',
                     validating: 'glyphicon glyphicon-refresh'
                 },
-//                submitHandler: function (validator, form, submitButton) {
-//                    // createToken returns immediately - the supplied callback submits the form if there are no errors
-//                    Stripe.card.createToken({
-//                        number: $('.card-number').val(),
-//                        cvc: $('.card-cvc').val(),
-//                        exp_month: $('.card-expiry-month').val(),
-//                        exp_year: $('.card-expiry-year').val(),
-//                        name: $('.card-holder-name').val(),
-//                        address_line1: $('.address').val(),
-//                        address_city: $('.city').val(),
-//                        address_zip: $('.zip').val(),
-//                        address_state: $('.state').val(),
-//                        address_country: $('.country').val()
-//                    }, stripeResponseHandler);
-//                    return false; // submit from callback
-//                },
                 fields: {
                     fname: {
                         validators: {
@@ -228,73 +224,60 @@ if(!$res){
 <div class="bgded overlay" style="background-image:url('../img/backgrounds/membership.jpg');">
     <div class="wrapper row1">
         <header id="header" class="hoc clear">
-            <div id="logo" class="fl_left">
-                <h1><a href="../index.html"></a>A3M</h1>
-            </div>
-            <nav id="mainav" class="fl_right">
-                <ul class="clear">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a class="drop" href="#">ABOUT</a>
-                        <ul>
-                            <li><a href="../index.html#whatwedo">WHAT WE DO</a></li>
-                            <li><a href="feedback.php">FEEDBACK</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="survey.html">SURVEY</a></li>
-                    <li class="active"><a class="drop" href="#">FORMS</a>
-                        <ul>
-                            <li><a href="register.html">MEMBERSHIP</a></li>
-                            <li><a href="bylaws.html">BYLAWS</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="donation.php">DONATE</a></li>
-                    <li><a class="drop" href="#">GALLERIES</a>
-                        <ul>
-                            <li><a href="algeria.html">ALGERIA</a></li>
-                            <li><a href="usa.html">USA</a></li>
-                            <li><a href="michigan.html">MICHIGAN</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="news.html">NEWS</a></li>
-                    <li><a href="#contact">CONTACT</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="caret"> </span>
-                            Login</a>
-                        <ul id="login-dp" class="dropdown-menu">
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <form class="form" action="../php/login.php" method="POST" id="login-nav"
-                                              style="display: block">
-                                            <div class="form-group">
-                                                <label class="sr-only" for="logEmail">Email address</label>
-                                                <input type="email" class="form-control" name="logEmail" id="logEmail" placeholder="Email address" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="sr-only" for="logPassword">Password</label>
-                                                <input type="password" class="form-control" name="logPassword" id="logPassword" placeholder="Password" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+            <nav id="" class="navbar navbar-inverse bg-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="../index.html">A3M</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="../index.html">HOME</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="../index.html#whatwedo">WHAT WE DO</a></li>
+                                    <li><a href="./feedback.php">FEEDBACK</a></li>
+                                </ul>
                             </li>
+                            <li><a href="./survey.html">SURVEY</a></li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">FORMS<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="./register.html">MEMBERSHIP</a></li>
+                                    <li><a href="./bylaws.html">BYLAWS</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="./donation.php">DONATE</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">GALLERIES<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="./algeria.html">ALGERIA</a></li>
+                                    <li><a href="./usa.html">USA</a></li>
+                                    <li><a href="./michigan.html">MICHIGAN</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="./news.html">NEWS</a></li>
+                            <li><a href="../index.html#contact">CONTACT</a></li>
+                            <li><a href="./login.php">LOGIN</a></li>
+                            <li><a href="./register.html">REGISTER</a></li>
                         </ul>
-                    </li>
-                    <li><a href="./register.html">Register</a></li>
-                </ul>
+                    </div>
+                </div>
             </nav>
-            <!-- ################################################################################################ -->
         </header>
     </div>
 
     <section id="breadcrumb" class="hoc clear">
-        <h6 class="heading">Membership</h6>
+        <h6 class="heading" style="font-size: 3.0vw;">Membership</h6>
         <ul>
             <li><a href="../index.html">Home</a></li>
-            <li><a href="./membership.php">Membership</a></li>
+            <li><a href="./register.html">Membership</a></li>
         </ul>
     </section>
 </div>
@@ -308,10 +291,6 @@ if(!$res){
             $duplicateError = '';
             $info = array();
             if ($_POST && $payStatus) {
-                $servername = "localhost";
-                $username = "nfalta";
-                $dbpassword = "Zb121788n@d";
-                $dbname = "a3m-db";
 
                 // data to pass to the database
                 $fname = $_POST["fname"];
@@ -329,24 +308,13 @@ if(!$res){
                 $membership = $membershipType;
                 $password = $_POST["password"];
 
-                // 1. Create a database connection
-                $connection = new mysqli($servername, $username, $dbpassword, $dbname);
-                if ($connection->connect_errno) {
-                    printf("Connect failed: %s\n", $connection->connect_error);
-                    exit();
-                }
-                // 2. Select a database to use
-                $db_select = mysqli_select_db($connection, $dbname);
-
                 //check if the a member with the same first name and last exist
-                $fname = $_POST["fname"];
-                $lname = $_POST["lname"];
-                $result = mysqli_query($connection, "SELECT * FROM users WHERE fname='$fname' and lname='$lname'");
+                $result = mysqli_query($connection, "SELECT * FROM users WHERE email='$email' OR fname='$fname' and lname='$lname'");
                 $row = mysqli_fetch_array($result, MYSQLI_NUM);
 
                 if($row[0]) {
                     $duplicateError = '<div class="alert alert-danger">
-                                        <strong>Error!</strong> A member with that first and last name already exist in our database.
+                                        <strong>Error!</strong> A member with that email or first and last name already exist in our database.
                                       </div>';
                 }
 
@@ -366,22 +334,9 @@ if(!$res){
                                         Your application has been successfully submitted.
                                         You can login to see your profile.
                                       </div>';
-                        ?>
-                        <style type="text/css">
-                            #registrationCont{
-                                display:none !important;
-                            }
-                            #loginForm{
-                                display:block !important;
-                            }
-                            #paymentSucc{
-                                display:none !important;
-                            }
-                        </style>
-                        <?php
+                        echo '<script type="text/javascript">window.location.replace("http://www.a3michigan.org/pages/login.php?success=true");</script>';
+                        exit();
                     }
-                } else {
-                    echo '----------------------------------------------------------------------';
                 }
             }
             ?>
@@ -510,26 +465,6 @@ if(!$res){
         </form>
         <!--#################################################### End Of Form  ####################################################-->
         <div class="clear"></div>
-        <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-2 col-md-offset-2">
-            <div class="row" id="loginForm" style="display: none;">
-                <div class="col-md-12">
-                    <form class="form" action="../php/login.php" method="POST" id="login-nav"
-                          style="display: block">
-                        <div class="form-group">
-                            <label class="sr-only" for="logEmail">Email address</label>
-                            <input type="email" class="form-control" name="logEmail" id="logEmail" placeholder="Email address" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="logPassword">Password</label>
-                            <input type="password" class="form-control" name="logPassword" id="logPassword" placeholder="Password" required>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
     </main>
 </div>
 
@@ -538,13 +473,12 @@ if(!$res){
     <footer id="footer" class="hoc clear">
         <div class="one_third first">
             <h6 class="heading">A3M</h6>
-            <p>A3m is an Algerian/American organization....etc</p>
-            <p class="btmspace-50">This is just a descriptive text you can ignore it if you want</p>
+            <p>A3M is an Algerian American association that serves the needs of the Algerian American in Michigan</p>
             <nav>
                 <ul class="nospace">
                     <li><a href="../index.html"><i class="fa fa-lg fa-home"></i></a></li>
                     <li><a href="./donation.php">Donate</a></li>
-                    <li><a href="./membership.php">Membership</a></li>
+                    <li><a href="./register.html">Membership</a></li>
                     <li><a href="./feedback.php">Feedback</a></li>
                     <li><a href="./bylaws.html">Bylaws</a></li>
                     <li><a href="./survey.html">Survey</a></li>
@@ -560,12 +494,14 @@ if(!$res){
             <ul class="nospace btmspace-30 linklist contact">
                 <li><i class="fa fa-map-marker"></i>
                     <address>
-                        Street Name &amp; Number, Town, Postcode/Zip
+                         Algerian-American Association
+                           of Michigan
+   <br>                          3385 Buckingham Trl
+  <br>                          W Bloomfield, MI 48323
                     </address>
                 </li>
-                <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-                <li><i class="fa fa-fax"></i> +00 (123) 456 7890</li>
-                <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+
+                <li><i class="fa fa-envelope-o"></i> info@a3michigan.org</li>
             </ul>
             <ul class="faico clear">
                 <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
@@ -579,8 +515,8 @@ if(!$res){
         <div class="one_third">
             <h6 class="heading">Location</h6>
             <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAz02yCRNu3uItDorLGL2s3tTJX6ye9DeU'></script>
-            <div style='overflow:hidden;height:335px;width:436px;'>
-                <div id='gmap_canvas' style='height:335px;width:436px;'></div>
+            <div style='overflow:hidden;height:260px;width:80%;'>
+                <div id='gmap_canvas' style='height:260px;width:80%;'></div>
                 <style>#gmap_canvas img {
                         max-width: none !important;
                         background: none !important

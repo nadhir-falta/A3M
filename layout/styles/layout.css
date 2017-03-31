@@ -67,7 +67,7 @@ File: Layout CSS
 .excerpts article figure figcaption time em{padding:8px 0;}
 
 /* If the image (figure) has the header (hgroup) immediately after it, the header will be given a bottom border */
-.excerpts article figure + .hgroup{border-bottom:1px solid;}
+.excerpts article figure + .hgroup{border-bottom:1px solid; min-height: 110px;}
 
 /* If the header (hgroup) has a linked image (figure a) then the link will have an overlay on hover */
 .excerpts article .hgroup + figure > a{display:inline-block; position:relative; max-width:100%;}
@@ -117,9 +117,9 @@ File: Layout CSS
 
 /* Footer
 --------------------------------------------------------------------------------------------------------------- */
-#footer{padding:80px 0;}
+#footer{padding:25px 0;}
 
-#footer .heading{margin-bottom:50px; font-size:1.2rem;}
+#footer .heading{margin-bottom:30px; font-size:1.6rem;}
 
 #footer nav{margin-bottom:30px; text-transform:uppercase;}
 #footer nav ul{}
@@ -279,7 +279,7 @@ input:focus, textarea:focus, *:required:focus{border-color:#A2B70D;}
 
 
 /* Rows */
-.row1{color:#FFFFFF; background-color:rgba(0,0,0,.60);position: fixed;z-index: 99999999;top: 0;}
+.row1{color:#FFFFFF; background-color:rgba(0,0,0,.80);position: fixed;z-index: 99999999;top: 0;}
 .row2{color:#191919;}
 .row3{color:#191919; background-color:#FFFFFF;}
 .row4{color:#CBCBCB;}
@@ -295,7 +295,7 @@ input:focus, textarea:focus, *:required:focus{border-color:#A2B70D;}
 .services li article > a{color:inherit;}
 .services li article:hover > a i{color:#A2B70D;}
 
-.excerpts article{border-color:#EDEDED; box-shadow:0px 0px 5px 5px #EDEDED;}/* There is sadly no box-shadow-color, so the full tag is here */
+.excerpts article{border-color:#EDEDED; box-shadow:0px 0px 5px 5px #EDEDED; min-height: 500px;}/* There is sadly no box-shadow-color, so the full tag is here */
 .excerpts article:hover{border: 2px solid red; box-shadow:0px 0px 5px 5px rgba(162,183,13,.6)/* #A2B70D */;}
 
 .excerpts article figure figcaption{color:#FFFFFF;}
@@ -366,7 +366,6 @@ table a, #comments a{background-color:inherit;}
 @media screen and (max-width:900px){
 	.hoc{max-width:90%;}
 
-	#header{padding:30px 0 15px;}
 	#header #logo{margin:0;}
 
 	#mainav{}
@@ -552,4 +551,56 @@ table a, #comments a{background-color:inherit;}
 	font-size: 4em;
 	font-family: "Segoe UI", "Helvetica Neue", Helvetica, Roboto, 'Open Sans', FreeSans, sans-serif;
 	font-style: italic;
+}
+
+.excerpts article footer {
+	padding-top: 10px !important;
+	padding-bottom: 10px !important;
+}
+
+.excerpts article .txtwrap {
+	min-height: 100px !important;
+	padding: 15px !important;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>.active>a {
+	color: #A2B70D !important;
+}
+
+.dropdown-menu>li>a:hover {
+	color: #FFFFFF !important;
+	background-color: red !important;
+}
+.dropdown-menu>li:hover {
+	color: #FFFFFF !important;
+	background-color: red !important;
+}
+
+.open>.dropdown-menu{ background-color: rgba(0,0,0,.5);}
+.open>.dropdown-menu:hover > ul{visibility:visible; opacity:1;}
+
+.dropdown-menu>li>a {
+	color: #FFF !important;
+}
+
+.dropdown-menu>li {
+	height: 37px !important;
+	width: 180px;
+}
+
+.navbar-inverse {
+	background-color: inherit !important;
+	border: none !important;
+}
+
+.navbar-inverse .navbar-nav>li>a, .navbar-inverse .navbar-brand {
+	color: #FFF !important;
+}
+
+.navbar-inverse .navbar-nav>.active>a {
+	background-color: inherit !important;
+}
+
+.nav>li>a {
+	padding: 15px 14px !important;
 }

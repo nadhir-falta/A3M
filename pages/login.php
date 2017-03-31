@@ -1,15 +1,41 @@
+<?php
+$configs = include('../php/dbconf.php');
+$servername = $configs->servername;
+$username = $configs->username;
+$dbpassword = $configs->dbpassword;
+$dbname = $configs->dbname;
+$dbSuccess = '';
+// 1. Create a database connection
+$connection = new mysqli($servername, $username, $dbpassword, $dbname);
+if ($connection->connect_errno) {
+    printf("Connect failed: %s\n", $connection->connect_error);
+    exit();
+}
+// 2. Select a database to use
+$db_select = mysqli_select_db($connection, $dbname);
+
+if(isset ( $_GET["success"])) {
+    $dbSuccess = '<div class="alert alert-success">
+                    <strong>Success!</strong> 
+                    Your application has been successfully submitted.
+                    You can login to see your profile.
+                  </div>';
+}
+?>
+
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
 <head>
-    <title>A3MICHIGAN</title>
+    <title>A3Michigan</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
     <link rel="stylesheet" href="../css/bootstrap-min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>
 <body id="top">
-<!-- Top Background Image Wrapper -->
-<div class="bgded overlay" style="background-image:url('../img/backgrounds/usa-algerie.jpg');">
+<div class="bgded overlay" style="background-image:url('../img/backgrounds/membership.jpg');">
     <div class="wrapper row1">
         <header id="header" class="hoc clear">
             <nav id="" class="navbar navbar-inverse bg-inverse">
@@ -34,7 +60,7 @@
                                 </ul>
                             </li>
                             <li><a href="./survey.html">SURVEY</a></li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">FORMS<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="./register.html">MEMBERSHIP</a></li>
@@ -52,7 +78,7 @@
                             </li>
                             <li><a href="./news.html">NEWS</a></li>
                             <li><a href="../index.html#contact">CONTACT</a></li>
-                            <li><a href="./login.php">LOGIN</a></li>
+                            <li class="active"><a href="./login.php">LOGIN</a></li>
                             <li><a href="./register.html">REGISTER</a></li>
                         </ul>
                     </div>
@@ -62,28 +88,85 @@
     </div>
 
     <section id="breadcrumb" class="hoc clear">
-        <!-- ################################################################################################ -->
-        <h6 class="heading" style="font-size: 3.0vw;">Bylaws</h6>
-        <!-- ################################################################################################ -->
+        <h6 class="heading" style="font-size: 3.0vw;">Login</h6>
         <ul>
             <li><a href="../index.html">Home</a></li>
-            <li><a href="./feedback.php">Bylaws</a></li>
+            <li><a href="./Login.php">Login</a></li>
         </ul>
-        <!-- ################################################################################################ -->
     </section>
-    <!-- ################################################################################################ -->
 </div>
 <div class="wrapper row3">
     <main class="hoc container clear">
-        <!-- main body -->
-        <!-- ################################################################################################ -->
-        <div>
-            <iframe height="500" width="100%"
-                    src="http://www.scribd.com/embeds/335156502/content?access_key=key-mzyWAu2ub1EffGwVcUZa&amp;jsapi=true&amp;xdm_e=http://www.a3michigan.org&amp;xdm_c=default0&amp;xdm_p=1"
-                    id="" frameborder="0" style="border: 0px;"></iframe>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-2 col-md-offset-2">
+            <div class="row" >
+                <div class="col-md-12">
+                    <form class="form" action="" method="POST" id="login-nav" style="display: block">
+                        <?php
+                        $errorMsg = '';
+                        if ($_POST) {
+                            $email = $_POST["logEmail"];
+                            $password = $_POST["logPassword"];
+                            $result = mysqli_query($connection, "SELECT * FROM users WHERE email='$email' and password='$password'");
+                            $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                            if ($row[0]) {
+                                $url = "http://www.a3michigan.org/pages/profile.php?id=" . $row[0];
+                                echo '<script type="text/javascript">window.location.replace("' .$url. '");</script>';
+                                exit();
+                            } else {
+                                $errorMsg = '<div class="alert alert-danger">
+                                                <strong>Error!</strong> Something went wrong, <br> Please, make sure you have the right email and password.
+                                              </div>';
+                            }
+                        }
+                        ?>
+                        <span>
+                            <?= $errorMsg ?>
+                        </span>
+                        <span>
+                            <?= $dbSuccess ?>
+                        </span>
+                        <div id="loginbox" style="margin-top:20px;" class="mainbox col-md-12 col-sm-8 ">
+                            <div class="panel panel-info" >
+                                <div class="panel-heading">
+                                    <div class="panel-title">Login</div>
+                                    <!--                                        <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>-->
+                                </div>
+                                <div style="padding-top:30px" class="panel-body" >
+                                    <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                                    <form id="loginform" class="form-horizontal" role="form">
+
+                                        <div style="margin-bottom: 25px" class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <input type="text" class="form-control" name="logEmail" id="logEmail" value="" placeholder="Email address" required>
+                                        </div>
+
+                                        <div style="margin-bottom: 25px" class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                            <input type="password" class="form-control" name="logPassword" id="logPassword" placeholder="Password" required>
+                                        </div>
+
+                                        <div class="input-group">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top:10px" class="form-group">
+                                            <!-- Button -->
+                                            <div class="col-sm-12 controls">
+                                                <button type="submit" id="btn-login" class="btn btn-success">Login</button>
+                                                <!--                                                    <a id="btn-login" href="#" class="btn btn-success">Login  </a>-->
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <!-- / main body -->
-        <div class="clear"></div>
     </main>
 </div>
 
@@ -113,10 +196,10 @@
             <ul class="nospace btmspace-30 linklist contact">
                 <li><i class="fa fa-map-marker"></i>
                     <address>
-                         Algerian-American Association
-                           of Michigan
-   <br>                          3385 Buckingham Trl
-  <br>                          W Bloomfield, MI 48323
+                        Algerian-American Association
+                        of Michigan
+                        3385 Buckingham Trl
+                        W Bloomfield, MI 48323
                     </address>
                 </li>
 
@@ -137,28 +220,31 @@
             <div style='overflow:hidden;height:260px;width:80%;'>
                 <div id='gmap_canvas' style='height:260px;width:80%;'></div>
                 <style>#gmap_canvas img {
-                    max-width: none !important;
-                    background: none !important
-                }</style>
+                        max-width: none !important;
+                        background: none !important
+                    }</style>
             </div>
             <a href='http://maps-generator.com/'>maps-generator.com</a>
             <script type='text/javascript'
                     src='https://embedmaps.com/google-maps-authorization/script.js?id=edb9cbe68b8845fb95f39b7df84c61d04cc2fbd7'></script>
             <script type='text/javascript'>function init_map() {
-                var myOptions = {
-                    zoom: 12,
-                    center: new google.maps.LatLng(42.331427, -83.0457538),
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
-                marker = new google.maps.Marker({map: map, position: new google.maps.LatLng(42.331427, -83.0457538)});
-                infowindow = new google.maps.InfoWindow({content: '<strong></strong><br><br> Detroit<br>'});
-                google.maps.event.addListener(marker, 'click', function () {
+                    var myOptions = {
+                        zoom: 12,
+                        center: new google.maps.LatLng(42.331427, -83.0457538),
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
+                    marker = new google.maps.Marker({
+                        map: map,
+                        position: new google.maps.LatLng(42.331427, -83.0457538)
+                    });
+                    infowindow = new google.maps.InfoWindow({content: '<strong></strong><br><br> Detroit<br>'});
+                    google.maps.event.addListener(marker, 'click', function () {
+                        infowindow.open(map, marker);
+                    });
                     infowindow.open(map, marker);
-                });
-                infowindow.open(map, marker);
-            }
-            google.maps.event.addDomListener(window, 'load', init_map);</script>
+                }
+                google.maps.event.addDomListener(window, 'load', init_map);</script>
 
         </div>
         <!-- ################################################################################################ -->
@@ -167,7 +253,7 @@
 
 <div class="wrapper row5">
     <div id="copyright" class="hoc clear">
-        <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="http://www.a3michigan">www.a3michigan.org</a>
+        <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="http://www.a3michigan">www.a3michigan.com</a>
         </p>
     </div>
 </div>
@@ -178,11 +264,10 @@
         <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" alt="PayPal - The safer, easier way to pay online!">
     </a>
 </div>
-
 <!-- JAVASCRIPTS -->
-<script src="../layout/scripts/jquery.min.js"></script>
 <script src="../layout/scripts/jquery.backtotop.js"></script>
 <script src="../layout/scripts/jquery.mobilemenu.js"></script>
 <script src="../layout/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
+

@@ -1,89 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="">
 <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>A3Michigan</title>
+    <title>A3MICHIGAN</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
     <link rel="stylesheet" href="../css/bootstrap-min.css">
-    <link rel="stylesheet" href="../css/bootstrap-formhelpers-min.css" media="screen">
-    <link rel="stylesheet" href="../css/bootstrapValidator-min.css"/>
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
-    <link rel="stylesheet" href="../css/bootstrap-side-notes.css"/>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="../js/bootstrap-min.js"></script>
-    <script src="../js/bootstrap-formhelpers-min.js"></script>
-    <script type="text/javascript" src="../js/bootstrapValidator-min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body id="top">
-<div class="bgded overlay" style="background-image:url('../img/backgrounds/donations.jpg');">
+<!-- Top Background Image Wrapper -->
+<div class="bgded overlay" style="background-image:url('../img/backgrounds/feedback.jpg');">
     <div class="wrapper row1">
         <header id="header" class="hoc clear">
-            <div id="logo" class="fl_left">
-                <h1><a href="../index.html"></a>A3M</h1>
-            </div>
-            <nav id="mainav" class="fl_right">
-                <ul class="clear">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a class="drop" href="#">ABOUT</a>
-                        <ul>
-                            <li><a href="../index.html#whatwedo">WHAT WE DO</a></li>
-                            <li><a href="feedback.php">FEEDBACK</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="survey.html">SURVEY</a></li>
-                    <li class="active"><a class="drop" href="#">FORMS</a>
-                        <ul>
-                            <li><a href="register.html">MEMBERSHIP</a></li>
-                            <li><a href="bylaws.html">BYLAWS</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="donation.php">DONATE</a></li>
-                    <li><a class="drop" href="#">GALLERIES</a>
-                        <ul>
-                            <li><a href="algeria.html">ALGERIA</a></li>
-                            <li><a href="usa.html">USA</a></li>
-                            <li><a href="michigan.html">MICHIGAN</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="news.html">NEWS</a></li>
-                    <li><a href="#contact">CONTACT</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="caret"> </span>
-                            Login</a>
-                        <ul id="login-dp" class="dropdown-menu">
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <form class="form" action="../php/login.php" method="POST" id="login-nav"
-                                              style="display: block">
-                                            <div class="form-group">
-                                                <label class="sr-only" for="logEmail">Email address</label>
-                                                <input type="email" class="form-control" name="logEmail" id="logEmail" placeholder="Email address" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="sr-only" for="logPassword">Password</label>
-                                                <input type="password" class="form-control" name="logPassword" id="logPassword" placeholder="Password" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+            <nav id="" class="navbar navbar-inverse bg-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="../index.html">A3M</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="../index.html">HOME</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="../index.html#whatwedo">WHAT WE DO</a></li>
+                                    <li><a href="./feedback.php">FEEDBACK</a></li>
+                                </ul>
                             </li>
+                            <li><a href="./survey.html">SURVEY</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">FORMS<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="./register.html">MEMBERSHIP</a></li>
+                                    <li><a href="./bylaws.html">BYLAWS</a></li>
+                                </ul>
+                            </li>
+                            <li class="active"><a href="./donation.php">DONATE</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">GALLERIES<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="./algeria.html">ALGERIA</a></li>
+                                    <li><a href="./usa.html">USA</a></li>
+                                    <li><a href="./michigan.html">MICHIGAN</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="./news.html">NEWS</a></li>
+                            <li><a href="../index.html#contact">CONTACT</a></li>
+                            <li><a href="./login.php">LOGIN</a></li>
+                            <li><a href="./register.html">REGISTER</a></li>
                         </ul>
-                    </li>
-                    <li><a href="./register.html">Register</a></li>
-                </ul>
+                    </div>
+                </div>
             </nav>
-            <!-- ################################################################################################ -->
         </header>
     </div>
 
     <section id="breadcrumb" class="hoc clear">
-        <h6 class="heading">Donation</h6>
+        <h6 class="heading" style="font-size: 3.0vw;">Donation</h6>
         <ul>
             <li><a href="../index.html">Home</a></li>
             <li><a href="#">Donation</a></li>
@@ -140,14 +121,12 @@
     <footer id="footer" class="hoc clear">
         <div class="one_third first">
             <h6 class="heading">A3M</h6>
-            <p>A3m is an Algerian/American organization....etc</p>
-            <p class="btmspace-50">This is just a descriptive text you can ignore it if you want</p>
+            <p>A3M is an Algerian American association that serves the needs of the Algerian American in Michigan</p>
             <nav>
                 <ul class="nospace">
                     <li><a href="../index.html"><i class="fa fa-lg fa-home"></i></a></li>
-
                     <li><a href="./donation.php">Donate</a></li>
-                    <li><a href="./membership.php">Membership</a></li>
+                    <li><a href="./register.html">Membership</a></li>
                     <li><a href="./feedback.php">Feedback</a></li>
                     <li><a href="./bylaws.html">Bylaws</a></li>
                     <li><a href="./survey.html">Survey</a></li>
@@ -163,12 +142,14 @@
             <ul class="nospace btmspace-30 linklist contact">
                 <li><i class="fa fa-map-marker"></i>
                     <address>
-                        Street Name &amp; Number, Town, Postcode/Zip
+                         Algerian-American Association
+                           of Michigan
+   <br>                          3385 Buckingham Trl
+  <br>                          W Bloomfield, MI 48323
                     </address>
                 </li>
-                <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-                <li><i class="fa fa-fax"></i> +00 (123) 456 7890</li>
-                <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+
+                <li><i class="fa fa-envelope-o"></i> info@a3michigan.org</li>
             </ul>
             <ul class="faico clear">
                 <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
@@ -182,8 +163,8 @@
         <div class="one_third">
             <h6 class="heading">Location</h6>
             <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAz02yCRNu3uItDorLGL2s3tTJX6ye9DeU'></script>
-            <div style='overflow:hidden;height:335px;width:436px;'>
-                <div id='gmap_canvas' style='height:335px;width:436px;'></div>
+            <div style='overflow:hidden;height:260px;width:80%;'>
+                <div id='gmap_canvas' style='height:260px;width:80%;'></div>
                 <style>#gmap_canvas img {
                         max-width: none !important;
                         background: none !important
@@ -193,23 +174,21 @@
             <script type='text/javascript'
                     src='https://embedmaps.com/google-maps-authorization/script.js?id=edb9cbe68b8845fb95f39b7df84c61d04cc2fbd7'></script>
             <script type='text/javascript'>function init_map() {
-                    var myOptions = {
-                        zoom: 12,
-                        center: new google.maps.LatLng(42.331427, -83.0457538),
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    };
-                    map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
-                    marker = new google.maps.Marker({
-                        map: map,
-                        position: new google.maps.LatLng(42.331427, -83.0457538)
-                    });
-                    infowindow = new google.maps.InfoWindow({content: '<strong></strong><br><br> Detroit<br>'});
-                    google.maps.event.addListener(marker, 'click', function () {
-                        infowindow.open(map, marker);
-                    });
+                var myOptions = {
+                    zoom: 12,
+                    center: new google.maps.LatLng(42.331427, -83.0457538),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
+                marker = new google.maps.Marker({
+                    map: map, position: new google.maps.LatLng(42.331427, -83.0457538)});
+                infowindow = new google.maps.InfoWindow({content: '<strong></strong><br><br> Detroit<br>'});
+                google.maps.event.addListener(marker, 'click', function () {
                     infowindow.open(map, marker);
-                }
-                google.maps.event.addDomListener(window, 'load', init_map);</script>
+                });
+                infowindow.open(map, marker);
+            }
+            google.maps.event.addDomListener(window, 'load', init_map);</script>
 
         </div>
         <!-- ################################################################################################ -->
@@ -218,13 +197,14 @@
 
 <div class="wrapper row5">
     <div id="copyright" class="hoc clear">
-        <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="http://www.a3michigan">www.a3michigan.com</a>
+        <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="http://www.a3michigan">www.a3michigan.org</a>
         </p>
     </div>
 </div>
 
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
 <!-- JAVASCRIPTS -->
+<script src="../layout/scripts/jquery.min.js"></script>
 <script src="../layout/scripts/jquery.backtotop.js"></script>
 <script src="../layout/scripts/jquery.mobilemenu.js"></script>
 <script src="../layout/bootstrap/js/bootstrap.min.js"></script>

@@ -10,90 +10,84 @@
 </head>
 <body id="top">
 <!-- Top Background Image Wrapper -->
-<div class="bgded overlay" style="background-image:url('img/backgrounds/home-bg.jpg');">
-    <div class="wrapper row1">
-        <header id="header" class="hoc clear">
-            <div id="logo" class="fl_left">
-                <h1><a href="index.html"></a>A3M</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="bgded overlay" style="background-image:url('img/backgrounds/home-bg.jpg');">
+            <div class="wrapper row1">
+                <header id="header" class="hoc clear">
+                    <nav id="" class="navbar navbar-inverse bg-inverse">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="index.html">A3M</a>
+                            </div>
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav">
+                                    <li class="active"><a href="index.html">HOME</a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#whatwedo">WHAT WE DO</a></li>
+                                            <li><a href="pages/feedback.php">FEEDBACK</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="pages/survey.html">SURVEY</a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">FORMS<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="pages/register.html">MEMBERSHIP</a></li>
+                                            <li><a href="pages/bylaws.html">BYLAWS</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="pages/donation.php">DONATE</a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">GALLERIES<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="pages/algeria.html">ALGERIA</a></li>
+                                            <li><a href="pages/usa.html">USA</a></li>
+                                            <li><a href="pages/michigan.html">MICHIGAN</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="pages/news.html">NEWS</a></li>
+                                    <li><a href="#contact">CONTACT</a></li>
+                                    <li class="dropdown"><a href="./pages/login.php">LOGIN</a></li>
+                                    <li><a href="./pages/register.html">REGISTER</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </header>
             </div>
-            <nav id="mainav" class="fl_right">
-                <ul class="clear">
-                    <li class="active"><a href="index.html">Home</a></li>
-                    <li><a class="drop" href="#">ABOUT</a>
-                        <ul>
-                            <li><a href="#whatwedo">WHAT WE DO</a></li>
-                            <li><a href="pages/feedback.php">FEEDBACK</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="pages/survey.html">SURVEY</a></li>
-                    <li><a class="drop" href="#">FORMS</a>
-                        <ul>
-                            <li><a href="pages/register.html">MEMBERSHIP</a></li>
-                            <li><a href="pages/bylaws.html">BYLAWS</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="pages/donation.php">DONATE</a></li>
-                    <li><a class="drop" href="#">GALLERIES</a>
-                        <ul>
-                            <li><a href="pages/algeria.html">ALGERIA</a></li>
-                            <li><a href="pages/usa.html">USA</a></li>
-                            <li><a href="pages/michigan.html">MICHIGAN</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="pages/news.html">NEWS</a></li>
-                    <li><a href="#contact">CONTACT</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="caret"> </span>
-                            Login</a>
-                        <ul id="login-dp" class="dropdown-menu">
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <form class="form" action="./php/login.php" method="POST" id="login-nav"
-                                              style="display: block">
-                                            <div class="form-group">
-                                                <label class="sr-only" for="logEmail">Email address</label>
-                                                <input type="email" class="form-control" name="logEmail" id="logEmail" placeholder="Email address" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="sr-only" for="logPassword">Password</label>
-                                                <input type="password" class="form-control" name="logPassword" id="logPassword" placeholder="Password" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="./pages/register.html">Register</a></li>
-                </ul>
-            </nav>
-        </header>
-    </div>
-    <section id="pageintro" class="hoc clear">
-        <div>
-            <!-- ################################################################################################ -->
-            <h2 class="heading" style="text-align: left; width: 400px;">
-                <span style="color: green;">A</span>lgerian
-                <span style="color: red;">A</span>meri<span style="color: blue;">can</span>
-                <span style="color: white;">A</span>ssociation of
-                <span style="color: green;">Mic</span><span style="color: red;">hi</span><span
-                    style="color: white;">gan</span></h2>
-            <h3>Where we serve the Algerian-American community better</h3>
-            <footer><a class="btn" href="#whatwedo">Learn More</a></footer>
-            <!-- ################################################################################################ -->
+            <section id="pageintro" class="hoc clear">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-8 col-md-8">
+                        <h2 class="heading" style="text-align: left;">
+                            <span style="color: green;">A</span>lgerian
+                            <span style="color: red;">A</span>meri<span style="color: blue;">can</span>
+                            <span style="color: white;">A</span>ssociation of
+                            <span style="color: green;">Mic</span><span style="color: red;">hi</span><span
+                                style="color: white;">gan</span></h2>
+                        <br>
+                        <br>
+                        <h3><b>Where the Algerian-American community Stands together</b></h3>
+                        <footer><a class="btn" href="#whatwedo">Learn More</a></footer>
+                    </div>
+                </div>
+            </section>
         </div>
-    </section>
+    </div>
 </div>
 <div style="z-index: 99999;position: fixed;bottom: 20px;left: 20px;">
     <a href="./pages/donation.php">
         <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" alt="PayPal - The safer, easier way to pay online!">
     </a>
 </div>
-
+<br>
 <div class="wrapper row2">
     <section class="container">
         <!-- ################################################################################################ -->
@@ -109,12 +103,12 @@
             <ul>
                 <li><p> To provide a forum for Algerian Americans to serve their interests and preserve their rich
                     cultural traditions so they and their children would take pride in their unique heritage, their
-                    knowledge of Multiple languages, and their bicultural experience. </p></li>
+                    knowledge of multiple languages, and their bicultural experience. </p></li>
                 <li><p>To promote understanding and enhance interaction between the Algerian-American community and the
                     rest of the American public and its institutions. </p></li>
                 <li><p> To promote understanding and cooperation between the American and Algerian peoples, and support
                     Algeria’s efforts toward progress.
-                    A3M is planning to hold several annual functions, which include but are not limited to Major Holiday
+                    A3M is planning to hold several annual functions, which include but are not limited to major Holiday
                     events such as the “ Mutual US-DZ Independence Day Celebration ”, " EIDs", and other social and
                     recreational events which attract adults, youth and children. </p></li>
             </ul>
@@ -126,8 +120,8 @@
             <p>A3M relies on the volunteer work of its members, who are professionals that offer their time, effort and
                 resources to help achieve the goals that the organization is trying to accomplish.</p>
             <br>
-            <p>The success or failure of A3M is ultimately linked to the participation of its members. The Actual
-                Steering Committee and The Actual Board Directors are nothing more than active volunteer members
+            <p>The success or failure of A3M is ultimately linked to the participation of its members. The actual
+                Steering Committee and The actual Board Directors are nothing more than active volunteer members
                 committed for a set period of time to fulfill a minimum program. It is the A3M future members who should
                 animate activities with the help of the Board.</p>
             <br>
@@ -179,11 +173,11 @@
             <article class="one_third first">
                 <figure><img src="img/backgrounds/ramadhan.jpg" alt="" style="height: 220px;">
                     <figcaption>
-                        <time datetime="2045-04-06T08:15+00:00"><strong>06</strong> <em>Apr</em></time>
+                        <time datetime="2045-04-06T08:15+00:00"><strong>31</strong> <em>Dec</em></time>
                     </figcaption>
                 </figure>
                 <div class="hgroup">
-                    <h2 class="heading">Ramadhan Ftour</h2>
+                    <h2 class="heading">2nd Annual Community Event</h2>
                     <ul class="nospace meta">
                         <li>by <a href="#">A3M</a></li>
                         <li>in <a href="#">Category Name</a></li>
@@ -192,16 +186,16 @@
                 <div class="txtwrap">
                     <p>This is just a descriptive Text, you can ignore it if you want</p>
                 </div>
-                <footer><a class="btn" href="#">Read More &raquo;</a></footer>
+                <footer><a class="btn" href="#" onclick="alert('Stay tuned for more details')">Read More &raquo;</a></footer>
             </article>
             <article class="one_third">
                 <figure><img src="img/backgrounds/eid.jpg" alt="" style="height: 220px;"">
                     <figcaption>
-                        <time datetime="2045-04-05T08:15+00:00"><strong>05</strong> <em>Apr</em></time>
+                        <time datetime="2045-04-05T08:15+00:00"><strong>15</strong> <em>Jul</em></time>
                     </figcaption>
                 </figure>
                 <div class="hgroup">
-                    <h4 class="heading">Eid gathering</h4>
+                    <h4 class="heading">Eid Picnic</h4>
                     <ul class="nospace meta">
                         <li>by <a href="#">A3M</a></li>
                         <li>in <a href="#">Category Name</a></li>
@@ -210,12 +204,12 @@
                 <div class="txtwrap">
                     <p>This is just a descriptive Text, you can ignore it if you want</p>
                 </div>
-                <footer><a class="btn" href="#">Read More &raquo;</a></footer>
+                <footer><a class="btn" href="#" onclick="alert('Stay tuned for more details')">Read More &raquo;</a></footer>
             </article>
             <article class="one_third">
                 <figure><img src="img/backgrounds/scholarship.jpg" alt="" style="height: 220px;"">
                     <figcaption>
-                        <time datetime="2045-04-04T08:15+00:00"><strong>04</strong> <em>Apr</em></time>
+                        <time datetime="2045-04-04T08:15+00:00"><strong>04</strong> <em>Aug</em></time>
                     </figcaption>
                 </figure>
                 <div class="hgroup">
@@ -228,7 +222,7 @@
                 <div class="txtwrap">
                     <p>This is just a descriptive Text, you can ignore it if you want]</p>
                 </div>
-                <footer><a class="btn" href="#">Read More &raquo;</a></footer>
+                <footer><a class="btn" href="#" onclick="alert('Stay tuned for more details')">Read More &raquo;</a></footer>
             </article>
         </div>
 
@@ -239,9 +233,8 @@
 <div class="wrapper row4 bgded overlay footerbg" id="contact">
     <footer id="footer" class="hoc clear">
         <div class="one_third first">
-            <h6 class="heading">A3M</h6>
-            <p>A3m is an Algerian/American organization....etc</p>
-            <p class="btmspace-50">This is just a descriptive text you can ignore it if you want</p>
+            <h4 class="heading">A3M</h4>
+            <p>A3M is an Algerian American association that serves the needs of the Algerian American in Michigan</p>
             <nav>
                 <ul class="nospace">
                     <li><a href="index.html"><i class="fa fa-lg fa-home"></i></a></li>
@@ -258,16 +251,19 @@
             </nav>
         </div>
         <div class="one_third">
-            <h6 class="heading">Address and Phone Numbers</h6>
+            <h4 class="heading">Address and Phone Numbers</h4>
             <ul class="nospace btmspace-30 linklist contact">
                 <li><i class="fa fa-map-marker"></i>
                     <address>
-                        Street Name &amp; Number, Town, Postcode/Zip
+                         Algerian-American Association
+                           of Michigan
+   <br>                          3385 Buckingham Trl
+  <br>                          W Bloomfield, MI 48323
                     </address>
                 </li>
-                <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-                <li><i class="fa fa-fax"></i> +00 (123) 456 7890</li>
-                <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+                <!--<li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>-->
+                <!--<li><i class="fa fa-fax"></i> +00 (123) 456 7890</li>-->
+                <li><i class="fa fa-envelope-o"></i> info@a3michigan.org</li>
             </ul>
             <ul class="faico clear">
                 <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
@@ -279,10 +275,10 @@
             </ul>
         </div>
         <div class="one_third">
-            <h6 class="heading">Location</h6>
+            <h4 class="heading">Location</h4>
             <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAz02yCRNu3uItDorLGL2s3tTJX6ye9DeU'></script>
-            <div style='overflow:hidden;height:335px;width:436px;'>
-                <div id='gmap_canvas' style='height:335px;width:436px;'></div>
+            <div style='overflow:hidden;height:260px;width:90%;'>
+                <div id='gmap_canvas' style='height:260px;width:90%;'></div>
                 <style>#gmap_canvas img {
                     max-width: none !important;
                     background: none !important
