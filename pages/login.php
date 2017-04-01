@@ -63,7 +63,7 @@ if(isset ( $_GET["success"])) {
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">FORMS<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="./register.html">MEMBERSHIP</a></li>
+                                    <!--<li><a href="./register.html">MEMBERSHIP</a></li>-->
                                     <li><a href="./bylaws.html">BYLAWS</a></li>
                                 </ul>
                             </li>
