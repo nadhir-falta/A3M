@@ -113,8 +113,16 @@ if(isset($_POST['submit'])){
                             </li>
                             <li><a href="./news.html">NEWS</a></li>
                             <li><a href="../index.html#contact">CONTACT</a></li>
-                            <li><a href="./login.php">LOGIN</a></li>
                             <li><a href="./register.html">REGISTER</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-user" aria-hidden="true"></i>  ACCOUNT  <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="profile.php">PROFILE</a></li>
+                                    <li><a href="login.php">LOGIN</a></li>
+                                    <li><a href="logout.php">LOGOUT</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>
