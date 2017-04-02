@@ -1,5 +1,17 @@
 <?php
-$userID = $_GET['id'];
+session_start();
+
+if (isset($_SESSION['login_user']) && $_SESSION['login_user'] == true) {
+    echo "Welcome to the member's area, " . $_SESSION['login_user'] . "!";
+    $userID = $_SESSION['login_user'];
+} else {
+    echo '<script type="text/javascript">window.location.replace("login.php");</script>';
+    echo "Please log in first to see this page.";
+}
+if (isset($_GET['id'])) {
+    $userID = $_GET['id'];
+}
+
 $servername = "localhost";
 $username = "nfalta";
 $dbpassword = "Zb121788n@d";
@@ -129,7 +141,7 @@ if(isset($_POST['submit'])){
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="../img/avatar.png" class="img-circle img-responsive"> </div>
+                            <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="../img/backgrounds/avatar.png" class="img-circle img-responsive"> </div>
 
                             <div class=" col-md-9 col-lg-9 ">
                                 <table class="table table-user-information">
@@ -179,7 +191,7 @@ if(isset($_POST['submit'])){
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-3 col-lg-3 " align="center">
-                                <img alt="User Pic" src="../img/baby-avatar.jpg" class="img-circle img-responsive">
+                                <img alt="User Pic" src="../img/backgrounds/baby-avatar.jpg" class="img-circle img-responsive">
                             </div>
                             <div class=" col-md-9 col-lg-9 ">
                                 <?php echo $childrenTable ?>

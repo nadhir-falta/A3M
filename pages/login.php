@@ -1,4 +1,7 @@
 <?php
+// Start the session
+session_start();
+
 $configs = include('../php/dbconf.php');
 $servername = $configs->servername;
 $username = $configs->username;
@@ -109,6 +112,7 @@ if(isset ( $_GET["success"])) {
                             $result = mysqli_query($connection, "SELECT * FROM users WHERE email='$email' and password='$password'");
                             $row = mysqli_fetch_array($result, MYSQLI_NUM);
                             if ($row[0]) {
+                                $_SESSION['login_user']= $row[0];
                                 $url = "http://www.a3michigan.org/pages/profile.php?id=" . $row[0];
                                 echo '<script type="text/javascript">window.location.replace("' .$url. '");</script>';
                                 exit();
