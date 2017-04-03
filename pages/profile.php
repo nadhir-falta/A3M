@@ -2,7 +2,6 @@
 session_start();
 
 if (isset($_SESSION['login_user']) && $_SESSION['login_user'] == true) {
-    echo "Welcome to the member's area, " . $_SESSION['login_user'] . "!";
     $userID = $_SESSION['login_user'];
 } else {
     echo '<script type="text/javascript">window.location.replace("login.php");</script>';
@@ -131,117 +130,164 @@ if(isset($_POST['submit'])){
     </div>
 
     <section id="breadcrumb" class="hoc clear">
-        <h6 class="heading">Profile</h6>
+        <h6 class="heading" style="font-size: 3.0vw;">Profile</h6>
         <ul>
             <li><a href="../index.html">Home</a></li>
-            <li><a href="#" style="font-size: 3.0vw;">Profile</a></li>
+            <li><a href="#">Profile</a></li>
         </ul>
     </section>
 
 </div>
 <div class="wrapper row3">
     <main class="hoc container clear">
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" >
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><?= $parent_row[1] . ' ' . $parent_row[2] ?></h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="../img/backgrounds/avatar.png" class="img-circle img-responsive"> </div>
-
-                            <div class=" col-md-9 col-lg-9 ">
-                                <table class="table table-user-information">
-                                    <tbody>
-                                    <tr>
-                                        <td>Spouse:</td>
-                                        <td><?php echo $parent_row[3]; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Address:</td>
-                                        <td><?php echo $parent_row[4] . ' ' . $parent_row[5] . '<br>' . $parent_row[6] . ' ' . $parent_row[7] . ' ' . $parent_row[8]?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Phone</td>
-                                        <td><?php echo $parent_row[9]; ?></td>
-                                    </tr>
-                                    <tr>
-                                    <tr>
-                                        <td>Email</td>
-                                        <td><?php echo $parent_row[10]; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Occupation</td>
-                                        <td><?php echo $parent_row[11]; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Employer</td>
-                                        <td><?php echo $parent_row[12]; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Type of Membership</td>
-                                        <td><?php echo $parent_row[13]; ?></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+        <div class="panel with-nav-tabs panel-primary">
+            <div class="panel-heading">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#profile" data-toggle="tab">PROFILE</a></li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown">SCHOLARSHIP FORMS <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#flowChart" data-toggle="tab">Flow Chart</a></li>
+                            <li><a href="#scholarshipForm" data-toggle="tab">Scholarship Form</a></li>
+                            <li><a href="#enrollmentForm" data-toggle="tab">Enrollment Form</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#services" data-toggle="tab">SERVICES</a></li>
+                </ul>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" >
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Children:</h3>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="profile">
+                        <div id="profile" class="tab-pane fade in active">
+                            <div class="row">
+                                <br>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" >
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"><?= $parent_row[1] . ' ' . $parent_row[2] ?></h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="../img/backgrounds/avatar.png" class="img-circle img-responsive"> </div>
+
+                                                <div class=" col-md-9 col-lg-9 ">
+                                                    <table class="table table-user-information">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>Spouse:</td>
+                                                            <td><?php echo $parent_row[3]; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Address:</td>
+                                                            <td><?php echo $parent_row[4] . ' ' . $parent_row[5] . '<br>' . $parent_row[6] . ' ' . $parent_row[7] . ' ' . $parent_row[8]?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Phone</td>
+                                                            <td><?php echo $parent_row[9]; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                        <tr>
+                                                            <td>Email</td>
+                                                            <td><?php echo $parent_row[10]; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Occupation</td>
+                                                            <td><?php echo $parent_row[11]; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Employer</td>
+                                                            <td><?php echo $parent_row[12]; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Type of Membership</td>
+                                                            <td><?php echo $parent_row[13]; ?></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" >
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Children:</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-3 col-lg-3 " align="center">
+                                                    <img alt="User Pic" src="../img/backgrounds/baby-avatar.jpg" class="img-circle img-responsive">
+                                                </div>
+                                                <div class=" col-md-9 col-lg-9 ">
+                                                    <?php echo $childrenTable ?>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <form action="" method="POST">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label" for="textinput"></label>
+                                                        <div class="col-sm-6 form-group">
+                                                            <input type="text" name="childFname" maxlength="45" placeholder="First Name" class="form-control" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label" for="textinput"></label>
+                                                        <div class="col-sm-6 form-group">
+                                                            <input type="text" name="childLname" maxlength="45" placeholder="Last Name" class="form-control" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label" for="textinput"></label>
+                                                        <div class="col-sm-6 form-group">
+                                                            <input type="text" name="age" maxlength="2" placeholder="Age" class="form-control" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label" for="textinput"></label>
+                                                        <div class="col-sm-6 form-group">
+                                                            <select class="form-control" name="gender" id="gender" required>
+                                                                <option>Male</option>
+                                                                <option>Female</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label" for="textinput"></label>
+                                                        <div class="col-sm-6 form-group">
+                                                            <button type="submit" name="submit" class="btn btn-primary btn-block btn-lg" style=" text-transform: none;font-size: 16px;">Add Children</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-3 col-lg-3 " align="center">
-                                <img alt="User Pic" src="../img/backgrounds/baby-avatar.jpg" class="img-circle img-responsive">
-                            </div>
-                            <div class=" col-md-9 col-lg-9 ">
-                                <?php echo $childrenTable ?>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <form action="" method="POST">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="textinput"></label>
-                                    <div class="col-sm-6 form-group">
-                                        <input type="text" name="childFname" maxlength="45" placeholder="First Name" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="textinput"></label>
-                                    <div class="col-sm-6 form-group">
-                                        <input type="text" name="childLname" maxlength="45" placeholder="Last Name" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="textinput"></label>
-                                    <div class="col-sm-6 form-group">
-                                        <input type="text" name="age" maxlength="2" placeholder="Age" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="textinput"></label>
-                                    <div class="col-sm-6 form-group">
-                                        <select class="form-control" name="gender" id="gender" required>
-                                            <option>Male</option>
-                                            <option>Female</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="textinput"></label>
-                                    <div class="col-sm-6 form-group">
-                                        <button type="submit" name="submit" class="btn btn-primary btn-block btn-lg" style=" text-transform: none;font-size: 16px;">Add Children</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                    <div id="flowChart" class="tab-pane fade">
+                        <br>
+                        <iframe src="https://www.scribd.com/embeds/343838201/content?start_page=1&view_mode=scroll&access_key=key-3IQ1dpx2SjTR42krNxia&show_recommendations=true"
+                               id="" width="100%" height="600" frameborder="0">
+                        </iframe>
+                    </div>
+                    <div id="scholarshipForm" class="tab-pane fade">
+                        <br>
+                        <iframe src="https://www.scribd.com/embeds/343838337/content?start_page=1&view_mode=scroll&access_key=key-3IQ1dpx2SjTR42krNxia&show_recommendations=true"
+                                id="" width="100%" height="600" frameborder="0">
+                        </iframe>
+                    </div>
+                    <div id="enrollmentForm" class="tab-pane fade">
+                        <br>
+                        <iframe src="https://www.scribd.com/embeds/343838067/content?start_page=1&view_mode=scroll&access_key=key-3IQ1dpx2SjTR42krNxia&show_recommendations=true"
+                                id="" width="100%" height="600" frameborder="0">
+                        </iframe>
+                    </div>
+                    <div id="services" class="tab-pane fade">
+                        <h3>Services</h3>
+                        <p>Stay tuned for more services to come for our members.</p>
                     </div>
                 </div>
             </div>
