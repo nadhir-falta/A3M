@@ -249,7 +249,7 @@ if(!$res){
                             <li class="dropdown active">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">FORMS<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <!--<li><a href="./register.html">MEMBERSHIP</a></li>-->
+                                    <li><a href="./membership-form.html">MEMBERSHIP</a></li>
                                     <li><a href="./bylaws.html">BYLAWS</a></li>
                                 </ul>
                             </li>
@@ -339,8 +339,8 @@ if(!$res){
                     } else {
                         $dbSuccess = '<div class="alert alert-success">
                                         <strong>Success!</strong> 
-                                        Your application has been successfully submitted.
-                                        You can login to see your profile.
+                                        <p>Your application has been successfully submitted.</p><br>
+                                        <p>You can login to complete your profile and access the members only section.</p>
                                       </div>';
                         echo '<script type="text/javascript">window.location.replace("http://www.a3michigan.org/pages/login.php?success=true");</script>';
                         exit();

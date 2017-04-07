@@ -97,7 +97,7 @@ if(isset($_POST['submit'])){
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">FORMS<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <!--<li><a href="./register.html">MEMBERSHIP</a></li>-->
+                                    <li><a href="./membership-form.html">MEMBERSHIP</a></li>
                                     <li><a href="./bylaws.html">BYLAWS</a></li>
                                 </ul>
                             </li>
@@ -147,7 +147,7 @@ if(isset($_POST['submit'])){
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown">SCHOLARSHIP FORMS <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#flowChart" data-toggle="tab">Flow Chart</a></li>
+                            <li><a href="#flowChart" data-toggle="tab">Requirements</a></li>
                             <li><a href="#scholarshipForm" data-toggle="tab">Scholarship Form</a></li>
                             <li><a href="#enrollmentForm" data-toggle="tab">Enrollment Form</a></li>
                         </ul>
@@ -269,21 +269,30 @@ if(isset($_POST['submit'])){
                     </div>
                     <div id="flowChart" class="tab-pane fade">
                         <br>
-                        <iframe src="https://www.scribd.com/embeds/343838201/content?start_page=1&view_mode=scroll&access_key=key-3IQ1dpx2SjTR42krNxia&show_recommendations=true"
-                               id="" width="100%" height="600" frameborder="0">
-                        </iframe>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <embed src="../assets/A3M_Scholarship_Flow_chart.pdf" style="width:100%; height:500px;" frameborder="0"></embed>
+                            </div>
+                        </div>
                     </div>
                     <div id="scholarshipForm" class="tab-pane fade">
                         <br>
-                        <iframe src="https://www.scribd.com/embeds/343838337/content?start_page=1&view_mode=scroll&access_key=key-3IQ1dpx2SjTR42krNxia&show_recommendations=true"
-                                id="" width="100%" height="600" frameborder="0">
-                        </iframe>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <embed src="../assets/A3M_scholarship_Form.pdf" style="width:100%; height:500px;" frameborder="0"></embed>
+                            </div>
+                        </div>
                     </div>
                     <div id="enrollmentForm" class="tab-pane fade">
                         <br>
-                        <iframe src="https://www.scribd.com/embeds/343838067/content?start_page=1&view_mode=scroll&access_key=key-3IQ1dpx2SjTR42krNxia&show_recommendations=true"
-                                id="" width="100%" height="600" frameborder="0">
-                        </iframe>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <embed src="../assets/scholarship_enrollment_form.pdf" style="width:100%; height:500px;" frameborder="0"></embed>
+                            </div>
+                        </div>
                     </div>
                     <div id="services" class="tab-pane fade">
                         <h3>Services</h3>

@@ -32,9 +32,9 @@ File: Layout CSS
 --------------------------------------------------------------------------------------------------------------- */
 #pageintro{padding:180px 0; text-align:center;}
 
-#pageintro > div{display:block; max-width:60%; margin:0 auto;}
+#pageintro > div{display:block; margin:0 auto;}
 #pageintro > div *{line-height:normal;}
-#pageintro .heading{margin:0 0 30px 0; padding:0; font-size:4rem; font-weight:700;}
+#pageintro .heading{margin:0 0 30px 0; padding:0; font-size:3.5rem;}
 #pageintro p{margin:0; font-size:1.2rem; line-height:2rem;}
 #pageintro footer{margin-top:30px;}
 
@@ -414,7 +414,7 @@ table a, #comments a{background-color:inherit;}
 	.font-x2{font-size:1.4rem;}
 	.font-x3{font-size:1.6rem;}
 
-	#pageintro{padding:140px 0;}
+	#pageintro{padding:75px 0;}
 	#pageintro > div{max-width:none;}
 	#pageintro .heading{font-size:2.2rem;}
 }
@@ -685,4 +685,23 @@ div.tab button.active {
 .with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
 .with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
 	background-color: #4a9fe9;
+}
+
+.custom-bullet li {
+	display: block;
+}
+
+.custom-bullet li:before
+{
+	/*Using a Bootstrap glyphicon as the bullet point*/
+	content: "\e080";
+	font-family: 'Glyphicons Halflings';
+	font-size: 10px;
+	float: left;
+	margin-top: 4px;
+	margin-left: -17px;
+}
+
+.modal-dialog {
+	top: 10%;
 }
