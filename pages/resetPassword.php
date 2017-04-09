@@ -1,13 +1,10 @@
 <?php
-// Start the session
-session_start();
-
 $configs = include('../php/dbconf.php');
 $servername = $configs->servername;
 $username = $configs->username;
 $dbpassword = $configs->dbpassword;
 $dbname = $configs->dbname;
-$dbSuccess = '';
+
 // 1. Create a database connection
 $connection = new mysqli($servername, $username, $dbpassword, $dbname);
 if ($connection->connect_errno) {
@@ -16,16 +13,7 @@ if ($connection->connect_errno) {
 }
 // 2. Select a database to use
 $db_select = mysqli_select_db($connection, $dbname);
-
-if(isset ( $_GET["success"])) {
-    $dbSuccess = '<div class="alert alert-success">
-                    <strong>Success!</strong> 
-                    Your application has been successfully submitted.
-                    You can login to see your profile.
-                  </div>';
-}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,10 +87,10 @@ if(isset ( $_GET["success"])) {
     </div>
 
     <section id="breadcrumb" class="hoc clear">
-        <h6 class="heading" style="font-size: 3.0vw;">Login</h6>
+        <h6 class="heading" style="font-size: 3.0vw;">Reset Password</h6>
         <ul>
             <li><a href="../index.html">Home</a></li>
-            <li><a href="./Login.php">Login</a></li>
+            <li><a href="./resetPassword.php">Reset Password</a></li>
         </ul>
     </section>
 </div>
@@ -111,103 +99,59 @@ if(isset ( $_GET["success"])) {
         <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-2 col-md-offset-2">
             <div class="row" >
                 <div class="col-md-12">
-                    <form class="form" action="" method="POST" id="login-nav" style="display: block">
+                    <form name="frmForgot" action="" id="frmForgot" method="post">
                         <?php
-                        $errorMsg = '';
-                        if ($_POST) {
-                            $email = $_POST["logEmail"];
-                            $password = $_POST["logPassword"];
-                            $result = mysqli_query($connection, "SELECT * FROM users WHERE email='$email' and password='$password'");
-                            $row = mysqli_fetch_array($result, MYSQLI_NUM);
-                            if ($row[0]) {
-                                $_SESSION['login_user']= $row[0];
-                                $url = "http://www.a3michigan.org/pages/profile.php?id=" . $row[0];
-                                echo '<script type="text/javascript">window.location.replace("' .$url. '");</script>';
-                                exit();
-                            } else {
-                                $errorMsg = '<div class="alert alert-danger">
-                                                <strong>Error!</strong> Something went wrong, <br> Please, make sure you have the right email and password.
-                                              </div>';
+                        if (isset($_GET['action'])) {
+                            if ($_GET['action'] == "reset" && $_GET['id']) {
+                                $encrypt = mysqli_real_escape_string($connection, $_GET['encrypt']);
+                                if(md5(1290*3+$_GET['id']) === $encrypt) {
+                                    ?>
+                                    <div class="form-group" style="margin-bottom: 25px" >
+                                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 25px" >
+                                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required>
+                                    </div>
+                                    <input class="btn btn-lg btn-primary btn-block" value="Submit" type="submit" name="reset-password" id="reset-password">
+                                    <?php
+                                }
                             }
                         }
+                        if ($_POST) {
+                            $user_id = $_GET['id'];
+                            $newPass = $_POST["password"];
+                            if($newPass === $_POST["confirmPassword"]) {
+                                $query = "SELECT * FROM users where userID='$user_id'";
+                                $result = mysqli_query($connection, $query);
+                                $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                                if ($row[0]) {
+                                    $query = "update users set password='$newPass' where userID='$user_id'";
+                                    mysqli_query($connection, $query);
+
+                                    echo '<div class="alert alert-success">
+                                                    <strong>Success!</strong> 
+                                                    Your password changed successfully <a href="http://www.a3michigan.org/pages/login.php">click here to login</a>.
+                                                  </div>';
+                                } else {
+                                    echo '<div class="alert alert-danger">
+                                            <strong>Error!</strong> Something went wrong with your request, please try again. <a href="http://www.a3michigan.org/pages/recoverPassword.php">Forget Password?</a>
+                                          </div>';
+                                }
+                            }
+                            else {
+                                echo '<div class="alert alert-danger">
+                                        <strong>Error!</strong> The Confirmation password you entered does not match!!.
+                                      </div>';
+                            }
+
+                        }
                         ?>
-                        <span>
-                            <?= $errorMsg ?>
-                        </span>
-                        <span>
-                            <?= $dbSuccess ?>
-                        </span>
-                        <div id="loginbox" style="margin-top:20px;" class="mainbox col-md-12 col-sm-8 ">
-                            <div class="panel panel-info" >
-                                <div class="panel-heading">
-                                    <div class="panel-title">Login</div>
-                                    <!--                                        <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>-->
-                                </div>
-                                <div style="padding-top:30px" class="panel-body" >
-                                    <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-                                    <form id="loginform" class="form-horizontal" role="form">
-
-                                        <div style="margin-bottom: 25px" class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                            <input type="text" class="form-control" name="logEmail" id="logEmail" value="" placeholder="Email address" required>
-                                        </div>
-
-                                        <div style="margin-bottom: 25px" class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                            <input type="password" class="form-control" name="logPassword" id="logPassword" placeholder="Password" required>
-                                        </div>
-
-                                        <div style="margin-top:10px" class="form-group">
-                                            <button type="submit" id="btn-login" class="btn btn-primary btn-block">Login</button>
-                                        </div>
-                                        <div class="help-block text-right"><a href="./recoverPassword.php">Forget the password ?</a></div>
-                                        <div class="help-block text-right"><a href="./register.html">Not a Member yet ?</a></div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </main>
 </div>
-<!--modal-->
-<!--<div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">-->
-<!--    <div class="modal-dialog">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
-<!--                <h1 class="text-center">What's My Password?</h1>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <div class="col-md-12">-->
-<!--                    <div class="panel panel-default">-->
-<!--                        <div class="panel-body">-->
-<!--                            <div class="text-center">-->
-<!---->
-<!--                                <p>If you have forgotten your password you can reset it here.</p>-->
-<!--                                <div class="panel-body">-->
-<!--                                    <fieldset>-->
-<!--                                        <div class="form-group">-->
-<!--                                            <input class="form-control input-lg" placeholder="E-mail Address" name="email" type="email">-->
-<!--                                        </div>-->
-<!--                                        <input class="btn btn-lg btn-primary btn-block" value="Send My Password" type="submit">-->
-<!--                                    </fieldset>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <div class="col-md-12">-->
-<!--                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 <!-- ################################################## Footer ################################# -->
 <div class="wrapper row4 bgded overlay footerbg" id="contact">
     <footer id="footer" class="hoc clear">
@@ -308,4 +252,5 @@ if(isset ( $_GET["success"])) {
 <script src="../layout/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
+
 
