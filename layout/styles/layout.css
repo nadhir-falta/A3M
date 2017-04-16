@@ -23,7 +23,9 @@ File: Layout CSS
 /* Header
 --------------------------------------------------------------------------------------------------------------- */
 #header{}
-
+#pageintro h3, h2 {
+	margin: 0 0 0 0 !important;
+}
 #header #logo{margin:30px 0 0 0;}
 #header #logo h1{margin:0; padding:0; font-size:22px;}
 
@@ -34,7 +36,7 @@ File: Layout CSS
 
 #pageintro > div{display:block; margin:0 auto;}
 #pageintro > div *{line-height:normal;}
-#pageintro .heading{margin:0 0 30px 0; padding:0; font-size:3.5rem;}
+#pageintro .heading{ padding:0; font-size:3.5rem;}
 #pageintro p{margin:0; font-size:1.2rem; line-height:2rem;}
 #pageintro footer{margin-top:30px;}
 
@@ -119,7 +121,7 @@ File: Layout CSS
 --------------------------------------------------------------------------------------------------------------- */
 #footer{padding:25px 0;}
 
-#footer .heading{margin-bottom:30px; font-size:1.6rem;}
+#footer .heading{margin-bottom:30px; margin-top: 20px; font-size:1.6rem;}
 
 #footer nav{margin-bottom:30px; text-transform:uppercase;}
 #footer nav ul{}
@@ -296,7 +298,7 @@ input:focus, textarea:focus, *:required:focus{border-color:#A2B70D;}
 .services li article:hover > a i{color:#A2B70D;}
 
 .excerpts article{border-color:#EDEDED; box-shadow:0px 0px 5px 5px #EDEDED; min-height: 500px;}/* There is sadly no box-shadow-color, so the full tag is here */
-.excerpts article:hover{border: 2px solid red; box-shadow:0px 0px 5px 5px rgba(162,183,13,.6)/* #A2B70D */;}
+.excerpts article:hover{ box-shadow:0px 0px 5px 5px rgba(162,183,13,.6)/* #A2B70D */;}
 
 .excerpts article figure figcaption{color:#FFFFFF;}
 .excerpts article figure figcaption time strong{color:#414905; background-color:#EDEDED;}
@@ -416,7 +418,8 @@ table a, #comments a{background-color:inherit;}
 
 	#pageintro{padding:75px 0;}
 	#pageintro > div{max-width:none;}
-	#pageintro .heading{font-size:2.2rem;}
+	#pageintro .heading {font-size:1.8rem;}
+	#pageintro h3{font-size:1.5rem !important;}
 }
 
 <style>
@@ -480,7 +483,7 @@ table a, #comments a{background-color:inherit;}
 }
 
 .footerbg {
-	background-color: rgba(0,0,0,.60) !important;
+	background-color: rgba(0,0,0,.80) !important;
 }
 
 .newsFeedContainer {
@@ -606,7 +609,7 @@ table a, #comments a{background-color:inherit;}
 }
 
 .paymentOption{border-color:#EDEDED; box-shadow:0px 0px 5px 5px #EDEDED; min-height: 375px !important;}
-.paymentOption:hover{border: 2px solid red; box-shadow:0px 0px 5px 5px rgba(162,183,13,.6)/* #A2B70D */;}
+.paymentOption:hover{ box-shadow:0px 0px 5px 5px rgba(162,183,13,.6)/* #A2B70D */;}
 
 
 /* Style the tab */

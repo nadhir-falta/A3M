@@ -172,77 +172,12 @@ if(isset ( $_GET["success"])) {
         </div>
     </main>
 </div>
-<!--modal-->
-<!--<div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">-->
-<!--    <div class="modal-dialog">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
-<!--                <h1 class="text-center">What's My Password?</h1>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <div class="col-md-12">-->
-<!--                    <div class="panel panel-default">-->
-<!--                        <div class="panel-body">-->
-<!--                            <div class="text-center">-->
-<!---->
-<!--                                <p>If you have forgotten your password you can reset it here.</p>-->
-<!--                                <div class="panel-body">-->
-<!--                                    <fieldset>-->
-<!--                                        <div class="form-group">-->
-<!--                                            <input class="form-control input-lg" placeholder="E-mail Address" name="email" type="email">-->
-<!--                                        </div>-->
-<!--                                        <input class="btn btn-lg btn-primary btn-block" value="Send My Password" type="submit">-->
-<!--                                    </fieldset>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <div class="col-md-12">-->
-<!--                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 <!-- ################################################## Footer ################################# -->
-<div class="wrapper row4 bgded overlay footerbg" id="contact">
+<div class="bgded overlay footerbg row" id="contact">
     <footer id="footer" class="hoc clear">
-        <div class="one_third first">
+        <div class=" col-lg-4 col-md-4 col-sm-12">
             <h6 class="heading">A3M</h6>
             <p>A3M is an Algerian American association that serves the needs of the Algerian American in Michigan</p>
-            <nav>
-                <ul class="nospace">
-                    <li><a href="../index.html"><i class="fa fa-lg fa-home"></i></a></li>
-                    <li><a href="./donation.php">Donate</a></li>
-                    <li><a href="./register.html">Membership</a></li>
-                    <li><a href="./feedback.php">Feedback</a></li>
-                    <li><a href="./bylaws.html">Bylaws</a></li>
-                    <li><a href="./survey.html">Survey</a></li>
-                    <li><a href="./news.html">News</a></li>
-                    <li><a href="./algeria.html">Gallery Algeria</a></li>
-                    <li><a href="./usa.html">Gallery USA</a></li>
-                    <li><a href="./michigan.html">Gallery Michigan</a></li>
-                </ul>
-            </nav>
-        </div>
-        <div class="one_third">
-            <h6 class="heading">Address and Phone Numbers</h6>
-            <ul class="nospace btmspace-30 linklist contact">
-                <li><i class="fa fa-map-marker"></i>
-                    <address>
-                        Algerian-American Association
-                        of Michigan
-                        3385 Buckingham Trl
-                        W Bloomfield, MI 48323
-                    </address>
-                </li>
-
-                <li><i class="fa fa-envelope-o"></i> info@a3michigan.org</li>
-            </ul>
             <ul class="faico clear">
                 <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
                 <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
@@ -252,11 +187,26 @@ if(isset ( $_GET["success"])) {
                 <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>
             </ul>
         </div>
-        <div class="one_third">
+        <div class=" col-lg-4 col-md-4 col-sm-12">
+            <h6 class="heading">Address and Phone Numbers</h6>
+            <ul class="nospace btmspace-30 linklist contact">
+                <li><i class="fa fa-map-marker"></i>
+                    <address>
+                        Algerian-American Association
+                        of Michigan
+                        <br>                          3385 Buckingham Trl
+                        <br>                          W Bloomfield, MI 48323
+                    </address>
+                </li>
+
+                <li><i class="fa fa-envelope-o"></i> info@a3michigan.org</li>
+            </ul>
+        </div>
+        <div class=" col-lg-4 col-md-4 col-sm-12">
             <h6 class="heading">Location</h6>
             <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAz02yCRNu3uItDorLGL2s3tTJX6ye9DeU'></script>
-            <div style='overflow:hidden;height:260px;width:80%;'>
-                <div id='gmap_canvas' style='height:260px;width:80%;'></div>
+            <div>
+                <div id='gmap_canvas' style='height:335px;'></div>
                 <style>#gmap_canvas img {
                         max-width: none !important;
                         background: none !important
@@ -273,9 +223,7 @@ if(isset ( $_GET["success"])) {
                     };
                     map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
                     marker = new google.maps.Marker({
-                        map: map,
-                        position: new google.maps.LatLng(42.331427, -83.0457538)
-                    });
+                        map: map, position: new google.maps.LatLng(42.331427, -83.0457538)});
                     infowindow = new google.maps.InfoWindow({content: '<strong></strong><br><br> Detroit<br>'});
                     google.maps.event.addListener(marker, 'click', function () {
                         infowindow.open(map, marker);

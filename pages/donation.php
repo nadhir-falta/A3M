@@ -92,7 +92,7 @@
             <div class="row">
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <input type="hidden" name="on0" value="Donation"><label>Donation Type:</label>Donation allocation: To designate your donation to a specific fund, please check the boxes bellow.
+                        <input type="hidden" name="on0" value="Donation Type:"><label>Donation Type:</label>Donation allocation: To designate your donation to a specific fund, please check the boxes bellow.
                         To allow A3M to allocate your donation as needed, leave it unselected.
                     </div>
                 </div>
@@ -125,27 +125,21 @@
 </div>
 
 <!-- ################################################## Footer ################################# -->
-<div class="wrapper row4 bgded overlay footerbg" id="contact">
+<div class="bgded overlay footerbg row" id="contact">
     <footer id="footer" class="hoc clear">
-        <div class="one_third first">
+        <div class=" col-lg-4 col-md-4 col-sm-12">
             <h6 class="heading">A3M</h6>
             <p>A3M is an Algerian American association that serves the needs of the Algerian American in Michigan</p>
-            <nav>
-                <ul class="nospace">
-                    <li><a href="../index.html"><i class="fa fa-lg fa-home"></i></a></li>
-                    <li><a href="./donation.php">Donate</a></li>
-                    <li><a href="./register.html">Membership</a></li>
-                    <li><a href="./feedback.php">Feedback</a></li>
-                    <li><a href="./bylaws.html">Bylaws</a></li>
-                    <li><a href="./survey.html">Survey</a></li>
-                    <li><a href="./news.html">News</a></li>
-                    <li><a href="./algeria.html">Gallery Algeria</a></li>
-                    <li><a href="./usa.html">Gallery USA</a></li>
-                    <li><a href="./michigan.html">Gallery Michigan</a></li>
-                </ul>
-            </nav>
+            <ul class="faico clear">
+                <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
+                <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>
+            </ul>
         </div>
-        <div class="one_third">
+        <div class=" col-lg-4 col-md-4 col-sm-12">
             <h6 class="heading">Address and Phone Numbers</h6>
             <ul class="nospace btmspace-30 linklist contact">
                 <li><i class="fa fa-map-marker"></i>
@@ -159,20 +153,12 @@
 
                 <li><i class="fa fa-envelope-o"></i> info@a3michigan.org</li>
             </ul>
-            <ul class="faico clear">
-                <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>
-                <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-                <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>
-            </ul>
         </div>
-        <div class="one_third">
+        <div class=" col-lg-4 col-md-4 col-sm-12">
             <h6 class="heading">Location</h6>
             <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAz02yCRNu3uItDorLGL2s3tTJX6ye9DeU'></script>
-            <div style='overflow:hidden;height:260px;width:80%;'>
-                <div id='gmap_canvas' style='height:260px;width:80%;'></div>
+            <div>
+                <div id='gmap_canvas' style='height:335px;'></div>
                 <style>#gmap_canvas img {
                         max-width: none !important;
                         background: none !important
