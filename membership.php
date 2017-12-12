@@ -15,60 +15,6 @@ if ($connection->connect_errno) {
 // 2. Select a database to use
 $db_select = mysqli_select_db($connection, $dbname);
 
-$tx_token = $_GET['tx'];
-$auth_token = "RYLEdLyJl5aSHPEa8vHXEsso5tI-LLMjhGJMN_XxGLmRrT8sLE0jskDgu4G";
-$req .= "&tx=$tx_token&at=$auth_token";
-$payStatus = false;
-$membershipType = '';
-$paymentSuccesText = '';
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, "https://$pp_hostname/cgi-bin/webscr");
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $req);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
-curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array("Host: $pp_hostname"));
-$res = curl_exec($ch);
-curl_close($ch);
-
-if(!$res){
-    //HTTP ERROR
-}else{
-    // parse the data
-    $lines = explode("\n", trim($res));
-    $keyarray = array();
-    if (strcmp ($lines[0], "SUCCESS") == 0) {
-        $payStatus = true;
-        for ($i = 1; $i < count($lines); $i++) {
-//            echo '$lines[$i]'. $lines[$i];
-//            echo '<br>';
-            $temp = explode("=", $lines[$i],2);
-            $keyarray[urldecode($temp[0])] = urldecode($temp[1]);
-        }
-
-        $payerfirstname = $keyarray['first_name'];
-        $payerlastname = $keyarray['last_name'];
-        $payerEmail = $keyarray["payer_email"];
-        $itemname = $keyarray['item_name'];
-        $amount = $keyarray['payment_gross'];
-        $membershipType = $keyarray['option_selection1'];
-
-        $paymentSuccesText = "<div class='alert alert-success'><p><h3>Thank you " . $payerfirstname . ' ' . $payerlastname . "</h3><h4> for your Interest in becoming a member of A3M</h4></p>" .
-        "<b>Next Step:</b><br>\n".
-        "<li>Fill out the form below to complete your application, once your application is approved, you will be notified by an email from our admin</li></div>";
-//        "<li>Name:" .  $payerfirstname . ' ' . $payerlastname . "</li>\n".
-//        "<li>Email:" .  $payerEmail . "</li>\n".
-//        "<li>Item:" .  $itemname . "</li>\n".
-//        "<li>Amount:" .  $amount . "</li>\n".
-//        "<li>Membership:" .  $membershipType . "</li></div>";
-
-    }
-    else if (strcmp ($lines[0], "FAIL") == 0) {
-        // log for manual investigation
-    }
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -236,15 +182,16 @@ if(!$res){
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">HOME</a></li>
+                <li><a href="index.html">HOME</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#whatwedo">WHAT WE DO</a></li>
+                        <li><a href="whatwedo.html">WHAT WE DO</a></li>
+                        <li><a href="index.html#services">SERVICES</a></li>
                         <li><a href="feedback.php">FEEDBACK</a></li>
                     </ul>
                 </li>
-                <li><a href="survey.html">SURVEY</a></li>
+                <!--<li class="active"><a href="survey.html">SURVEY</a></li>-->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">FORMS<span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -261,9 +208,10 @@ if(!$res){
                         <li><a href="michigan.html">MICHIGAN</a></li>
                     </ul>
                 </li>
+                <li><a href="events.html">EVENTS</a></li>
                 <li><a href="news.html">NEWS</a></li>
                 <li><a href="#contact">CONTACT</a></li>
-                <li><a href="./register.html">REGISTER</a></li>
+                <li class="active"><a href="./membership.php">REGISTER</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-user" aria-hidden="true"></i>  ACCOUNT  <span class="caret"></span></a>
@@ -278,16 +226,18 @@ if(!$res){
     </nav>
 </div>
 
-<div class="backstretchOverlay">
-    <section id="breadcrumb" class="hoc clear">
-        <div class="bread-headder">Membership</div>
-        <ul>
-            <li><a href="./index.html">Home</a></li>
-            <li><a href="./register.html">Membership</a></li>
-        </ul>
-    </section>
-</div>
+<!--<div class="backstretchOverlay">-->
+<!--    <section id="breadcrumb" class="hoc clear">-->
+<!--        <div class="bread-headder">Membership</div>-->
+<!--        <ul>-->
+<!--            <li><a href="./index.html">Home</a></li>-->
+<!--            <li><a href="./membership.php">Membership</a></li>-->
+<!--        </ul>-->
+<!--    </section>-->
+<!--</div>-->
+<br>
 <div class="wrapper row3">
+    <br>
     <main class="hoc container clear">
         <form action="" method="POST" id="payment-form">
 
@@ -296,7 +246,7 @@ if(!$res){
             $dbSuccess = '';
             $duplicateError = '';
             $info = array();
-            if ($_POST && $payStatus) {
+            if ($_POST) {
 
                 // data to pass to the database
                 $fname = $_POST["fname"];
@@ -311,7 +261,6 @@ if(!$res){
                 $email = $_POST["email"];
                 $occupation = $_POST["occupation"];
                 $employer = $_POST["employer"];
-                $membership = $membershipType;
                 $password = $_POST["password"];
 
                 //check if the a member with the same first name and last exist
@@ -322,11 +271,12 @@ if(!$res){
                     $duplicateError = '<div class="alert alert-danger">
                                         <strong>Error!</strong> A member with that email or first and last name already exist in our database.
                                       </div>';
+                    echo $duplicateError;
                 }
 
                 if (!$duplicateError) {
-                    $sql = "INSERT INTO `users` (`fname`, `lname`, `spouse`, `address1`, `address2`, `city`, `state`, `zipcode`, `phone`, `email`, `occupation`, `employer`, `membership`, `password`) VALUES
-                                ('$fname', '$lname', '$spouse', '$address1', '$address2', '$city', '$state', '$zip' , '$phone', '$email', '$occupation', '$employer', '$membership', '$password')";
+                    $sql = "INSERT INTO `users` (`fname`, `lname`, `spouse`, `address1`, `address2`, `city`, `state`, `zipcode`, `phone`, `email`, `occupation`, `employer`, `password`) VALUES
+                                ('$fname', '$lname', '$spouse', '$address1', '$address2', '$city', '$state', '$zip' , '$phone', '$email', '$occupation', '$employer', '$password')";
 
                     if (!mysqli_query($connection, $sql)) {
                         $dbErrors['duplicate'] = true;
@@ -340,21 +290,28 @@ if(!$res){
                                         <p>Your application has been successfully submitted.</p><br>
                                         <p>You can login to complete your profile and access the members only section.</p>
                                       </div>';
+
+                        $subject = "A3M Registration";
+                        $body = 'Dear Community Member, <br/> 
+                                <br/>We thank you for completing your membership registration and we welcome you to the A3M association.
+                                <br>We are very pleased that you have joined us in our effort to make our community richer and more vibrant.<br/>
+                                
+                                <br>You can click <a href="https://www.a3michigan.org/login.php">here</a> to login and finish setting up your account.<br/>
+                                <br>And you can always click <a href="https://www.a3michigan.org/donation.php">here</a> if you wish to donate and help the community.<br/>
+                                
+                                <br><br>Thank you again,
+                                <br>The A3M Steering Committee.';
+
+                        $headers = "From: A3M <info@a3michigan.org>\r\n";
+                        $headers .= "MIME-Version: 1.0\r\n";
+                        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+                        mail($email, $subject, $body, $headers);
                         echo '<script type="text/javascript">window.location.href = "./login.php?success=true";</script>';
                         exit();
                     }
                 }
             }
             ?>
-            <span class="payment-success" id="paymentSucc">
-                <?= $paymentSuccesText ?>
-            </span>
-            <span class="payment-errors">
-                <?= $duplicateError ?>
-            </span>
-            <span class="payment-success">
-                <?= $dbSuccess ?>
-            </span>
             <div class="row" id="registrationCont">
                 <br>
                 <br>
@@ -362,20 +319,29 @@ if(!$res){
                     <h2>Please Sign Up
                         <small> for A3M Membership.</small>
                     </h2>
+                    <br>
                     <p>Full Membership is extended to persons and businesses who support our mission regardless of race,
                         national origin, sex, disability, or religion</p>
+                    <br>
+					<p>To create an account, please fill out the form below. After completing the registration you'll be able to securely pay for the membership fee.</p>
+                    <p>The annual membership fee is $60 for a family, $40 for an individual, and $30 for a student</p>
                     <hr class="colorgraph">
+                    <div class="row">
+                        <div class="requiredText">
+                            *Required Fields
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             <div class="form-group">
                                 <input type="text" name="fname" id="fname" class="fname form-control input-sm"
-                                       placeholder="First Name">
+                                       placeholder="First Name*">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             <div class="form-group">
                                 <input type="text" name="lname" id="lname" class="lname form-control input-sm"
-                                       placeholder="Last Name">
+                                       placeholder="Last Name*">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4">
@@ -389,7 +355,7 @@ if(!$res){
                         <div class="col-xs-12 col-sm-8 col-md-8">
                             <div class="form-group">
                                 <input type="text" name="address1" id="address1" class="address form-control input-sm"
-                                       placeholder="Address 1">
+                                       placeholder="Address 1*">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4">
@@ -403,33 +369,19 @@ if(!$res){
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             <div class="form-group">
                                 <input type="text" name="city" id="city" class="city form-control input-sm"
-                                       placeholder="City">
+                                       placeholder="City*">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             <div class="form-group">
                                 <input type="text" name="state" id="state" class="state form-control input-sm"
-                                       placeholder="State">
+                                       placeholder="State*">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             <div class="form-group">
                                 <input type="text" name="zip" id="zip" class="state form-control input-sm"
-                                       placeholder="Zip Code">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="phone" id="phone" class="zip form-control input-sm"
-                                       placeholder="Primary Phone">
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="email" name="email" id="email" class="email form-control input-sm"
-                                       placeholder="Email Address">
+                                       placeholder="Zip Code*">
                             </div>
                         </div>
                     </div>
@@ -437,7 +389,7 @@ if(!$res){
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <input type="text" name="occupation" id="occupation"
-                                       class="occupation form-control input-sm" placeholder="Occupation">
+                                       class="occupation form-control input-sm" placeholder="Occupation*">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -450,14 +402,28 @@ if(!$res){
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
+                                <input type="text" name="phone" id="phone" class="zip form-control input-sm"
+                                       placeholder="Primary Phone*">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="email" name="email" id="email" class="email form-control input-sm"
+                                       placeholder="Email Address*">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
                                 <input type="password" name="password" id="password"
-                                       class="password form-control input-sm" placeholder="Password">
+                                       class="password form-control input-sm" placeholder="Password*">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <input type="password" name="confirmPassword" id="confirmPassword"
-                                       class="confirmPassword form-control input-sm" placeholder="Confirm Password">
+                                       class="confirmPassword form-control input-sm" placeholder="Confirm Password*">
                             </div>
                         </div>
                     </div>
@@ -482,15 +448,15 @@ if(!$res){
     <footer id="footer" class="hoc clear">
         <div class=" col-lg-4 col-md-4 col-sm-12">
             <h6 class="heading">A3M</h6>
-            <p>A3M is an Algerian American association that serves the needs of the Algerian American in Michigan</p>
-            <ul class="faico clear">
-                <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>
-                <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-                <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>
-            </ul>
+            <p>A3M is an Algerian-American association that serves the needs of the Algerian-American Community  in Michigan.</p>
+<!--            <ul class="faico clear">-->
+<!--                <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>-->
+<!--                <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>-->
+<!--                <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>-->
+<!--                <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>-->
+<!--                <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>-->
+<!--                <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>-->
+<!--            </ul>-->
         </div>
         <div class=" col-lg-4 col-md-4 col-sm-12">
             <h6 class="heading">Address and Phone Numbers</h6>

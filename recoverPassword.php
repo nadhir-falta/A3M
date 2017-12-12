@@ -56,15 +56,16 @@ if(isset($_GET["failure"])) {
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">HOME</a></li>
+                <li><a href="index.html">HOME</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#whatwedo">WHAT WE DO</a></li>
+                        <li><a href="whatwedo.html">WHAT WE DO</a></li>
+                        <li><a href="index.html#services">SERVICES</a></li>
                         <li><a href="feedback.php">FEEDBACK</a></li>
                     </ul>
                 </li>
-                <li><a href="survey.html">SURVEY</a></li>
+                <!--<li class="active"><a href="survey.html">SURVEY</a></li>-->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">FORMS<span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -81,9 +82,10 @@ if(isset($_GET["failure"])) {
                         <li><a href="michigan.html">MICHIGAN</a></li>
                     </ul>
                 </li>
+                <li><a href="events.html">EVENTS</a></li>
                 <li><a href="news.html">NEWS</a></li>
                 <li><a href="#contact">CONTACT</a></li>
-                <li><a href="./register.html">REGISTER</a></li>
+                <li><a href="./membership.php">REGISTER</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-user" aria-hidden="true"></i>  ACCOUNT  <span class="caret"></span></a>
@@ -123,11 +125,11 @@ if(isset($_GET["failure"])) {
                             $user = mysqli_fetch_array($result, MYSQLI_NUM);
                             if(!empty($user[0])) {
                                 $encrypt = md5(1290*3+$user[0]);
-                                $to = "nadhir.falta@gmail.com";
-                                $subject = "Hi!";
-                                $body = 'Hi, <br/> <br/>Your Membership ID is '.$user[0].' <br>
-                                <br>Click here to reset your password https://www.a3michigan.org/resetPassword.php?encrypt='.$encrypt.'&action=reset&id='.$user[0].'   <br/>
-                                 <br/>--<br>Thank You<br>Admin@a3michigan.org.';
+                                $to = $user[10];
+                                $subject = "A3M Reset Password";
+                                $body = 'Hello dear A3M member, <br/> <br/>Your Membership ID is '.$user[0].' <br>
+                                <br>Click <a href=" https://www.a3michigan.org/resetPassword.php?encrypt='.$encrypt.'&action=reset&id='.$user[0].' ">here</a> to reset your password  <br/>
+                                 <br/>--<br>Thank You<br>Algerian -American Association of Michigan<br> www.a3michigan.org';
                                 $headers = "From: info@a3michigan.org\r\n";
                                 $headers .= "MIME-Version: 1.0\r\n";
                                 $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
@@ -162,15 +164,15 @@ if(isset($_GET["failure"])) {
     <footer id="footer" class="hoc clear">
         <div class=" col-lg-4 col-md-4 col-sm-12">
             <h6 class="heading">A3M</h6>
-            <p>A3M is an Algerian American association that serves the needs of the Algerian American in Michigan</p>
-            <ul class="faico clear">
-                <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>
-                <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-                <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>
-            </ul>
+            <p>A3M is an Algerian-American association that serves the needs of the Algerian-American Community  in Michigan.</p>
+<!--            <ul class="faico clear">-->
+<!--                <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>-->
+<!--                <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>-->
+<!--                <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>-->
+<!--                <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>-->
+<!--                <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>-->
+<!--                <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>-->
+<!--            </ul>-->
         </div>
         <div class=" col-lg-4 col-md-4 col-sm-12">
             <h6 class="heading">Address and Phone Numbers</h6>

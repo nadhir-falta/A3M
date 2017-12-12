@@ -115,6 +115,11 @@ File: Layout CSS
 #copyright{padding:20px 0;}
 #copyright *{margin:0; padding:0;}
 
+nav ul, nav ol{margin:0; padding:0; list-style:none;}
+
+#mainav, #breadcrumb, .sidebar nav{line-height:normal;}
+#mainav .drop::after, #mainav li li .drop::after, #breadcrumb li a::after, .sidebar nav a::after{position:absolute; font-family:"FontAwesome"; font-size:10px; line-height:10px;}
+
 /* Breadcrumb */
 #breadcrumb{padding:350px 0 30px;}
 #breadcrumb ul{margin:0; padding:0; list-style:none; text-transform:uppercase;}
@@ -830,3 +835,99 @@ header {
 	text-align: center;
 }
 .navbar .navbar-collapse.in { max-height:500px!important; overflow-y:scroll!important; overflow-x:hidden!important; }
+
+#whatwedo {
+	margin-top: 15px;
+}
+
+#features {
+    margin-top:20px;
+	text-decoration: none !important;
+}
+
+#features:hover {
+	margin-top:20px;
+	text-decoration: none !important;
+}
+.feature, .feature i, .feature h3, .feature .title_border {
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+}
+.feature {
+    background:#FFFFFF;
+    text-align:center;
+    padding:20px;
+    border: solid 1px #cccccc;
+	height: 450px;
+	text-decoration: none !important;
+	cursor: pointer;
+}
+.feature p {
+    margin-top:20px;
+    margin-bottom:30px;
+	text-decoration: none !important;
+}
+.feature i{
+	text-decoration: none !important;
+    font-size:80px;
+    color:#FFFFFF;
+    background:#1E825F;
+    padding:30px;
+    border-radius:50%;
+    border: solid 3px #1E825F;
+}
+.feature h3 {
+    color:#1E825F;
+	text-decoration: none !important;
+}
+.feature a:focus, a:hover {
+	text-decoration: none !important;
+}
+.feature:hover {
+	text-decoration: none !important;
+    background:#F5F5F5;
+    -webkit-transform: translate(0,1em);
+    -moz-transform: translate(0,1em);
+    -o-transform: translate(0,1em);
+    -ms-transform: translate(0,1em);
+    transform: translate(0,1em);
+}
+.feature:hover i{
+	text-decoration: none !important;
+    color:#1E825F;
+    border-color:#1E825F;
+    background:#FFFFFF;
+}
+.feature:hover .title_border {
+	text-decoration: none !important;
+    background-color:#1E825F;
+    width:50%;
+}
+.feature .title_border {
+	text-decoration: none !important;
+    width: 0%;
+    height: 3px;
+    background:#1E825F;
+    margin: 0 auto;
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+
+.requiredText {
+	text-align: right;
+	padding-right: 20px;
+}
+
+.modal-footer {
+	/* margin-top: 15px; */
+	padding: 5px 5px 5px !important;
+	text-align: right;
+	border-top: 1px solid #e5e5e5;
+}
+
+.modal-body {
+	position: relative;
+	padding: 5px 5px 5px 5px !important;
+}

@@ -48,15 +48,16 @@ if (isset($_POST['submitted'])) {
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">HOME</a></li>
-                <li class="dropdown">
+                <li><a href="index.html">HOME</a></li>
+                <li class="dropdown active">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#whatwedo">WHAT WE DO</a></li>
+                        <li><a href="whatwedo.html">WHAT WE DO</a></li>
+                        <li><a href="index.html#services">SERVICES</a></li>
                         <li><a href="feedback.php">FEEDBACK</a></li>
                     </ul>
                 </li>
-                <li><a href="survey.html">SURVEY</a></li>
+                <!--<li class="active"><a href="survey.html">SURVEY</a></li>-->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">FORMS<span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -73,9 +74,10 @@ if (isset($_POST['submitted'])) {
                         <li><a href="michigan.html">MICHIGAN</a></li>
                     </ul>
                 </li>
+                <li><a href="events.html">EVENTS</a></li>
                 <li><a href="news.html">NEWS</a></li>
                 <li><a href="#contact">CONTACT</a></li>
-                <li><a href="./register.html">REGISTER</a></li>
+                <li><a href="./membership.php">REGISTER</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-user" aria-hidden="true"></i>  ACCOUNT  <span class="caret"></span></a>
@@ -102,6 +104,7 @@ if (isset($_POST['submitted'])) {
 </div>
 <div class="wrapper row3">
     <main class="hoc container clear">
+        <br>
         <!-- main body -->
         <!-- ################################################################################################ -->
         <div>
@@ -210,15 +213,15 @@ if (isset($_POST['submitted'])) {
     <footer id="footer" class="hoc clear">
         <div class=" col-lg-4 col-md-4 col-sm-12">
             <h6 class="heading">A3M</h6>
-            <p>A3M is an Algerian American association that serves the needs of the Algerian American in Michigan</p>
-            <ul class="faico clear">
-                <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>
-                <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-                <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>
-            </ul>
+            <p>A3M is an Algerian-American association that serves the needs of the Algerian-American Community  in Michigan.</p>
+<!--            <ul class="faico clear">-->
+<!--                <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>-->
+<!--                <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>-->
+<!--                <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>-->
+<!--                <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>-->
+<!--                <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>-->
+<!--                <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>-->
+<!--            </ul>-->
         </div>
         <div class=" col-lg-4 col-md-4 col-sm-12">
             <h6 class="heading">Address and Phone Numbers</h6>

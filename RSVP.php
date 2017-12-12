@@ -1,19 +1,3 @@
-<?php
-$configs = include('./php/dbconf.php');
-$servername = $configs->servername;
-$username = $configs->username;
-$dbpassword = $configs->dbpassword;
-$dbname = $configs->dbname;
-
-// 1. Create a database connection
-$connection = new mysqli($servername, $username, $dbpassword, $dbname);
-if ($connection->connect_errno) {
-    printf("Connect failed: %s\n", $connection->connect_error);
-    exit();
-}
-// 2. Select a database to use
-$db_select = mysqli_select_db($connection, $dbname);
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +9,6 @@ $db_select = mysqli_select_db($connection, $dbname);
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>
-
 <body id="top">
 
 <div class="container">
@@ -87,71 +70,98 @@ $db_select = mysqli_select_db($connection, $dbname);
 
 <div class="backstretchOverlay">
     <section id="breadcrumb" class="hoc clear">
-        <div class="bread-headder">Reset Password</div>
+        <div class="bread-headder">RSVP</div>
         <ul>
             <li><a href="./index.html">Home</a></li>
-            <li><a href="./resetPassword.php">Reset Password</a></li>
+            <li><a href="./recoverPassword.php">RSVP</a></li>
         </ul>
     </section>
 </div>
 <div class="wrapper row3">
     <main class="hoc container clear">
-        <br>
         <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-2 col-md-offset-2">
+            <h4 style="text-transform: none">The favor of an attendance confirmation is requested.  <br>
+                Please fill out this form and submit by July 9th, 2017
+            </h4>
+
+            <br>
             <div class="row" >
                 <div class="col-md-12">
                     <form name="frmForgot" action="" id="frmForgot" method="post">
                         <?php
-                        if (isset($_GET['action'])) {
-                            if ($_GET['action'] == "reset" && $_GET['id']) {
-                                $encrypt = mysqli_real_escape_string($connection, $_GET['encrypt']);
-                                if(md5(1290*3+$_GET['id']) === $encrypt) {
-                                    ?>
-                                    <div class="form-group" style="margin-bottom: 25px" >
-                                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
-                                    </div>
-                                    <div class="form-group" style="margin-bottom: 25px" >
-                                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required>
-                                    </div>
-                                    <input class="btn btn-lg btn-primary btn-block" value="Submit" type="submit" name="reset-password" id="reset-password">
-                                    <?php
-                                }
-                            }
-                        }
                         if ($_POST) {
-                            $user_id = $_GET['id'];
-                            $newPass = $_POST["password"];
-                            if($newPass === $_POST["confirmPassword"]) {
-                                $query = "SELECT * FROM users where userID='$user_id'";
-                                $result = mysqli_query($connection, $query);
-                                $row = mysqli_fetch_array($result, MYSQLI_NUM);
-                                if ($row[0]) {
-                                    $query = "update users set password='$newPass' where userID='$user_id'";
-                                    mysqli_query($connection, $query);
+                            $user_email = $_POST["email"];
+                            $to = $_POST["email"];
+                            $subject = "A3M Event Attendance Confirmation";
+                            $body = '<h3>Dear friend,</h3> <br>
+                                    <h4>Thank you for accepting our invitation to the 2017 Summer Picnic. <br>
+                                    We look forward to seeing you on Sunday July 16th. </h4>
+                             <br/>--<br>Thank You<br>Sincerely,<br>A3M Steering Committee<br>Algerian -American Association of Michigan<br> www.a3michigan.org';
+                            $headers = "From: events@a3michigan.org\r\n";
+                            $headers .= "MIME-Version: 1.0\r\n";
+                            $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+                            if (mail($to, $subject, $body, $headers)) {
+                                echo '<script> $(document).ready(function(){       $("#myModal").modal("show"); }); </script>';
+                            }
 
-                                    echo '<div class="alert alert-success">
-                                                    <strong>Success!</strong> 
-                                                    Your password changed successfully <a href="https://www.a3michigan.org/login.php">click here to login</a>.
-                                                  </div>';
-                                } else {
-                                    echo '<div class="alert alert-danger">
-                                            <strong>Error!</strong> Something went wrong with your request, please try again. <a href="https://www.a3michigan.org/recoverPassword.php">Forget Password?</a>
-                                          </div>';
-                                }
-                            }
-                            else {
-                                echo '<div class="alert alert-danger">
-                                        <strong>Error!</strong> The Confirmation password you entered does not match!!.
-                                      </div>';
-                            }
+                            $body1 = '
+                                    <h4>The following person has confirmed his attendance for the July 16th event.
+                                        <br>Last Name: ' .$_POST["lname"]. ' <br>
+                                        <br>First Name: ' .$_POST["fname"]. ' <br>
+                                        <br>Email: ' .$_POST["email"].' <br>
+                                        <br>Number of Adults: ' .$_POST["nadults"]. ' <br>
+                                        <br>Number of Kids: ' .$_POST["nkids"]. ' <br>
+                                    </h4>';
+                           mail('slim23000@yahoo.com', $subject, $body1, $headers);
+
+
 
                         }
                         ?>
+                        <div class="form-group">
+                            <input class="form-control input-lg" placeholder="First Name" name="fname" id="fname" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control input-lg" placeholder="Last Name" name="lname" id="lname" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control input-lg" placeholder="Email" name="email" id="email" type="email" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control input-lg" placeholder="Number of Adults" name="nadults" id="nadults" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control input-lg" placeholder="Number of Kids" name="nkids" id="nkids" type="text" required>
+                        </div>
+                        <input class="btn btn-lg btn-primary btn-block" value="Submit" type="submit" name="event" id="event">
                     </form>
                 </div>
             </div>
         </div>
     </main>
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success">
+                    <strong>Success!</strong>
+                    <p>Thank you!</p>
+                    <p>Your attendance has been confirmed<br>
+                        You will receive a confirmation email shortly</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
 </div>
 <!-- ################################################## Footer ################################# -->
 <div class="footerbg" id="contact">
@@ -159,14 +169,14 @@ $db_select = mysqli_select_db($connection, $dbname);
         <div class=" col-lg-4 col-md-4 col-sm-12">
             <h6 class="heading">A3M</h6>
             <p>A3M is an Algerian-American association that serves the needs of the Algerian-American Community  in Michigan.</p>
-<!--            <ul class="faico clear">-->
-<!--                <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>-->
-<!--                <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>-->
-<!--                <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>-->
-<!--                <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>-->
-<!--                <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>-->
-<!--                <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>-->
-<!--            </ul>-->
+            <!--            <ul class="faico clear">-->
+            <!--                <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>-->
+            <!--                <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>-->
+            <!--                <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>-->
+            <!--                <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>-->
+            <!--                <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>-->
+            <!--                <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>-->
+            <!--            </ul>-->
         </div>
         <div class=" col-lg-4 col-md-4 col-sm-12">
             <h6 class="heading">Address and Phone Numbers</h6>
@@ -220,7 +230,7 @@ $db_select = mysqli_select_db($connection, $dbname);
 
 <div class="wrapper row5">
     <div id="copyright" class="hoc clear">
-        <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="http://www.a3michigan">www.a3michigan.com</a>
+        <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="https://www.a3michigan">www.a3michigan.com</a>
         </p>
     </div>
 </div>
@@ -240,5 +250,4 @@ $db_select = mysqli_select_db($connection, $dbname);
 <script type="text/javascript" src="./js/fitText.js"></script>
 </body>
 </html>
-
 

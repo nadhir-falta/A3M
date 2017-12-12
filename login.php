@@ -18,11 +18,98 @@ if ($connection->connect_errno) {
 $db_select = mysqli_select_db($connection, $dbname);
 
 if(isset ( $_GET["success"])) {
-    $dbSuccess = '<div class="alert alert-success">
+    $dbSuccess = '<br><div id="successReg" class="alert alert-success">
                     <strong>Success!</strong> 
                     Your application has been successfully submitted.
                     You can login to see your profile.
                   </div>';
+}
+
+$pp_hostname = "www.paypal.com";
+//$pp_hostname = "www.sandbox.paypal.com";
+$req = 'cmd=_notify-synch';
+$tx_token = $_GET['tx'];
+$auth_token = "RYLEdLyJl5aSHPEa8vHXEsso5tI-LLMjhGJMN_XxGLmRrT8sLE0jskDgu4G";
+//$auth_token = "QMsNOGiyI4Bvt5lVLpa0eaC7nBxop19MAWUd6owXlUgYCxinHgyd-4NDVuu";
+
+$req .= "&tx=$tx_token&at=$auth_token";
+$payStatus = false;
+$membershipType = '';
+$paymentSuccesText = '';
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, "https://$pp_hostname/cgi-bin/webscr");
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $req);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array("Host: $pp_hostname"));
+$res = curl_exec($ch);
+curl_close($ch);
+
+if(!$res){
+    //HTTP ERROR
+}else{
+    // parse the data
+    //check that transaction id hasn't been used by another user before
+    $transactionCheck = mysqli_query($connection, "SELECT * FROM users WHERE transactionId='$tx_token'");
+    $transactionFound = mysqli_fetch_array($transactionCheck, MYSQLI_NUM);
+    //if transaction used before throw an error and redirect to login
+    if($transactionFound) {
+        echo '<script type="text/javascript">window.location.href = "./login.php";</script>';
+        exit();
+    }
+    else { //else parse transaction, make sure it was successfull, show success message, and add transactionID to that user row in db.
+        $lines = explode("\n", trim($res));
+        $keyarray = array();
+        if (strcmp ($lines[0], "SUCCESS") == 0) {
+            $payStatus = true;
+            for ($i = 1; $i < count($lines); $i++) {
+
+                $temp = explode("=", $lines[$i],2);
+                $keyarray[urldecode($temp[0])] = urldecode($temp[1]);
+            }
+
+            $payerfirstname = $keyarray['first_name'];
+            $payerlastname = $keyarray['last_name'];
+            $payerEmail = $keyarray["payer_email"];
+            $itemname = $keyarray['item_name'];
+            $amount = $keyarray['payment_gross'];
+            $membershipType = $keyarray['option_selection1'];
+            $userId = $keyarray['option_selection2'];
+
+            //set account as active and add transactionId to it
+            $sql = "UPDATE users SET active='1', transactionId='$tx_token', membership='$membershipType' WHERE userID='$userId'";
+            mysqli_query($connection, $sql);
+
+            //send payment email
+            $subject = "A3M Membership Fee";
+            $body = 'Dear Community Member, <br/> 
+                                <br/>We thank you for the payment of your membership fee and we welcome you to the A3M association. 
+                                <br>We are very pleased that you have joined us and looking forward to your contribution and participation in all our activities. <br/>
+                                
+                                <br>Please click  <a href="https://www.a3michigan.org/donation.php">here</a> if you wish to donate and help the community.<br/>
+                                
+                                <br><br>Thank you again,
+                                <br>The A3M Steering Committee.';
+
+            $headers = "From: A3M <info@a3michigan.org>\r\n";
+            $headers .= "MIME-Version: 1.0\r\n";
+            $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+            mail($payerEmail, $subject, $body, $headers);
+
+            $paymentSuccesText = "<div class='alert alert-success'>
+                                    <p>
+                                        <h3>Thank you " . $payerfirstname . ' ' . $payerlastname . "</h3>
+                                        <h4> for activating your A3M membership <br> You can login to see your profile</h4>
+                                    </p>
+                                  </div>";
+
+        }
+        else if (strcmp ($lines[0], "FAIL") == 0) {
+            // log for manual investigation
+        }
+    }
 }
 ?>
 
@@ -53,15 +140,16 @@ if(isset ( $_GET["success"])) {
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">HOME</a></li>
+                <li><a href="index.html">HOME</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#whatwedo">WHAT WE DO</a></li>
+                        <li><a href="whatwedo.html">WHAT WE DO</a></li>
+                        <li><a href="index.html#services">SERVICES</a></li>
                         <li><a href="feedback.php">FEEDBACK</a></li>
                     </ul>
                 </li>
-                <li><a href="survey.html">SURVEY</a></li>
+                <!--<li class="active"><a href="survey.html">SURVEY</a></li>-->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">FORMS<span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -78,10 +166,11 @@ if(isset ( $_GET["success"])) {
                         <li><a href="michigan.html">MICHIGAN</a></li>
                     </ul>
                 </li>
+                <li><a href="events.html">EVENTS</a></li>
                 <li><a href="news.html">NEWS</a></li>
                 <li><a href="#contact">CONTACT</a></li>
-                <li><a href="./register.html">REGISTER</a></li>
-                <li class="dropdown">
+                <li><a href="./membership.php">REGISTER</a></li>
+                <li class="dropdown active">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-user" aria-hidden="true"></i>  ACCOUNT  <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -107,6 +196,7 @@ if(isset ( $_GET["success"])) {
     <main class="hoc container clear">
         <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-2 col-md-offset-2">
             <div class="row" >
+                <?php echo $paymentSuccesText; ?>
                 <div class="col-md-12">
                     <form class="form" action="" method="POST" id="login-nav" style="display: block">
                         <?php
@@ -122,6 +212,12 @@ if(isset ( $_GET["success"])) {
                                 echo '<script type="text/javascript">window.location.href = "' .$url. '";</script>';
                                 exit();
                             } else {
+                                ?>
+                                <style type="text/css">#successReg{
+                                        display:none;
+                                    }</style>
+                                <?php
+
                                 $errorMsg = '<div class="alert alert-danger">
                                                 <strong>Error!</strong> Something went wrong, <br> Please, make sure you have the right email and password.
                                               </div>';
@@ -131,6 +227,7 @@ if(isset ( $_GET["success"])) {
                         <span>
                             <?= $errorMsg ?>
                         </span>
+                        <br>
                         <span>
                             <?= $dbSuccess ?>
                         </span>
@@ -158,7 +255,7 @@ if(isset ( $_GET["success"])) {
                                             <button type="submit" id="btn-login" class="btn btn-primary btn-block">Login</button>
                                         </div>
                                         <div class="help-block text-right"><a href="./recoverPassword.php">Forget the password ?</a></div>
-                                        <div class="help-block text-right"><a href="./register.html">Not a Member yet ?</a></div>
+                                        <div class="help-block text-right"><a href="./membership.php">Not a Member yet ?</a></div>
                                     </form>
                                 </div>
                             </div>
@@ -174,15 +271,15 @@ if(isset ( $_GET["success"])) {
     <footer id="footer" class="hoc clear">
         <div class=" col-lg-4 col-md-4 col-sm-12">
             <h6 class="heading">A3M</h6>
-            <p>A3M is an Algerian American association that serves the needs of the Algerian American in Michigan</p>
-            <ul class="faico clear">
-                <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>
-                <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-                <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>
-            </ul>
+            <p>A3M is an Algerian-American association that serves the needs of the Algerian-American Community  in Michigan.</p>
+<!--            <ul class="faico clear">-->
+<!--                <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>-->
+<!--                <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>-->
+<!--                <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>-->
+<!--                <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>-->
+<!--                <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>-->
+<!--                <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>-->
+<!--            </ul>-->
         </div>
         <div class=" col-lg-4 col-md-4 col-sm-12">
             <h6 class="heading">Address and Phone Numbers</h6>

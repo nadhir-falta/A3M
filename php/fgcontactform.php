@@ -334,7 +334,7 @@ class FGContactForm
 
         $host = $_SERVER['SERVER_NAME'];
 
-        $from ="nobody@$host";
+        $from ="Admin@$host";
         return $from;
     }
 
